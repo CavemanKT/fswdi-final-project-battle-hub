@@ -1,12 +1,12 @@
 {
-  "name": "[your_project_name_here]",
+  "name": "fswdi_final_project_battle_hub",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen-models": "sequelize-auto -o './src/db/schema' -d [your_project_name_here]_development -h localhost -p 5432 -e postgres --cf l --sg true"
+    "gen-models": "sequelize-auto -o './src/db/schema' -d fswdi_final_project_battle_hub_development -h localhost -p 5432 -e postgres --cf l --sg true -u postgres -x 12345678"
   },
   "dependencies": {
     "axios": "^0.24.0",

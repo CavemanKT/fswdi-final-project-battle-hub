@@ -1,6 +1,6 @@
 # Instructions
 - Clone and rename folder `$ git clone git@github.com:dented-academy/next-starter.git [your_project_name_here]`
-- Find and rename all instance of `[your_project_name_here]` to your project name
+- Find and rename all instance of `[your_project_name_here]` to your project name in /src/db/config/database.json, and in package.json
 - Run `$ npm install`
 - Run `$ npx sequelize-cli db:create`
 - Run `$ npx sequelize-cli db:migrate`

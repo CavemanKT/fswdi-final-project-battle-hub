@@ -1,20 +1,23 @@
 import nc from 'next-connect'
-import { Profile } from '@/db/models'
 import authenticateUser from '@/api/helpers/authenticateUser'
+import getCurrentUserByToken from '@/api/helpers/getCurrentUserByToken'
+import session from '@/api/helpers/session'
+
 
 // , 'Images.*.img1', 'Images.*.img2'
-const permittedFields = ['characterName', 'weapon', 'amulet', 'armour', 'boots']
+const permittedFields = ['characterName', 'gameTitle', 'weapon', 'amulet', 'armour', 'boots']
 
 const profileCreate = async (req, res) => {
-  const { params: { gameTitle }} = req
-  const profile = await Profile.create(req.body, {
+  const { currentUser } = res
+  const profile = await currentUser.createProfile(req.body, {
     fields: permittedFields,
-    // include: Profile.Images
   })
 
   res.status(200).json({ profile })
 }
 
 export default nc()
+  .use(session)
+  .use(getCurrentUserByToken)
   .use(authenticateUser)
   .use(profileCreate)

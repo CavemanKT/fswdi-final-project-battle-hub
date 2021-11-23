@@ -3,7 +3,6 @@ import crypto from 'crypto'
 
 import session from '@/api/helpers/session'
 import passport from '@/api/helpers/passport'
-
 const authEmailLogin = async (req, res, next) => {
   passport.authenticate('local', async (err, user, info) => {
     if (err) return res.status(500).end(err.toString())

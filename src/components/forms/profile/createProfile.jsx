@@ -17,6 +17,17 @@ const RenderForm = ({ errors, touched, isSubmitting }) => (
     </div>
 
     <div className="form-group">
+      <label htmlFor="gameTitle">gameTitle</label>
+      <Field
+        id="gameTitle"
+        className={`form-control ${(errors.gameTitle && touched.gameTitle ? ' is-invalid' : '')}`}
+        name="gameTitle"
+        type="text"
+      />
+      <ErrorMessage component="div" className="invalid-feedback" name="gameTitle" />
+    </div>
+
+    <div className="form-group">
       <label htmlFor="weapon">weapon</label>
       <Field
         id="weapon"
@@ -60,7 +71,6 @@ const RenderForm = ({ errors, touched, isSubmitting }) => (
       <ErrorMessage component="div" className="invalid-feedback" name="boots" />
     </div>
 
-    {/* button */}
     <button className="btn btn-success mt-3" type="submit" disabled={isSubmitting}>Submit</button>
   </Form>
 )
@@ -70,24 +80,30 @@ RenderForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired
 }
 
-const authLoginSchema = yup.object().shape({
+const FormsProfileCreateSchema = yup.object().shape({
   characterName: yup.string().required('Required'),
-  // password: yup.string().min(6).required('Required')
+  gameTitle: yup.string().required('Required')
 })
 
-const FormsAuthLogin = ({ onSubmit }) => (
+const FormsProfileCreate = ({ onSubmit, gameTitle }) => (
   <Formik
     initialValues={{
-      email: '',
-      password: ''
+      characterName: '',
+      gameTitle: gameTitle,
+      weapon: '',
+      amulet: '',
+      armour: '',
+      boots: ''
     }}
-    validationSchema={authLoginSchema}
+    validationSchema={FormsProfileCreateSchema}
     onSubmit={onSubmit}
     component={RenderForm}
   />
 )
-FormsAuthLogin.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+
+FormsProfileCreate.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  gameTitle: PropTypes.string.isRequired
 }
 
-export default FormsAuthLogin
+export default FormsProfileCreate

@@ -6,7 +6,7 @@ const invitationSchema = require('../schema/invitation')
 module.exports = (sequelize, DataTypes) => {
   class Invitation extends Model {
     static associate(models) {
-      Invitation.User = this.belongsTo(models.User)
+      Invitation.Profile = this.belongsTo(models.Profile)
     }
   };
 

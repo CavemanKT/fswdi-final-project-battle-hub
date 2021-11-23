@@ -11,8 +11,10 @@ const authEmailSignup = async (req, res) => {
   const user = await User.build({
     ...req.body, registrationType: 'email', type: 'candidate'
   }, {
-    attributes: ['name', 'email', 'passwordHash', 'registrationType', 'type']
+    attributes: ['name', 'email', 'passwordHash', 'registrationType', 'type'],
   })
+
+  console.log(user);
   user.passwordHash = await bcrypt.hash(req.body.password, 10)
   await user.save()
 

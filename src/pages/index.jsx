@@ -6,12 +6,16 @@ import CompsModalCreateProfile from '@/components/modals/profile/createProfile'
 import Link from 'next/link'
 import { useState } from 'react'
 
-
-
+// Hooks
+import useUser from '@/_hooks/user'
+import useGames from '@/_hooks/games'
 
 export default function PagesHome() {
   const arr = ['alksd G. klaflkds', 'alksd G. klaflkds', 'alksd G. klaflkds', 'alksd G. klaflkds', 'alksd G. klaflkds', 'alksd G. klaflkds', 'alksd G. klaflkds']
   const [ candidates, setCandidates ] = useState(arr)
+
+  const { apiProfileCreate } = useUser()
+  const { data } = useGames()
 
   const [ openCandidateListModal, setOpenCandidateListModal ] = useState(false)
   const [ openCreateProfileModal, setOpenCreateProfileModal ] = useState(false)
@@ -32,8 +36,12 @@ export default function PagesHome() {
     setOpenCreateProfileModal(false)
   }
 
-  // use axios to get the image link for card image
-  // https://www.freetogame.com/api/games?platform=pc&category=mmorpg&sort-by=popularity
+  function handleSubmitProfileCreate(values){
+    apiProfileCreate(values).then(() => {
+      setOpenCreateProfileModal(false)
+    })
+  }
+
   return (
     <CompsLayout>
       <div className="home-page">
@@ -61,14 +69,14 @@ export default function PagesHome() {
           </div>
 
 
-{/* Game cards */}
+{/* row: Game cards */}
           <div className="row mt-5" id="games-row">
+
+            {/* map the response and iterate the cards */}
             <div className="col-12 col-sm-6 col-md-4 col-lg-3 card-style">
-      {/* map the response and iterate the cards */}
               <div className="card">
                 <img src="https://www.freetogame.com/g/226/thumbnail.jpg" className="card-img-top" alt="..."></img>
                 {/* https://www.freetogame.com/api/games?platform=pc&category=mmorpg&sort-by=popularity */}
-            {/* width: 18rem; */}
                   <div className="card-body">
                     <h5 className="card-title">asdf</h5>
                     <p className="card-text">me quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -81,7 +89,8 @@ export default function PagesHome() {
                     </li>
                     <li className="list-group-item">
                       <Link href="#">
-                        <a onClick={handleCreateProfileModal}>Candidate List</a>
+                          {/* () => handleCreateProfileModal(game.gameTitle) */}
+                        <a onClick={handleCreateProfileModal}>Create Profile</a>
                       </Link>
                     </li>
                     <li className="list-group-item">A third item</li>
@@ -103,6 +112,7 @@ export default function PagesHome() {
             openCandidateListModal && (
               <CompsModalCandidateList
                 close={closeCandidateListModal}
+                // onSubmit={}
               />
             )
           }
@@ -110,15 +120,15 @@ export default function PagesHome() {
             openCreateProfileModal && (
               <CompsModalCreateProfile
                 close={closeCreateProfileModal}
+                onSubmit={handleSubmitProfileCreate}
+                gameTitle={'Path of Exile'}
               />
             )
           }
-
-
         </div>
       </div>
 
-{/* footer component */}
+      {/* footer component */}
       <footer></footer>
     </CompsLayout>
   )

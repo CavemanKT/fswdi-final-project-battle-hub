@@ -4,13 +4,14 @@ import Modal from 'react-bootstrap/Modal'
 
 import FormsProfileCreate from '@/components/forms/profile/createProfile'
 
-const CompsModalCreateProfile = ({ close, onSubmit }) => (
+const CompsModalCreateProfile = ({ close, onSubmit, gameTitle }) => (
   <Modal show onHide={close}>
     <Modal.Header closeButton>
       <Modal.Title>Create Profile for this game</Modal.Title>
     </Modal.Header>
     <Modal.Body>
       <FormsProfileCreate
+        gameTitle={gameTitle}
         onSubmit={onSubmit}
       />
     </Modal.Body>
@@ -18,7 +19,8 @@ const CompsModalCreateProfile = ({ close, onSubmit }) => (
 )
 CompsModalCreateProfile.propTypes = {
   close: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  gameTitle: PropTypes.string.isRequired
 }
 
 export default CompsModalCreateProfile

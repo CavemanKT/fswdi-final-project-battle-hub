@@ -49,6 +49,21 @@ export default function useUser() {
     })
   }))
 
+
+  const apiProfileCreate = (values) => (new Promise((resolve, reject) => {
+    axios({
+      method: 'POST',
+      url: '/api/profile/create',
+      data: values,
+      withCredentials: true
+    }).then((resp) => {
+      console.log('resp ---->', resp);
+      resolve(resp)
+    }).catch((err) => {
+      reject(err)
+    })
+  }))
+
   return {
     user: data?.user || null,
     isLoading: !error && !data,
@@ -56,6 +71,7 @@ export default function useUser() {
     errorMessage: error?.response?.data?.message,
     apiSignup,
     apiLogin,
-    apiLogout
+    apiLogout,
+    apiProfileCreate
   }
 }

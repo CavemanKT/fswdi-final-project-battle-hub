@@ -15,12 +15,8 @@ import brandLogo from '../../public/assets/logo_transparent_1.png'
 // user
 import useUser from '@/_hooks/user'
 
-// utility
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 
 export default function CompsLayoutsNavbar() {
-  const router = useRouter()
   const [ openSignupModal, setOpenSignupModal ] = useState(false)
   const [ openLoginModal, setOpenLoginModal ] = useState(false)
 
@@ -76,9 +72,17 @@ export default function CompsLayoutsNavbar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} href="/private"><a className="nav-link">Private</a></Nav.Link>
             <Nav.Link as={Link} href="/blog"><a className="nav-link">Blog</a></Nav.Link>
-            <Nav.Link className="" onClick={() => handleSignupModal()}>Sign up</Nav.Link>
-            <Nav.Link className="" onClick={() => handleLoginModal()}>Log in</Nav.Link>
-            <Nav.Link className="" onClick={handleLogout}>Log out</Nav.Link>
+
+            { !user ?
+              (
+                <>
+                  <Nav.Link className="" onClick={() => handleSignupModal()}>Sign up</Nav.Link>
+                  <Nav.Link className="" onClick={() => handleLoginModal()}>Log in</Nav.Link>
+                </>
+              ) : (
+                <Nav.Link className="" onClick={handleLogout}>Log out</Nav.Link>
+              )
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>

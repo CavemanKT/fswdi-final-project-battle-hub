@@ -35,7 +35,7 @@ module.exports = {
       video: {
         type: Sequelize.STRING
       },
-      userId: {
+      UserId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

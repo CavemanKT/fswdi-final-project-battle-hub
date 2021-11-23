@@ -43,7 +43,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: true
     },
-    userId: {
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: true
     }

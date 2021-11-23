@@ -11,7 +11,6 @@ import ModalsLogin from '@/components/modals/auth/login'
 // img
 import Image from 'next/image'
 import brandLogo from '../../public/assets/logo_transparent_1.png'
-import useApiAuth from '@/actions/auth'
 
 // user
 import useUser from '@/_hooks/user'
@@ -25,9 +24,7 @@ export default function CompsLayoutsNavbar() {
   const [ openSignupModal, setOpenSignupModal ] = useState(false)
   const [ openLoginModal, setOpenLoginModal ] = useState(false)
 
-    const { user, isLoading, mutate } = useUser()
-
-  const { apiSignup, apiLogin, apiLogout } = useApiAuth()
+  const { user, apiSignup, apiLogin, apiLogout } = useUser()
 
   function handleSignupModal() {
     setOpenSignupModal(true)
@@ -38,7 +35,6 @@ export default function CompsLayoutsNavbar() {
   }
 
   function handleSignupSubmit(values){
-    console.log(values);
     apiSignup(values).then(() => {
       setOpenSignupModal(false)
     })
@@ -59,9 +55,7 @@ export default function CompsLayoutsNavbar() {
   }
 
   function handleLogout() {
-    apiLogout().then(()=> {
-      mutate()
-    })
+    apiLogout()
   }
 
   return (

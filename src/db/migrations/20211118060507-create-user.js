@@ -13,14 +13,17 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
-      socialUserId: {
+      socialUserId: {  // for github account
         type: Sequelize.STRING
       },
       passwordHash: {
         type: Sequelize.STRING
       },
       registrationType: {
-        type: Sequelize.ENUM('email')
+        type: Sequelize.ENUM('email')  // to specify which method you use to login the website, add 'facebook', 'google', 'github' if you want to use them
+      },
+      type: {
+        type: Sequelize.STRING  // could be 'candidate', 'inspector', 'admin'
       },
       createdAt: {
         allowNull: false,

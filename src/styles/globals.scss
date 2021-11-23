@@ -1,1 +1,26 @@
 @import '~bootstrap/scss/bootstrap';
+@import './home-page/home-page.scss';
+
+html {
+  body {
+    position: relative;
+    min-width: 100vw;
+    min-height: 100vh;
+    background: #FFFFFF;
+  }
+
+  .font-color {
+    /* Battle Hub */
+
+    // position: absolute;
+    width: 122px;
+    height: 52px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 30px;
+
+  }
+}

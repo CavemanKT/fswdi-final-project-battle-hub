@@ -1,44 +1,60 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('User', {
+  return sequelize.define('Profile', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    name: {
+    characterName: {
       type: DataTypes.STRING(255),
       allowNull: true
     },
-    email: {
+    gameTitle: {
       type: DataTypes.STRING(255),
       allowNull: true
     },
-    socialUserId: {
+    weapon: {
       type: DataTypes.STRING(255),
       allowNull: true
     },
-    passwordHash: {
+    amulet: {
       type: DataTypes.STRING(255),
       allowNull: true
     },
-    registrationType: {
-      type: DataTypes.ENUM("email"),
+    armour: {
+      type: DataTypes.STRING(255),
       allowNull: true
     },
-    type: {
+    boots: {
       type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    img1: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    img2: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    video: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    userId: {
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'Users',
+    tableName: 'Profiles',
     schema: 'public',
     timestamps: true,
     indexes: [
       {
-        name: "Users_pkey",
+        name: "Profiles_pkey",
         unique: true,
         fields: [
           { name: "id" },

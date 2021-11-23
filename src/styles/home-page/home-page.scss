@@ -1,0 +1,83 @@
+html {
+  body {
+    position: relative;
+    min-width: 100vw;
+    min-height: 100vh;
+    background: #FFFFFF;
+
+    // navigation-section
+    .navigation-section {
+      .navigation-font {
+        /* common font feature */
+        position: fixed;
+        width: 130px;
+        height: 42px;
+        left: 79px;
+
+        text-decoration: none;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 21px;
+        line-height: 26px;
+        text-align: center;
+
+        color: #878787;
+      }
+
+      #ranking {
+        // Ranking
+        top: 304px;
+      }
+
+      #games {
+        /* Games */
+        top: 406px;
+      }
+
+      .triangle {
+        display: inline-block;
+        margin: 0 5px;
+      }
+
+      #upward-triangle {
+        border-bottom: solid 30px #C87070;
+        border-left: solid 30px transparent;
+        border-right: solid 30px transparent;
+        position: fixed;
+        width: 7px;
+        height: 10px;
+        left: 107px;
+        top: 190px;
+      }
+
+      #downward-triangle {
+        border-top: solid 30px #C87070;
+        border-left: solid 30px transparent;
+        border-right: solid 30px transparent;
+        position: fixed;
+        width: 7px;
+        height: 10px;
+        left: 107px;
+        top: 500px;
+      }
+    }
+
+    #ranking-row {
+      background-color: white;
+      min-height: 100vh;
+      top: 70px;
+
+    }
+
+
+    // Games (card)
+    #games-row {
+      .card-style {
+        margin: 100px;
+      }
+    }
+
+
+  }
+}

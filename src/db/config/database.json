@@ -1,6 +1,8 @@
 {
   "development": {
-    "database": "[your_project_name_here]_development",
+    "username": "postgres",
+    "password": "12345678",
+    "database": "fswdi-final-project-battle-hub-development",
     "host": "localhost",
     "dialect": "postgres"
   },

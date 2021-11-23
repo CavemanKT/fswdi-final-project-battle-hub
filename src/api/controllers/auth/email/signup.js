@@ -7,10 +7,11 @@ import session from '@/api/helpers/session'
 import passport from '@/api/helpers/passport'
 
 const authEmailSignup = async (req, res) => {
+  console.log('signup')
   const user = await User.build({
-    ...req.body, registrationType: 'email'
+    ...req.body, registrationType: 'email', type: 'candidate'
   }, {
-    attributes: ['email', 'passwordHash', 'registrationType']
+    attributes: ['name', 'email', 'passwordHash', 'registrationType', 'type']
   })
   user.passwordHash = await bcrypt.hash(req.body.password, 10)
   await user.save()

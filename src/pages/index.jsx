@@ -1,11 +1,36 @@
+//Comps
 import CompsLayout from '@/components/layouts/Layout'
+import CompsModalCandidateList from '@/components/modals/list/candidateList'
+import CompsModalCreateProfile from '@/components/modals/profile/createProfile'
+
 import Link from 'next/link'
 import { useState } from 'react'
+
+
+
 
 export default function PagesHome() {
   const arr = ['alksd G. klaflkds', 'alksd G. klaflkds', 'alksd G. klaflkds', 'alksd G. klaflkds', 'alksd G. klaflkds', 'alksd G. klaflkds', 'alksd G. klaflkds']
   const [ candidates, setCandidates ] = useState(arr)
 
+  const [ openCandidateListModal, setOpenCandidateListModal ] = useState(false)
+  const [ openCreateProfileModal, setOpenCreateProfileModal ] = useState(false)
+
+  function handleCandidateListModal(){
+    setOpenCandidateListModal(true)
+  }
+
+  function closeCandidateListModal(){
+    setOpenCandidateListModal(false)
+  }
+
+  function handleCreateProfileModal(){
+    setOpenCreateProfileModal(true)
+  }
+
+  function closeCreateProfileModal(){
+    setOpenCreateProfileModal(false)
+  }
 
   // use axios to get the image link for card image
   // https://www.freetogame.com/api/games?platform=pc&category=mmorpg&sort-by=popularity
@@ -49,8 +74,16 @@ export default function PagesHome() {
                     <p className="card-text">me quick example text to build on the card title and make up the bulk of the card's content.</p>
                   </div>
                   <ul className="list-group list-group-flush">
-                    <li className="list-group-item">An item</li>
-                    <li className="list-group-item">A second item</li>
+                    <li className="list-group-item">
+                      <Link href="#">
+                        <a onClick={handleCandidateListModal}>Candidate List</a>
+                      </Link>
+                    </li>
+                    <li className="list-group-item">
+                      <Link href="#">
+                        <a onClick={handleCreateProfileModal}>Candidate List</a>
+                      </Link>
+                    </li>
                     <li className="list-group-item">A third item</li>
                   </ul>
                   <div className="card-body">
@@ -65,6 +98,21 @@ export default function PagesHome() {
 
             </div>
           </div>
+
+          {
+            openCandidateListModal && (
+              <CompsModalCandidateList
+                close={closeCandidateListModal}
+              />
+            )
+          }
+          {
+            openCreateProfileModal && (
+              <CompsModalCreateProfile
+                close={closeCreateProfileModal}
+              />
+            )
+          }
 
 
         </div>

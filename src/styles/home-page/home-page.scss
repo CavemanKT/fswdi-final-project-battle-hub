@@ -1,3 +1,5 @@
+@import './games-row.scss';
+
 html {
   body {
     position: relative;
@@ -71,12 +73,7 @@ html {
     }
 
 
-    // Games (card)
-    #games-row {
-      .card-style {
-        margin: 100px;
-      }
-    }
+
 
 
   }

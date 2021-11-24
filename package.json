@@ -9,6 +9,11 @@
     "gen-models": "sequelize-auto -o './src/db/schema' -d fswdi-final-project-battle-hub-development -h localhost -p 5432 -e postgres --cf l --sg true -u postgres -x 12345678"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
     "axios": "^0.24.0",
     "babel-plugin-superjson-next": "^0.4.2",
     "bcrypt": "^5.0.1",

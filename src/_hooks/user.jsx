@@ -19,6 +19,7 @@ export default function useUser() {
       mutate(resp.data)
     }).catch((err) => {
       reject(err)
+      console.log(err);
     })
   }))
 

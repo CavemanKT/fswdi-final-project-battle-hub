@@ -1,6 +1,11 @@
 @import '~bootstrap/scss/bootstrap';
-@import './home-page/home-page.scss';
-@import './home-page/modals/candidateList.scss';
+
+// index page
+@import './home-page/home-page';
+@import './home-page/footer';
+
+// modals
+@import './home-page/modals/candidateList';
 
 html {
   body {

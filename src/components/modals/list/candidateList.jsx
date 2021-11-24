@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Modal from 'react-bootstrap/Modal'
 
 
-const ModalsCandidateList = ({ close, onSubmit }) => (
+const ModalsCandidateList = ({ close, candidates }) => (
   <div id="ModalsCandidateList">
   <Modal show onHide={close}>
     <Modal.Header closeButton>
@@ -11,7 +11,7 @@ const ModalsCandidateList = ({ close, onSubmit }) => (
     </Modal.Header>
     <Modal.Body>
       <ul>
-
+        {/* <li>{candidates}</li> */}
       </ul>
     </Modal.Body>
   </Modal>

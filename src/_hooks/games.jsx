@@ -17,12 +17,14 @@ export default function useGames() {
     shouldRetryOnError: false
   })
 
-  console.log(data)
+  if (data){
+    console.log(data.data[45])
+  }
 
   return {
-    user: data,
+    games: data,
     isLoading: !error && !data,
     isError: error,
-    // errorMessage: error?.response?.data?.message
   }
+
 }

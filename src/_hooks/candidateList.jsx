@@ -6,15 +6,13 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import produce from 'immer'
 
-export default function useCandidates(id) {
-  console.log(id);   // 226 returned
+export default function useCandidates(gameTitle) {
 
   const router = useRouter()
-  const url = id ? `/api/candidates/${id}` : null
+  const url = gameTitle ? `/api/candidates/${gameTitle}` : null
   const { data, error, mutate } = useSWR(url, fetcher,{
     shouldRetryOnError: false
   })
-  console.log(data);
 
   return {
     candidates: data

@@ -80,7 +80,7 @@ export default function PagesHome() {
                     </div>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item ">
-                        <Link href={`/${games&&gameObj.id}/candidateList`}>
+                        <Link href={`/${games&&gameObj.title}/candidateList`}>
                           <a className="text-decoration-none me-5">Candidate List</a>
                         </Link>
                         <Link href="#">

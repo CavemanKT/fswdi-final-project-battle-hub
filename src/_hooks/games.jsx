@@ -17,9 +17,9 @@ export default function useGames() {
     shouldRetryOnError: false
   })
 
-  if (data){
-    console.log(data.data[45])
-  }
+  // if (data){
+  //   console.log(data.data[45])
+  // }
 
   return {
     games: data,

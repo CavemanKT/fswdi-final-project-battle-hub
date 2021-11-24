@@ -14,6 +14,13 @@ export default function useCandidates(gameTitle) {
     shouldRetryOnError: false
   })
 
+  // const getCandidateProfile = (id) => ( new Promise((resolve, reject) => {
+  //   axios({
+  //     method: 'GET',
+  //     url:``,
+  //     withCredentials: true
+  //   })
+  // }))
   return {
     candidates: data
   }

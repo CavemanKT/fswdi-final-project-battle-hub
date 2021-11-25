@@ -71,6 +71,10 @@ footer {
       padding: 0.1rem 0;
     }
 
+    .nav-link:hover {
+      color: $primary-orange;
+    }
+
     span.nav-link {
       color: $link-light-grey;
     }

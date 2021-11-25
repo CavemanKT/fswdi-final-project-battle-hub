@@ -73,16 +73,21 @@ export default function CompsLayoutsNavbar() {
             <Nav.Link as={Link} href="/private"><a className="nav-link">Private</a></Nav.Link>
             <Nav.Link as={Link} href="/blog"><a className="nav-link">Blog</a></Nav.Link>
 
-            { !user ?
+            { !user &&
               (
                 <>
                   <Nav.Link className="" onClick={() => handleSignupModal()}>Sign up</Nav.Link>
                   <Nav.Link className="" onClick={() => handleLoginModal()}>Log in</Nav.Link>
                 </>
-              ) : (
-                <Nav.Link className="" onClick={handleLogout}>Log out</Nav.Link>
               )
             }
+            {
+              user && (
+              <Nav.Link className="" onClick={handleLogout}>Log out</Nav.Link>
+              )
+            }
+
+
           </Nav>
         </Navbar.Collapse>
       </Container>

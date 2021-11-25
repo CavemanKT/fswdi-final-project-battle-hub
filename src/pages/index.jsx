@@ -15,7 +15,7 @@ export default function PagesHome() {
 
   const [ openCreateProfileModal, setOpenCreateProfileModal ] = useState(null)
 
-  const { apiProfileCreate } = useUser()
+  const { user, apiProfileCreate } = useUser()
   const { games } = useGames()
 
   let gameObj = games?.data[45]
@@ -73,12 +73,17 @@ export default function PagesHome() {
                     </div>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item ">
-                        <Link href={`/${games&&gameObj.title}/candidateList`}>
+                        <Link href={`/candidateList/${games&&gameObj.title}`}>
                           <a className="text-decoration-none me-5">Candidate List</a>
                         </Link>
-                        <Link href="#">
-                          <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games && gameObj.id)}>Create Profile</a>
-                        </Link>
+                        {
+                          user &&
+                          (
+                            <Link href="#">
+                              <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games && gameObj.id)}>Create Profile</a>
+                            </Link>
+                          )
+                        }
                       </li>
 
                     </ul>

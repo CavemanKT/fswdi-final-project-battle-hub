@@ -8,23 +8,32 @@ import useCandidates from '@/_hooks/candidateList'
 
 import Table from 'react-bootstrap/Table'
 
+// import modal
+import CompsModalGetProfile from '@/components/modals/profile/getProfile'
+
+
 export default function PageCandidateList() {
   const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'Profile', 'History']
 
   const { query: { gameTitle } } = useRouter()
   const router = useRouter()
   const { candidates, error } = useCandidates(gameTitle)
-  // const { getCandidateProfile, error } = useCandidateProfile()
 
   if (router.isFallback) return <div>Loading...</div>
 
+  // modal state
+  const [ openModal, setProfileOpenModal ] = useState(false)
 
-  const [ openModal, setOpenModal ] = useState(false)
+  // data state
+  const [ profileData, setProfileData] = useState(null)
 
-  function handleCandidateListProfile(id){
-    // getCandidateProfile(id).then(() => {
-    //   setOpenModal(true)
-    // })
+  function handleCandidateListProfileModal(i){
+    setProfileData(candidates.candidateList[i])
+      setProfileOpenModal(true)
+  }
+
+  function closeModalsProfile() {
+    setProfileOpenModal(false)
   }
 
   return(
@@ -57,7 +66,11 @@ export default function PageCandidateList() {
                       <td>{item.amulet}</td>
                       <td>{item.armour}</td>
                       <td>{item.boots}</td>
-                      <td className="d-flex justify-content-center"><button type="button" className="basic-btn-feature btn-profile" oncClick={()=> handleCandidateListProfile(item.id)}>Profile</button></td>
+                      <td className="d-flex justify-content-center">
+                        <button type="button" className="basic-btn-feature btn-profile" onClick={()=> handleCandidateListProfileModal(item.gameTitle, item.id, i)}>
+                          Profile
+                        </button>
+                      </td>
                       <td><button type="button" className="basic-btn-feature btn-history">History</button></td>
                     </tr>
                   )
@@ -67,6 +80,18 @@ export default function PageCandidateList() {
             </Table>
           </div>
 
+        </div>
+
+        <div>
+          {
+            openModal &&
+            (
+              <CompsModalGetProfile
+                data={profileData}
+                close={closeModalsProfile}
+              />
+            )
+          }
         </div>
       </CompsLayout>
     </>

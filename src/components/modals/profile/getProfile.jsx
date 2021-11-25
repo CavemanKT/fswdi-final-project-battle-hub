@@ -10,9 +10,9 @@ const CompsModalGetProfile = ({ data, close }) => {
   const { invitation, isLoding, error, createInvitation } = useInvitation(data.id) // useSWR or axios
 
   const handleInvitationSubmit = (profileId) => {
-    createInvitation(profileId).then(() => {
-      // setState
-    })
+    // createInvitation(profileId).then(() => {
+    //   setState
+    // })
   }
 
   const keyArr = Object.keys(data)

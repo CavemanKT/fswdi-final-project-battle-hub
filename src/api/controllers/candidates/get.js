@@ -7,11 +7,10 @@ const getCandidateList = async (req, res) => {
 
   const candidateList = await Profile.findAll({
     where: {
-      gameTitle: gameTitle
+      gameTitle
     },
     include: Profile.User
-  }
-  )
+  })
 
   // console.log('candidateList',candidateList[0].User);
 

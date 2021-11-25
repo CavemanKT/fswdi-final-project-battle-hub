@@ -6,7 +6,12 @@ const getCurrentUserByToken = async (req, res, next) => {
   if (token) {
     const authToken = await AuthenticityToken.findOne({
       where: { token },
-      include: AuthenticityToken.User
+      include: {
+        association: AuthenticityToken.User,
+        include: {
+          association: User.Profile
+        }
+      }
     })
 
     if (authToken) {
@@ -18,7 +23,6 @@ const getCurrentUserByToken = async (req, res, next) => {
     res.currentUser = null
   }
 
-  console.log(res.currentUser)
   return next()
 }
 

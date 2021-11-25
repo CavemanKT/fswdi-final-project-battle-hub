@@ -13,7 +13,8 @@ import CompsModalGetProfile from '@/components/modals/profile/getProfile'
 
 
 export default function PageCandidateList() {
-  const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'Profile', 'History']
+  const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'Profile', 'History'] //
+
 
   const { query: { gameTitle } } = useRouter()
   const router = useRouter()
@@ -27,9 +28,10 @@ export default function PageCandidateList() {
   // data state
   const [ profileData, setProfileData] = useState(null)
 
+
   function handleCandidateListProfileModal(i){
     setProfileData(candidates.candidateList[i])
-      setProfileOpenModal(true)
+    setProfileOpenModal(true)
   }
 
   function closeModalsProfile() {
@@ -67,7 +69,7 @@ export default function PageCandidateList() {
                       <td>{item.armour}</td>
                       <td>{item.boots}</td>
                       <td className="d-flex justify-content-center">
-                        <button type="button" className="basic-btn-feature btn-profile" onClick={()=> handleCandidateListProfileModal(item.gameTitle, item.id, i)}>
+                        <button type="button" className="basic-btn-feature btn-profile" onClick={()=> handleCandidateListProfileModal(i)}>
                           Profile
                         </button>
                       </td>

@@ -18,7 +18,8 @@ export default function PagesHome() {
   const { user, apiProfileCreate } = useUser()
   const { games } = useGames()
 
-  let gameObj = games?.data[45]
+  let index = games.data.findIndex((item) => item.title === "Path of Exile")
+
   function handleCreateProfileModal(id){
     setOpenCreateProfileModal(id)
   }
@@ -66,21 +67,21 @@ export default function PagesHome() {
               {/* map the response and iterate the cards */}
               <div className="col-12 col-sm-6 col-md-4 col-lg-3 card-style">
                 <div className="card">
-                  <img src={games && gameObj.thumbnail} className="card-img-top" alt="Path_of_Exile_Image"></img>
+                  <img src={games && games.data[index].thumbnail} className="card-img-top" alt="Path_of_Exile_Image"></img>
                     <div className="card-body">
-                      <h5 className="card-title">{games && gameObj.title}</h5>
-                      <p className="card-text">{games && gameObj.short_description}</p>
+                      <h5 className="card-title">{games && games.data[index].title}</h5>
+                      <p className="card-text">{games && games.data[index].short_description}</p>
                     </div>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item ">
-                        <Link href={`/candidateList/${games&&gameObj.title}`}>
+                        <Link href={`/candidateList/${games&&games.data[index].title}`}>
                           <a className="text-decoration-none me-5">Candidate List</a>
                         </Link>
                         {
                           user &&
                           (
                             <Link href="#">
-                              <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games && gameObj.id)}>Create Profile</a>
+                              <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games && games.data[index].id)}>Create Profile</a>
                             </Link>
                           )
                         }
@@ -104,7 +105,7 @@ export default function PagesHome() {
                 <CompsModalCreateProfile
                   close={closeCreateProfileModal}
                   onSubmit={handleSubmitProfileCreate}
-                  gameTitle={games && gameObj.title}
+                  gameTitle={games && games.data[index].title}
                 />
               )
             }

@@ -4,53 +4,66 @@ import Modal from 'react-bootstrap/Modal'
 import Table from 'react-bootstrap/Table'
 
 
-const CompsModalGetProfile = ({ data, close }) => (
-  <Modal show onHide={close}>
+const CompsModalGetProfile = ({ data, close }) => {
+
+  const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots']
+
+  const keyArr = Object.keys(data)
+  const valueArr = Object.values(data)
+  const userData = valueArr[13]
+  keyArr.splice(0,1)
+  keyArr.splice(6,7)
+  valueArr.splice(0,1)
+  valueArr.splice(6,7)
+
+
+  return (
+  <Modal fullscreen={true} show onHide={close} className="modal-fullscreen">
     <Modal.Header closeButton>
       <Modal.Title>Character's Name</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-<div className="candidate-list-wrapper">
+      <div id="profile-container" className="position-relative">
+
+
+
+
+        <div className="profile-wrapper row">
+          <div className="left-column col">
+
+          </div>
+
+          <div className="right-column col">
             <Table responsive>
               <thead>
                 <tr>
-                  <th></th>
-                  {profile.map((item, i) => (
-                    <th key={i}>{item}</th>
-
-                  ))}
+                  Character
                 </tr>
               </thead>
               <tbody>
-                {candidates && candidates.candidateList.map((item, i) => {
-                  return(
-                    <tr>
-                      <td>{i}</td>
-                      <td>{item.gameTitle}</td>
-                      <td>{item.characterName}</td>
-                      <td>{item.weapon}</td>
-                      <td>{item.amulet}</td>
-                      <td>{item.armour}</td>
-                      <td>{item.boots}</td>
-                      <td className="d-flex justify-content-center">
-                        <button type="button" className="basic-btn-feature btn-profile" onClick={()=> handleCandidateListProfileModal(item.gameTitle, item.id, i)}>
-                          Profile
-                        </button>
-                      </td>
-                      <td><button type="button" className="basic-btn-feature btn-history">History</button></td>
-                    </tr>
-                  )
-                })}
+                <tr className="d-flex flex-column">
+                  {keyArr.map((item, i)=> {
 
+                    return(
+                      <td>{item}:<span className="ms-5">{valueArr[i]}</span></td>
+                    )
+
+                  })}
+                </tr>
               </tbody>
             </Table>
           </div>
 
+        </div>
+      </div>
+
     </Modal.Body>
   </Modal>
-)
+  )
+}
 CompsModalGetProfile.propTypes = {
   close: PropTypes.func.isRequired,
+  data: PropTypes.shape().isRequired
 }
 
 export default CompsModalGetProfile

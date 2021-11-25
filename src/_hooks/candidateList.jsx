@@ -2,21 +2,18 @@ import useSWR from 'swr'
 import axios from 'axios'
 import { useState } from 'react'
 
-import fetcher from '@/_services/fetcher'
 import produce from 'immer'
+import fetcher from '@/_services/fetcher'
 
 export default function useCandidates(gameTitle) {
-
   const url = gameTitle ? `/api/candidates/${gameTitle}` : null
-  const { data, error, mutate } = useSWR(url, fetcher,{
+  const { data, error, mutate } = useSWR(url, fetcher, {
     shouldRetryOnError: false
   })
 
-
-
   return {
     candidates: data,
-    error
-
+    isLoading: !error && !data,
+    isError: error
   }
 }

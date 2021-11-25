@@ -1,9 +1,8 @@
-//Comps
-import CompsLayout from '@/components/layouts/Layout'
-import CompsModalCreateProfile from '@/components/modals/profile/createProfile'
-
+// Comps
 import Link from 'next/link'
 import { useState } from 'react'
+import CompsLayout from '@/components/layouts/Layout'
+import CompsModalCreateProfile from '@/components/modals/profile/createProfile'
 
 // Hooks
 import useUser from '@/_hooks/user'
@@ -13,106 +12,105 @@ export default function PagesHome() {
   // const arr = []
   // const [ candidates, setCandidates ] = useState(arr)
 
-  const [ openCreateProfileModal, setOpenCreateProfileModal ] = useState(null)
+  const [openCreateProfileModal, setOpenCreateProfileModal] = useState(null)
 
-  const { user, apiProfileCreate } = useUser()
-  const { games } = useGames()
+  const { user, apiProfileCreate, isLoading: isUserLoading } = useUser()
+  const { games, isLoading: isGamesLoading } = useGames()
 
-  let index = games.data.findIndex((item) => item.title === "Path of Exile")
+  if (isUserLoading || isGamesLoading) return null
 
-  function handleCreateProfileModal(id){
+  const index = games.data.findIndex((item) => item.title === 'Path of Exile')
+
+  function handleCreateProfileModal(id) {
     setOpenCreateProfileModal(id)
   }
 
-  function closeCreateProfileModal(){
+  function closeCreateProfileModal() {
     setOpenCreateProfileModal(null)
   }
 
-  function handleSubmitProfileCreate(values){
+  function handleSubmitProfileCreate(values) {
     apiProfileCreate(values).then(() => {
       setOpenCreateProfileModal(null)
     })
   }
 
   return (
-    <>
-      <CompsLayout>
-        <div className="home-page">
-          <div className="container">
-            <div className="row">
+    <CompsLayout>
+      <div className="home-page">
+        <div className="container">
+          <div className="row">
 
-  {/* navigation column */}
-              <div className="navigation-section" >
-                <a href="#comps-layouts-navbar" className="triangle" id="upward-triangle"></a>
-                <a href="#ranking-row" className="navigation-font" id="ranking">Ranking</a>
-                <a href="#games-row" className="navigation-font" id="games">Games</a>
-                <a href="#footer" className="triangle" id="downward-triangle"></a>
-              </div>
-
-  {/* candidate ranking column */}
-              <div className="col-12" id="ranking-row">
-                <ul>
-                {/* todo: issue! */}
-                  {/* {candidates.forEach((item, i )=> {
-                    <li key={i}>{item}</li>
-                  })} */}
-                </ul>
-              </div>
+            {/* navigation column */}
+            <div className="navigation-section">
+              <a href="#comps-layouts-navbar" className="triangle" id="upward-triangle" />
+              <a href="#ranking-row" className="navigation-font" id="ranking">Ranking</a>
+              <a href="#games-row" className="navigation-font" id="games">Games</a>
+              <a href="#footer" className="triangle" id="downward-triangle" />
             </div>
 
+            {/* candidate ranking column */}
+            <div className="col-12" id="ranking-row">
+              <ul>
+                {/* todo: issue! */}
+                {/* {candidates.forEach((item, i )=> {
+                  <li key={i}>{item}</li>
+                })} */}
+              </ul>
+            </div>
+          </div>
 
-  {/* row: Game cards */}
-            <div className="row" id="games-row">
+          {/* row: Game cards */}
+          <div className="row" id="games-row">
 
-              {/* map the response and iterate the cards */}
-              <div className="col-12 col-sm-6 col-md-4 col-lg-3 card-style">
-                <div className="card">
-                  <img src={games && games.data[index].thumbnail} className="card-img-top" alt="Path_of_Exile_Image"></img>
-                    <div className="card-body">
-                      <h5 className="card-title">{games && games.data[index].title}</h5>
-                      <p className="card-text">{games && games.data[index].short_description}</p>
-                    </div>
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item ">
-                        <Link href={`/candidateList/${games&&games.data[index].title}`}>
-                          <a className="text-decoration-none me-5">Candidate List</a>
-                        </Link>
-                        {
-                          user &&
-                          (
-                            <Link href="#">
-                              <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games && games.data[index].id)}>Create Profile</a>
-                            </Link>
-                          )
-                        }
-                      </li>
+            {/* map the response and iterate the cards */}
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3 card-style">
+              <div className="card">
+                <img src={games && games.data[index].thumbnail} className="card-img-top" alt="Path_of_Exile_Image" />
+                <div className="card-body">
+                  <h5 className="card-title">{games && games.data[index].title}</h5>
+                  <p className="card-text">{games && games.data[index].short_description}</p>
+                </div>
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item ">
+                    <Link href={`/candidateList/${games && games.data[index].title}`}>
+                      <a className="text-decoration-none me-5">Candidate List</a>
+                    </Link>
+                    {
+                        user
+                        && (
+                          <Link href="#">
+                            <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games && games.data[index].id)}>Create Profile</a>
+                          </Link>
+                        )
+                      }
+                  </li>
 
-                    </ul>
+                </ul>
 
-                    <div className="card-body">
-                      <Link href="https://www.freetogame.com/open/path-of-exile">
-                        <a className="card-link text-decoration-none">Official Website</a>
-                      </Link>
-                    </div>
-
+                <div className="card-body">
+                  <Link href="https://www.freetogame.com/open/path-of-exile">
+                    <a className="card-link text-decoration-none">Official Website</a>
+                  </Link>
                 </div>
 
               </div>
+
             </div>
-
-            {
-              openCreateProfileModal && (
-                <CompsModalCreateProfile
-                  close={closeCreateProfileModal}
-                  onSubmit={handleSubmitProfileCreate}
-                  gameTitle={games && games.data[index].title}
-                />
-              )
-            }
           </div>
-        </div>
 
-      </CompsLayout>
-    </>
+          {
+            openCreateProfileModal && (
+              <CompsModalCreateProfile
+                close={closeCreateProfileModal}
+                onSubmit={handleSubmitProfileCreate}
+                gameTitle={games && games.data[index].title}
+              />
+            )
+          }
+        </div>
+      </div>
+
+    </CompsLayout>
   )
 }

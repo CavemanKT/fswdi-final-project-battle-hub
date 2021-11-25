@@ -16,6 +16,26 @@ a {
   color: $link-light-grey;
 }
 
+.app-store-button {
+  background-image: url('../../public/assets/app-store-button.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 198.867px;
+  height: 72px;
+}
+
+.google-play-button {
+  background-image: url('../../public/assets/google-play-button.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 198.867px;
+  height: 72px;
+}
+
+
+
 a:hover {
   color: $primary-orange;
   text-decoration: none;

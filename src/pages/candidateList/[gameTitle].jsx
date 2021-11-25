@@ -1,101 +1,99 @@
-import CompsLayout from '@/components/layouts/Layout'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
+import Table from 'react-bootstrap/Table'
+
+// _hooks
 import useUser from '@/_hooks/user'
 import useCandidates from '@/_hooks/candidateList'
+import useInvitation from '@/_hooks/invitation'
 
-import Table from 'react-bootstrap/Table'
+import CompsLayout from '@/components/layouts/Layout'
 
 // import modal
 import CompsModalGetProfile from '@/components/modals/profile/getProfile'
 
+const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'Profile', 'History'] //
 
 export default function PageCandidateList() {
-  const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'Profile', 'History'] //
-
-
-  const { query: { gameTitle } } = useRouter()
   const router = useRouter()
-  const { candidates, error } = useCandidates(gameTitle)
-
-  if (router.isFallback) return <div>Loading...</div>
+  const { query: { gameTitle } } = router
+  const { candidates, isLoading } = useCandidates(gameTitle)
+  // const { invitation, isLoading: isInvitationLoading } = useInvitation(candidates)
 
   // modal state
-  const [ openModal, setProfileOpenModal ] = useState(false)
+  const [openModal, setProfileOpenModal] = useState(false)
 
   // data state
-  const [ profileData, setProfileData] = useState(null)
+  const [profileData, setProfileData] = useState(null)
 
+  if (router.isFallback) return <div>Loading...</div>
+  if (isLoading) return null
 
-  function handleCandidateListProfileModal(i){
+  const handleCandidateListProfileModal = (i) => {
     setProfileData(candidates.candidateList[i])
     setProfileOpenModal(true)
   }
 
-  function closeModalsProfile() {
+  const closeModalsProfile = () => {
     setProfileOpenModal(false)
   }
 
-  return(
-    <>
-      <CompsLayout>
-        <div id="candidate-list-container">
-          <div id="candidate-list-heading">
-            <h3>Candidate List</h3>
-          </div>
-
-          <div className="candidate-list-wrapper">
-            <Table responsive>
-              <thead>
-                <tr>
-                  <th></th>
-                  {profile.map((item, i) => (
-                    <th key={i}>{item}</th>
-
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {candidates && candidates.candidateList.map((item, i) => {
-                  return(
-                    <tr>
-                      <td>{i}</td>
-                      <td>{item.gameTitle}</td>
-                      <td>{item.characterName}</td>
-                      <td>{item.weapon}</td>
-                      <td>{item.amulet}</td>
-                      <td>{item.armour}</td>
-                      <td>{item.boots}</td>
-                      <td className="d-flex justify-content-center">
-                        <button type="button" className="basic-btn-feature btn-profile" onClick={()=> handleCandidateListProfileModal(i)}>
-                          Profile
-                        </button>
-                      </td>
-                      <td><button type="button" className="basic-btn-feature btn-history">History</button></td>
-                    </tr>
-                  )
-                })}
-
-              </tbody>
-            </Table>
-          </div>
-
+  return (
+    <CompsLayout>
+      <div id="candidate-list-container">
+        <div id="candidate-list-heading">
+          <h3>Candidate List</h3>
         </div>
 
-        <div>
-          {
-            openModal &&
-            (
-              <CompsModalGetProfile
-                data={profileData}
-                close={closeModalsProfile}
-              />
-            )
-          }
+        <div className="candidate-list-wrapper">
+          <Table responsive>
+            <thead>
+              <tr>
+                <th />
+                {
+                  profile.map((item) => (
+                    <th key={item}>{item}</th>
+                  ))
+                }
+              </tr>
+            </thead>
+            <tbody>
+              {
+                candidates && candidates.candidateList.map((item, i) => (
+                  <tr key={item.id}>
+                    <td>{i}</td>
+                    <td>{item.gameTitle}</td>
+                    <td>{item.characterName}</td>
+                    <td>{item.weapon}</td>
+                    <td>{item.amulet}</td>
+                    <td>{item.armour}</td>
+                    <td>{item.boots}</td>
+                    <td className="d-flex justify-content-center">
+                      <button type="button" className="basic-btn-feature btn-profile" onClick={() => handleCandidateListProfileModal(i)}>
+                        Profile
+                      </button>
+                    </td>
+                    <td><button type="button" className="basic-btn-feature btn-history">History</button></td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </Table>
         </div>
-      </CompsLayout>
-    </>
+      </div>
+
+      {
+        openModal && (
+          <div id="compsModalProfile">
+            <CompsModalGetProfile
+              data={profileData}
+              close={closeModalsProfile}
+            />
+          </div>
+        )
+      }
+    </CompsLayout>
   )
 }

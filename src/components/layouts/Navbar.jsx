@@ -5,95 +5,92 @@ import Nav from 'react-bootstrap/Nav'
 
 import { useState } from 'react'
 
+import Image from 'next/image'
 import ModalsSignup from '@/components/modals/auth/signup'
 import ModalsLogin from '@/components/modals/auth/login'
 
 // img
-import Image from 'next/image'
 import brandLogo from '../../public/assets/logo_transparent_1.png'
 
 // user
 import useUser from '@/_hooks/user'
 
-
 export default function CompsLayoutsNavbar() {
-  const [ openSignupModal, setOpenSignupModal ] = useState(false)
-  const [ openLoginModal, setOpenLoginModal ] = useState(false)
+  const [openSignupModal, setOpenSignupModal] = useState(false)
+  const [openLoginModal, setOpenLoginModal] = useState(false)
 
   const { user, apiSignup, apiLogin, apiLogout } = useUser()
 
-  function handleSignupModal() {
+  const handleSignupModal = () => {
     setOpenSignupModal(true)
   }
 
-  function closeModalsSignup() {
+  const closeModalsSignup = () => {
     setOpenSignupModal(false)
   }
 
-  function handleSignupSubmit(values){
+  const handleSignupSubmit = (values) => {
     apiSignup(values).then(() => {
       setOpenSignupModal(false)
     })
   }
 
-  function handleLoginModal() {
+  const handleLoginModal = () => {
     setOpenLoginModal(true)
   }
 
-  function closeModalsLogin() {
+  const closeModalsLogin = () => {
     setOpenLoginModal(false)
   }
 
-  function handleLoginSubmit(values){
+  const handleLoginSubmit = (values) => {
     apiLogin(values).then(() => {
       setOpenLoginModal(false)
     })
   }
 
-  function handleLogout() {
+  const handleLogout = () => {
     apiLogout()
   }
 
   return (
     <>
-    <Navbar id="comps-layouts-navbar" bg="light" expand="lg">
-      <Container>
-        <Image src={brandLogo} alt="brand-logo" width="64" height="64"/>
-        <span>
-          <div>
-            <Navbar.Brand as={Link} href="/"><a className="navbar-brand font-color">Battle</a></Navbar.Brand>
-          </div>
-          <div>
-            <Navbar.Brand as={Link} href="/"><a className="navbar-brand font-color">Hub</a></Navbar.Brand>
-          </div>
-        </span>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} href="/private"><a className="nav-link">Private</a></Nav.Link>
-            <Nav.Link as={Link} href="/blog"><a className="nav-link">Blog</a></Nav.Link>
+      <Navbar id="comps-layouts-navbar" bg="light" expand="lg">
+        <Container>
+          <Image src={brandLogo} alt="brand-logo" width="64" height="64" />
+          <span>
+            <div>
+              <Navbar.Brand as={Link} href="/"><a className="navbar-brand font-color">Battle</a></Navbar.Brand>
+            </div>
+            <div>
+              <Navbar.Brand as={Link} href="/"><a className="navbar-brand font-color">Hub</a></Navbar.Brand>
+            </div>
+          </span>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link as={Link} href="/private"><a className="nav-link">Private</a></Nav.Link>
+              <Nav.Link as={Link} href="/blog"><a className="nav-link">Blog</a></Nav.Link>
 
-            { !user &&
-              (
+              { !user
+              && (
                 <>
                   <Nav.Link className="" onClick={() => handleSignupModal()}>Sign up</Nav.Link>
                   <Nav.Link className="" onClick={() => handleLoginModal()}>Log in</Nav.Link>
                 </>
-              )
-            }
-            {
+              )}
+              {
               user && (
               <Nav.Link className="" onClick={handleLogout}>Log out</Nav.Link>
               )
             }
 
-
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-    {openSignupModal && <ModalsSignup close={closeModalsSignup} onSubmit={handleSignupSubmit} />}
-    {openLoginModal && <ModalsLogin close={closeModalsLogin} onSubmit={handleLoginSubmit} />}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      {openSignupModal && <ModalsSignup close={closeModalsSignup} onSubmit={handleSignupSubmit} />}
+      {openLoginModal && <ModalsLogin close={closeModalsLogin} onSubmit={handleLoginSubmit} />}
     </>
   )
 }

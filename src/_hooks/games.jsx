@@ -4,7 +4,7 @@ import axios from 'axios'
 const options = {
   method: 'GET',
   url: 'https://free-to-play-games-database.p.rapidapi.com/api/games',
-  params: {platform: 'pc', category: 'mmorpg', 'sort-by': 'popularity'},
+  params: { platform: 'pc', category: 'mmorpg', 'sort-by': 'popularity' },
   headers: {
     'x-rapidapi-host': 'free-to-play-games-database.p.rapidapi.com',
     'x-rapidapi-key': 'd0e7e11e66msh55c285085df5857p1dc36ejsn6f679262decb'
@@ -24,7 +24,6 @@ export default function useGames() {
   return {
     games: data,
     isLoading: !error && !data,
-    isError: error,
+    isError: error
   }
-
 }

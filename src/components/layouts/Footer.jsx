@@ -1,6 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-export default function CompsLayoutsFooter(){
+export default function CompsLayoutsFooter() {
   return (
     <footer id="footer">
       <div className="container">
@@ -11,10 +9,10 @@ export default function CompsLayoutsFooter(){
                 <span className="footer-title">Product</span>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Product 1</a>
+                <a className="nav-link app-store-button" href="#" />
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Product 2</a>
+                <a className="nav-link google-play-button" href="#" />
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">Plans & Prices</a>
@@ -46,22 +44,22 @@ export default function CompsLayoutsFooter(){
                 <span className="footer-title">Contact & Support</span>
               </li>
               <li className="nav-item">
-                <span className="nav-link"><i className="fas fa-phone"></i>+852 0000 0000</span>
+                <span className="nav-link"><i className="fas fa-phone" />+852 0000 0000</span>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#"><i className="fas fa-comments"></i>Live chat</a>
+                <a className="nav-link" href="#"><i className="fas fa-comments" />Live chat</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#"><i className="fas fa-envelope"></i>Contact us</a>
+                <a className="nav-link" href="#"><i className="fas fa-envelope" />Contact us</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#"><i className="fas fa-star"></i>Give feedback</a>
+                <a className="nav-link" href="#"><i className="fas fa-star" />Give feedback</a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="text-center"><i className="fas fa-ellipsis-h"></i></div>
+        <div className="text-center"><i className="fas fa-ellipsis-h" /></div>
 
         <div className="row text-center">
           <div className="col-md-4 box">
@@ -72,18 +70,18 @@ export default function CompsLayoutsFooter(){
             <ul className="list-inline social-buttons">
               <li className="list-inline-item">
                 <a href="#">
-                <i className="fab fa-twitter"></i>
-              </a>
+                  <a className="fab fa-twitter" />
+                </a>
               </li>
               <li className="list-inline-item">
                 <a href="#">
-                <i className="fab fa-facebook-f"></i>
-              </a>
+                  <a className="fab fa-facebook-f" />
+                </a>
               </li>
               <li className="list-inline-item">
                 <a href="#">
-                <i className="fab fa-linkedin-in"></i>
-              </a>
+                  <a className="fab fa-linkedin-in" />
+                </a>
               </li>
             </ul>
           </div>

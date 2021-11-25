@@ -8,27 +8,27 @@ export default function useUser() {
     shouldRetryOnError: false
   })
 
-  const apiSignup = (values) =>(new Promise((resolve, reject)=> {
+  const apiSignup = (values) => (new Promise((resolve, reject) => {
     axios({
-      method:'POST',
+      method: 'POST',
       url: '/api/auth/email/signup',
       data: values,
-      withCredentials:true,
+      withCredentials: true
     }).then((resp) => {
       resolve(resp)
       mutate(resp.data)
     }).catch((err) => {
       reject(err)
-      console.log(err);
+      console.log(err)
     })
   }))
 
   const apiLogin = (values) => (new Promise((resolve, reject) => {
     axios({
-      method:'POST',
+      method: 'POST',
       url: '/api/auth/email/login',
-      data:values,
-      withCredentials:true
+      data: values,
+      withCredentials: true
     }).then((resp) => {
       resolve(resp)
       mutate(resp.data)
@@ -40,7 +40,7 @@ export default function useUser() {
   const apiLogout = () => (new Promise((resolve, reject) => {
     axios({
       method: 'DELETE',
-      url: `/api/auth/logout`,
+      url: '/api/auth/logout',
       withCredentials: true
     }).then((resp) => {
       resolve(resp)
@@ -50,7 +50,6 @@ export default function useUser() {
     })
   }))
 
-
   const apiProfileCreate = (values) => (new Promise((resolve, reject) => {
     axios({
       method: 'POST',
@@ -58,7 +57,7 @@ export default function useUser() {
       data: values,
       withCredentials: true
     }).then((resp) => {
-      console.log('resp ---->', resp);
+      console.log('resp ---->', resp)
       resolve(resp)
     }).catch((err) => {
       reject(err)

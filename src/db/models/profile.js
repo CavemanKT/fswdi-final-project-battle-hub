@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Profile.User = this.belongsTo(models.User)
       Profile.Invitations = this.hasMany(models.Invitation)
-      Profile.Histories = this.hasMany(models.Histories)
+      Profile.Histories = this.hasMany(models.History)
     }
   }
   const { tableAttributes } = profileSchema(sequelize, DataTypes)

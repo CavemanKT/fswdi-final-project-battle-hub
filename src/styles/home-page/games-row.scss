@@ -2,7 +2,14 @@ html {
   body {
 
     // Games (card)
+
     #games-row {
+      .card {
+        ul {
+          a {}
+        }
+      }
+
       .card-style {
         margin: 100px;
       }

@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
   class Profile extends Model {
     static associate(models) {
       Profile.User = this.belongsTo(models.User)
-      Profile.Invitations = this.hasMany(models.Invitation)
       Profile.Histories = this.hasMany(models.History)
     }
   }

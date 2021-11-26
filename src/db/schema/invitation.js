@@ -7,11 +7,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    UserId1: {
+    profile1: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    UserId2: {
+    profile2: {
       type: DataTypes.INTEGER,
       allowNull: true
     },

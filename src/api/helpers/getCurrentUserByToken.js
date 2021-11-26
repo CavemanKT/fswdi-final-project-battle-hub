@@ -16,11 +16,13 @@ const getCurrentUserByToken = async (req, res, next) => {
 
     if (authToken) {
       res.currentUser = authToken.User
+      res.currentProfile = authToken.User.Profile
     }
   }
 
   if (res.currentUser === undefined) {
     res.currentUser = null
+    res.currentProfile = null
   }
 
   return next()

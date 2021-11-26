@@ -5,15 +5,25 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 
 import useInvitation from '@/_hooks/invitation'
+import useUser from '@/_hooks/user'
+import withPrivateRoute from '@/_hocs/withPrivateRoute'
 
 const CompsModalGetProfile = ({ data, close }) => {
-  const { invitation, isLoding, error, createInvitation } = useInvitation(data.id) // useSWR or axios
+  const { invitation, isLoading: isInvitationLoading, error: isInvitationErr, createInvitation } = useInvitation(data.id) // useSWR or axios
+  const { user, isLoading: isUserLoaing, error: isUserErr } = useUser()
 
-  const handleInvitationSubmit = (profileId) => {
-    // createInvitation(profileId).then(() => {
-    //   setState
-    // })
+  const handleInvitationSubmit = (profileId, currentUserProfileId) => {
+    createInvitation(currentUserProfileId).then(() => {
+
+    })
   }
+
+  // render challenge button status
+  let invited = null
+  invited = invitation ? invitation.invitation1 || invitation.invitation2 : null
+
+  let myself = null
+  myself = data.id === user.Profile.id
 
   const keyArr = Object.keys(data)
   const valueArr = Object.values(data)
@@ -42,7 +52,18 @@ const CompsModalGetProfile = ({ data, close }) => {
     <Modal fullscreen show onHide={close} className="modal-fullscreen">
       <Modal.Header closeButton className="d-flex">
         <Modal.Title>{data.characterName}&#39;s Profile</Modal.Title>
-        <Button onClick={() => handleInvitationSubmit(data.id)} variant="outline-danger" className="text-center">Danger</Button>
+        {
+          !invited && !myself && (
+            <Button onClick={() => handleInvitationSubmit(data.id, user.Profile.id)} variant="outline-danger" className="ms-5">Challenge</Button>
+
+          )
+        }
+        {
+          invited && !myself && (
+            <Button onClick={() => handleInvitationSubmit(data.id, user.Profile.id)} variant="outline-secondary" className="ms-5">Cancel</Button>
+
+          )
+        }
 
       </Modal.Header>
       <Modal.Body>
@@ -107,4 +128,4 @@ CompsModalGetProfile.propTypes = {
   data: PropTypes.shape().isRequired
 }
 
-export default CompsModalGetProfile
+export default withPrivateRoute(CompsModalGetProfile)

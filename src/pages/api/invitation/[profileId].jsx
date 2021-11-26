@@ -1,8 +1,8 @@
 import nc from 'next-connect'
 
+import invitationGet from '@/api/controllers/invitation/get'
 import invitationCreate from '@/api/controllers/invitation/create'
-// import invitationGet from '@/api/controllers/invitation/get'
 
 export default nc()
+  .get(invitationGet)
   .post(invitationCreate)
-  // .get(invitationGet)

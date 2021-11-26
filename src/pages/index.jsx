@@ -21,15 +21,19 @@ export default function PagesHome() {
 
   const index = games.data.findIndex((item) => item.title === 'Path of Exile')
 
-  function handleCreateProfileModal(id) {
+  const handleCreateProfileModal = (id) => {
     setOpenCreateProfileModal(id)
   }
 
-  function closeCreateProfileModal() {
+  const closeCreateProfileModal = () => {
     setOpenCreateProfileModal(null)
   }
 
-  function handleSubmitProfileCreate(values) {
+  const handleMyProfileModal = (id) => {
+
+  }
+
+  const handleSubmitProfileCreate = (values) => {
     apiProfileCreate(values).then(() => {
       setOpenCreateProfileModal(null)
     })
@@ -64,6 +68,8 @@ export default function PagesHome() {
           <div className="row" id="games-row">
 
             {/* map the response and iterate the cards */}
+            {games
+            && (
             <div className="col-12 col-sm-6 col-md-4 col-lg-3 card-style">
               <div className="card">
                 <img src={games && games.data[index].thumbnail} className="card-img-top" alt="Path_of_Exile_Image" />
@@ -76,14 +82,22 @@ export default function PagesHome() {
                     <Link href={`/candidateList/${games && games.data[index].title}`}>
                       <a className="text-decoration-none me-5">Candidate List</a>
                     </Link>
-                    {
-                        user
+                    {// logined and didn't create profile
+                        user && user.Profile
                         && (
                           <Link href="#">
-                            <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games && games.data[index].id)}>Create Profile</a>
+                            <a className="text-decoration-none" onClick={() => handleMyProfileModal(games.data[index].id)}>Your Profile</a>
                           </Link>
                         )
-                      }
+                    }
+                    {// logined and didn't create profile
+                        user && !user.Profile
+                        && (
+                          <Link href="#">
+                            <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games.data[index].id)}>Create Profile</a>
+                          </Link>
+                        )
+                    }
                   </li>
 
                 </ul>
@@ -97,6 +111,8 @@ export default function PagesHome() {
               </div>
 
             </div>
+            )}
+
           </div>
 
           {

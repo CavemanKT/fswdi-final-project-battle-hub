@@ -4,6 +4,9 @@ import Modal from 'react-bootstrap/Modal'
 
 import FormsProfileCreate from '@/components/forms/profile/createProfile'
 
+// _hocs
+import withPrivateRoute from '@/_hocs/withPrivateRoute'
+
 const CompsModalCreateProfile = ({ close, onSubmit, gameTitle }) => (
   <Modal show onHide={close}>
     <Modal.Header closeButton>
@@ -23,4 +26,4 @@ CompsModalCreateProfile.propTypes = {
   gameTitle: PropTypes.string.isRequired
 }
 
-export default CompsModalCreateProfile
+export default withPrivateRoute(CompsModalCreateProfile)

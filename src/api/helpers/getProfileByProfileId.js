@@ -2,7 +2,7 @@ import { Profile } from '@/db/models'
 
 const getProfileByProfileId = async (req, res, next) => {
   const { query: { profileId } } = req
-console.log(profileId);
+  console.log(profileId)
   if (profileId) {
     const oneProfile = await Profile.findOne({
       where: { id: profileId },

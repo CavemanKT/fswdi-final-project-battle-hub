@@ -12,8 +12,6 @@ export default function useInvitation(profileId) {
     shouldRetryOnError: false
   })
 
-  console.log(data)
-  // create invitation
   const createInvitation = () => (new Promise((resolve, reject) => {
     axios({
       method: 'POST',
@@ -21,7 +19,19 @@ export default function useInvitation(profileId) {
       withCredentials: true
     }).then((resp) => {
       resolve(resp)
-      console.log(resp.data)
+      mutate(resp.data)
+    }).catch((err) => {
+      reject(err)
+    })
+  }))
+
+  const destroyInvitation = () => (new Promise((resolve, reject) => {
+    axios({
+      method: 'DELETE',
+      url: `/api/invitation/${profileId}`,
+      withCredentials: true
+    }).then((resp) => {
+      resolve(resp)
       mutate(resp.data)
     }).catch((err) => {
       reject(err)
@@ -32,6 +42,7 @@ export default function useInvitation(profileId) {
     invitation: data,
     isLoading: !error && !data,
     isError: error,
-    createInvitation
+    createInvitation,
+    destroyInvitation
   }
 }

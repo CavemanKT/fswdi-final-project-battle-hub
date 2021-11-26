@@ -6,6 +6,11 @@ import Nav from 'react-bootstrap/Nav'
 import { useState } from 'react'
 
 import Image from 'next/image'
+import Toast from 'react-bootstrap/Toast'
+import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+import Overlay from 'react-bootstrap/Overlay'
+import Popover from 'react-bootstrap/Popover'
 import ModalsSignup from '@/components/modals/auth/signup'
 import ModalsLogin from '@/components/modals/auth/login'
 
@@ -53,6 +58,9 @@ export default function CompsLayoutsNavbar() {
     apiLogout()
   }
 
+  const [showA, setShowA] = useState(true)
+  const toggleShowA = () => setShowA(!showA)
+
   return (
     <>
       <Navbar id="comps-layouts-navbar" bg="light" expand="lg">
@@ -81,7 +89,37 @@ export default function CompsLayoutsNavbar() {
               )}
               {
               user && (
-              <Nav.Link className="" onClick={handleLogout}>Log out</Nav.Link>
+                <>
+                  <Nav.Link className="" onClick={handleLogout}>Log out</Nav.Link>
+                  {/* <Col md={6} className="mb-2">
+                    <Button onClick={toggleShowA} className="mb-2">
+                      Toggle Toast <strong>with</strong> Animation
+                    </Button>
+                    <Overlay
+                      show={showA}
+                      target={target}
+                      placement="bottom"
+                      container={ref}
+                      containerPadding={20}
+                      onClose={toggleShowA}
+                    >
+
+                      <Toast show={showA} >
+                      <Toast.Header>
+                        <img
+                          src="holder.js/20x20?text=%20"
+                          className="rounded me-2"
+                          alt=""
+                        />
+                        <strong className="me-auto">Bootstrap</strong>
+                        <small>11 mins ago</small>
+                      </Toast.Header>
+                      <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+                    </Toast>
+
+                    </Overlay>
+                  </Col> */}
+                </>
               )
             }
 

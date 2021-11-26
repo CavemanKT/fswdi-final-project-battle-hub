@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
+import Overlay from 'react-bootstrap/Overlay'
+import Popover from 'react-bootstrap/Popover'
+import Tooltip from 'react-bootstrap/Tooltip'
+
 import PropTypes from 'prop-types'
 import Modal from 'react-bootstrap/Modal'
 import Table from 'react-bootstrap/Table'
@@ -9,27 +13,47 @@ import useUser from '@/_hooks/user'
 import withPrivateRoute from '@/_hocs/withPrivateRoute'
 
 const CompsModalGetProfile = ({ data, close }) => {
-  const { invitation, isLoading: isInvitationLoading, error: isInvitationErr, createInvitation } = useInvitation(data.id) // useSWR or axios
-  const { user, isLoading: isUserLoaing, error: isUserErr } = useUser()
+  const { user, isLoading: isUserLoading, error: isUserErr } = useUser()
 
-  const handleInvitationSubmit = (profileId, currentUserProfileId) => {
-    createInvitation(currentUserProfileId).then(() => {
+  const {
+    invitation, isLoading: isInvitationLoading, error: isInvitationErr,
+    createInvitation, destroyInvitation
+  } = useInvitation(data.id) // useSWR or axios
 
+  const handleInvitationSubmitBtn = () => {
+    createInvitation().then((resp) => {
+      // sendNotification()
     })
   }
 
-  // render challenge button status
+  const [show, setShow] = useState(false)
+  const [target, setTarget] = useState(null)
+  const ref = useRef(null)
+
+  const handleInvitationCancelBtn = (event) => {
+    destroyInvitation()
+      .then((resp) => {
+        if (resp.data.invitation1 === 0 && resp.data.invitation2 === 0) {
+          setShow(!show)
+          setTarget(event.target)
+        }
+      })
+  }
+
+  if (isUserLoading || isInvitationLoading) return null
+
+  // determine status of challenge button
   let invited = null
   invited = invitation ? invitation.invitation1 || invitation.invitation2 : null
 
   let myself = null
   myself = data.id === user.Profile.id
 
+  // get rid of id, createdBy... atrributes
   const keyArr = Object.keys(data)
   const valueArr = Object.values(data)
   const userData = valueArr[13]
 
-  // get rid of id, createdBy... atrributes
   keyArr.splice(0, 1)
   keyArr.splice(6, 7)
   valueArr.splice(0, 1)
@@ -54,14 +78,36 @@ const CompsModalGetProfile = ({ data, close }) => {
         <Modal.Title>{data.characterName}&#39;s Profile</Modal.Title>
         {
           !invited && !myself && (
-            <Button onClick={() => handleInvitationSubmit(data.id, user.Profile.id)} variant="outline-danger" className="ms-5">Challenge</Button>
+            <Button onClick={() => handleInvitationSubmitBtn()} variant="outline-danger" className="ms-5">Challenge</Button>
 
           )
         }
         {
           invited && !myself && (
-            <Button onClick={() => handleInvitationSubmit(data.id, user.Profile.id)} variant="outline-secondary" className="ms-5">Cancel</Button>
+            <div ref={ref}>
+              <Button
+                onClick={
+                  handleInvitationCancelBtn
+                }
+                variant="outline-secondary"
+                className="profile-modal-bar-cancel-btn"
+              >Cancel</Button>
 
+              <Overlay
+                show={show}
+                target={target}
+                placement="bottom"
+                container={ref}
+                containerPadding={20}
+              >
+                <Popover id="popover-contained">
+                  <Popover.Header as="h3">Battling</Popover.Header>
+                  <Popover.Body>
+                    <strong>Please wait for the messages. The opponent is busy at the moment</strong>
+                  </Popover.Body>
+                </Popover>
+              </Overlay>
+              </div>
           )
         }
 

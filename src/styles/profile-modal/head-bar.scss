@@ -1,0 +1,17 @@
+.profile-modal-bar-cancel-btn {
+  margin-left: 100px;
+
+  @media screen and (max-width:410px) {
+    margin-left: 30px;
+  }
+}
+
+#popover-contained {
+  position: relative;
+  margin-left: 270px;
+  margin-top: 50px;
+
+  @media screen and (max-width:410px) {
+    margin-left: 180px;
+  }
+}

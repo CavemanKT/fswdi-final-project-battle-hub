@@ -9,7 +9,7 @@ const invitationCreate = async (req, res) => {
   const { currentProfile } = res
 
   const invitation = await Invitation.create({
-    profile1: currentProfile.id, profile2: profileId
+    profile1: currentProfile.id, profile2: profileId, status: 'pending'
   })
 
   res.status(200).json({ invitation })

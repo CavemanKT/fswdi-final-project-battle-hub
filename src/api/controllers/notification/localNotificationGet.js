@@ -7,19 +7,20 @@ import { Invitation } from '@/db/models'
 const localNotificationGet = async (req, res) => {
   const { currentProfile } = res
 
-  const invitation1 = await Invitation.findOne({
-    where: {
-      profile1: currentProfile.id
-    }
-  })
-
-  const invitation2 = await Invitation.findOne({
+  const invitation1 = await Invitation.findAll({
     where: {
       profile2: currentProfile.id
-    }
+    },
+    include: [
+      {
+        association: Invitation.OwnerProfile
+      }, {
+        association: Invitation.ReceiverProfile
+      }
+    ]
   })
 
-  res.status(200).json({ invitation1, invitation2 })
+  res.status(200).json({ invitation1 })
 }
 
 export default nc()

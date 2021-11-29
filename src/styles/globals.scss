@@ -2,10 +2,12 @@
 
 // public
 
+
 // index page
 @import './home-page/home-page';
 @import './home-page/footer';
-@import './home-page/1st-row.scss';
+@import './home-page/notification-section.scss';
+@import './home-page/game-list.scss';
 
 // modals
 @import './candidateList';
@@ -25,8 +27,6 @@ html {
 
   .font-color {
     /* Battle Hub */
-
-    // position: absolute;
     width: 122px;
     height: 52px;
 

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
 import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
-import Tooltip from 'react-bootstrap/Tooltip'
 
 import PropTypes from 'prop-types'
 import Modal from 'react-bootstrap/Modal'

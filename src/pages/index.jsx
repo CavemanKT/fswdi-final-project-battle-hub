@@ -5,9 +5,6 @@ import Link from 'next/link'
 
 import { useState, useRef } from 'react'
 
-import Image from 'next/image'
-import Toast from 'react-bootstrap/Toast'
-import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
@@ -15,6 +12,7 @@ import useGames from '@/_hooks/games'
 import useUser from '@/_hooks/user'
 import CompsModalCreateProfile from '@/components/modals/profile/createProfile'
 import CompsLayout from '@/components/layouts/Layout'
+import useNotification from '@/_hooks/notification'
 
 export default function PagesHome() {
   const [show, setShow] = useState(false)
@@ -25,9 +23,12 @@ export default function PagesHome() {
 
   const { user, apiProfileCreate, isLoading: isUserLoading } = useUser()
   const { games, isLoading: isGamesLoading } = useGames()
+  const { notifications, isLoading: isNotificationLoading } = useNotification(user)
+
+  if (isNotificationLoading) return null
+  // console.log(notifications)
 
   if (isUserLoading || isGamesLoading) return null
-
   const index = games.data.findIndex((item) => item.title === 'Path of Exile')
 
   const handleCreateProfileModal = (id) => {
@@ -56,19 +57,20 @@ export default function PagesHome() {
   return (
     <CompsLayout>
       <div className="home-page">
-        <div className="container">
-          <div className="row d-flex home-page-row-wrapper">
+        <div className="d-flex home-page-row-wrapper">
 
-            {/* navigation column */}
-            <div className="navigation-section">
-              <a href="#comps-layouts-navbar" className="triangle" id="upward-triangle" />
-              <a href="#ranking-row" className="navigation-font" id="ranking">Ranking</a>
-              <a href="#games-row" className="navigation-font" id="games">Games</a>
-              <a href="#footer" className="triangle" id="downward-triangle" />
-            </div>
+          {/* navigation column */}
+          <div className="navigation-section">
+            <a href="#comps-layouts-navbar" className="triangle" id="upward-triangle" />
+            <a href="#candidate-list" className="navigation-font" id="ranking">Ranking</a>
+            <a href="#game-list" className="navigation-font" id="games">Games</a>
+            <a href="#footer" className="triangle" id="downward-triangle" />
+          </div>
 
-            {/* candidate ranking column */}
-            <div className="col-12" id="ranking-row">
+          {/* candidate ranking column */}
+
+          <div className="middle-section d-flex flex-column flex-grow-1">
+            <div id="candidate-list">
               <ul>
                 {/* todo: issue! */}
                 {/* {candidates.forEach((item, i )=> {
@@ -77,41 +79,10 @@ export default function PagesHome() {
               </ul>
             </div>
 
-            {/* notification column */}
-            <div ref={ref} className="notification-section">
-              <Button onClick={handleClick} className="notification-toggle-btn">Holy guacamole!</Button>
-
-              <Overlay
-                show={show}
-                target={target}
-                placement="bottom"
-                container={ref}
-                containerPadding={20}
-                className="notification-container"
-              >
-                <Popover id="popover-contained">
-                  <Popover.Header as="h3">Popover bottom</Popover.Header>
-                  <Popover.Body>
-                    <strong>Holy guacamole!</strong> Check this info.
-                  </Popover.Body>
-                  <Popover.Header as="h3">Popover bottom</Popover.Header>
-                  <Button>Accept</Button>
-                  <Button className="ms-4">Reject</Button>
-                  <Popover.Body>
-                    <strong>Holy guacamole!</strong> Check this info.
-                  </Popover.Body>
-                </Popover>
-              </Overlay>
-            </div>
-          </div>
-
-          {/* row: Game cards */}
-          <div className="row" id="games-row">
-
             {/* map the response and iterate the cards */}
             {games
             && (
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3 card-style">
+            <div id="game-list" className="col-12 col-sm-6 col-md-4 col-lg-3 card-style">
               <div className="card">
                 <img src={games && games.data[index].thumbnail} className="card-img-top" alt="Path_of_Exile_Image" />
                 <div className="card-body">
@@ -153,10 +124,37 @@ export default function PagesHome() {
 
             </div>
             )}
-
           </div>
 
-          {
+          {/* notification column */}
+          <div ref={ref} className="notification-section">
+            <Button onClick={handleClick} className="notification-toggle-btn">Holy guacamole!</Button>
+
+            <Overlay
+              show={show}
+              target={target}
+              placement="bottom"
+              container={ref}
+              containerPadding={20}
+              className="notification-container"
+            >
+              <Popover id="popover-contained" className="pop-over-position">
+                <Popover.Header as="h3">Popover bottom</Popover.Header>
+                <Popover.Body>
+                  <strong>Holy guacamole!</strong> Check this info.
+                </Popover.Body>
+                <Popover.Header as="h3">Popover bottom</Popover.Header>
+                <Popover.Body>
+                  <strong>Holy guacamole!</strong> Check this info.
+                  <Button className="ms-4 mt-4">Accept</Button>
+                  <Button className="ms-5 mt-4">Reject</Button>
+                </Popover.Body>
+              </Popover>
+            </Overlay>
+          </div>
+        </div>
+
+        {
             openCreateProfileModal && (
               <CompsModalCreateProfile
                 close={closeCreateProfileModal}
@@ -165,7 +163,6 @@ export default function PagesHome() {
               />
             )
           }
-        </div>
       </div>
 
     </CompsLayout>

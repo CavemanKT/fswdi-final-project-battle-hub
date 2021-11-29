@@ -1,6 +1,6 @@
 import nc from 'next-connect'
 
-import notificationsGet from '@/api/controllers/notification/get'
+import localNotificationsGet from '@/api/controllers/notification/localNotificationGet'
 
 export default nc()
-  .get(notificationsGet)
+  .get(localNotificationsGet)

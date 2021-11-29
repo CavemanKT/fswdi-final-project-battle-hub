@@ -1,16 +1,25 @@
 // Comps
 import Link from 'next/link'
-import { useState } from 'react'
-import CompsLayout from '@/components/layouts/Layout'
-import CompsModalCreateProfile from '@/components/modals/profile/createProfile'
 
 // Hooks
-import useUser from '@/_hooks/user'
+
+import { useState, useRef } from 'react'
+
+import Image from 'next/image'
+import Toast from 'react-bootstrap/Toast'
+import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+import Overlay from 'react-bootstrap/Overlay'
+import Popover from 'react-bootstrap/Popover'
 import useGames from '@/_hooks/games'
+import useUser from '@/_hooks/user'
+import CompsModalCreateProfile from '@/components/modals/profile/createProfile'
+import CompsLayout from '@/components/layouts/Layout'
 
 export default function PagesHome() {
-  // const arr = []
-  // const [ candidates, setCandidates ] = useState(arr)
+  const [show, setShow] = useState(false)
+  const [target, setTarget] = useState(null)
+  const ref = useRef(null)
 
   const [openCreateProfileModal, setOpenCreateProfileModal] = useState(null)
 
@@ -39,11 +48,16 @@ export default function PagesHome() {
     })
   }
 
+  const handleClick = (event) => {
+    setShow(!show)
+    setTarget(event.target)
+  }
+
   return (
     <CompsLayout>
       <div className="home-page">
         <div className="container">
-          <div className="row">
+          <div className="row d-flex home-page-row-wrapper">
 
             {/* navigation column */}
             <div className="navigation-section">
@@ -61,6 +75,33 @@ export default function PagesHome() {
                   <li key={i}>{item}</li>
                 })} */}
               </ul>
+            </div>
+
+            {/* notification column */}
+            <div ref={ref} className="notification-section">
+              <Button onClick={handleClick} className="notification-toggle-btn">Holy guacamole!</Button>
+
+              <Overlay
+                show={show}
+                target={target}
+                placement="bottom"
+                container={ref}
+                containerPadding={20}
+                className="notification-container"
+              >
+                <Popover id="popover-contained">
+                  <Popover.Header as="h3">Popover bottom</Popover.Header>
+                  <Popover.Body>
+                    <strong>Holy guacamole!</strong> Check this info.
+                  </Popover.Body>
+                  <Popover.Header as="h3">Popover bottom</Popover.Header>
+                  <Button>Accept</Button>
+                  <Button className="ms-4">Reject</Button>
+                  <Popover.Body>
+                    <strong>Holy guacamole!</strong> Check this info.
+                  </Popover.Body>
+                </Popover>
+              </Overlay>
             </div>
           </div>
 

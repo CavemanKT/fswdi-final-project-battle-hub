@@ -1,8 +1,11 @@
 @import '~bootstrap/scss/bootstrap';
 
+// public
+
 // index page
 @import './home-page/home-page';
 @import './home-page/footer';
+@import './home-page/1st-row.scss';
 
 // modals
 @import './candidateList';

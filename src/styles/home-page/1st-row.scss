@@ -1,0 +1,23 @@
+html {
+  body {
+    .home-page {
+      .home-page-row-wrapper {
+        grid-template-columns: 1fr 2fr 1fr;
+        display: grid;
+        justify-items: stretch;
+
+
+
+
+        .notification-section {
+          justify-self: end;
+          // position: absolute;
+          // right: 0px;
+        }
+
+      }
+
+    }
+  }
+
+}

@@ -76,7 +76,7 @@ export default function PagesHome() {
         <div className="d-flex home-page-row-wrapper">
 
           {/* navigation column */}
-          <div className="navigation-section">
+          <div className="navigation-section me-5">
             <a href="#comps-layouts-navbar" className="triangle" id="upward-triangle" />
             <a href="#candidate-list" className="navigation-font" id="ranking">Ranking</a>
             <a href="#game-list" className="navigation-font" id="games">Games</a>
@@ -85,8 +85,8 @@ export default function PagesHome() {
 
           {/* candidate ranking column */}
 
-          <div className="middle-section d-flex flex-column flex-grow-1">
-            <div id="candidate-list">
+          <div className="middle-section d-flex flex-column flex-grow-1 mb-5">
+            <div id="candidate-list m-5">
               <ul>
                 {/* todo: issue! */}
                 {/* {candidates.forEach((item, i )=> {
@@ -98,7 +98,7 @@ export default function PagesHome() {
             {/* map the response and iterate the cards */}
             {games
             && (
-            <div id="game-list" className="col-12 col-sm-6 col-md-4 col-lg-3 card-style">
+            <div id="game-list" className="col-12 col-sm-6 col-md-4 col-lg-3 card-style m-5">
               <div className="card">
                 <img src={games && games.data[index].thumbnail} className="card-img-top" alt="Path_of_Exile_Image" />
                 <div className="card-body">

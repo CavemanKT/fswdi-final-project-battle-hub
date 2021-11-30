@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 
 import useUser from '@/_hooks/user' // this is where the use is from
 
@@ -13,6 +14,15 @@ export default function withPrivateRoute(WrappedComponent) {
     useEffect(() => {
       if (!isLoading && !user) {
         router.push('/')
+        toast('Please Login First!', {
+          position: 'bottom-left',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined
+        })
         // remember to add toastify to pop up a toast  or use react-bootstrap
       }
     }, [isLoading, user])

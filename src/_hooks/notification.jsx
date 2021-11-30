@@ -16,7 +16,7 @@ export default function useNotification(user) {
   const setInvitationStatusToAccepted = (inviOwnerProfileId, invitationId) => (new Promise((resolve, reject) => {
     axios({
       method: 'PUT',
-      url: `/api/invitation/invitationUpdate/${InviOwnerProfileId}/${invitationId}`,
+      url: `/api/invitation/invitationUpdate/${inviOwnerProfileId}/${invitationId}`,
       withCredentials: true
     }).then((resp) => {
       resolve(resp)

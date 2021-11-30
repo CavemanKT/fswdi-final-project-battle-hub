@@ -4,11 +4,15 @@ import authenticateUser from '@/api/helpers/authenticateUser'
 import getCurrentUserByToken from '@/api/helpers/getCurrentUserByToken'
 import session from '@/api/helpers/session'
 
-const setInvitationStatusToAccepted = async (req, res) => {
-  const { query: { invitationId, profileId } } = req
-  console.log(req.query)
+const { Op } = require('sequelize')
 
-  const updateStatus = await Invitation.update({
+const setInvitationStatusToAccepted = async (req, res) => {
+  const { query: { invitationId } } = req
+  const { currentProfile } = res
+  console.log('req.query', req.query)
+  console.log('res.currentUser.Profile', currentProfile)
+
+  await Invitation.update({
     status: 'accepted'
   }, {
     where: {
@@ -16,14 +20,25 @@ const setInvitationStatusToAccepted = async (req, res) => {
     }
   })
 
-  const destroyOtherPendingStatus = await Invitation.destroy({
+  await Invitation.destroy({
     where: {
-      profile1:
+      [Op.and]: [
+        {
+          [Op.or]: [
+            {
+              profile1: currentProfile.id
+            },
+            {
+              profile2: currentProfile.id
+            }
+          ]
+        },
+        {
+          status: 'pending'
+        }
+      ]
     }
   })
-  console.log(updateStatus)
-
-  const
 }
 
 export default nc()

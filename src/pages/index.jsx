@@ -26,7 +26,7 @@ export default function PagesHome() {
   const { notifications, isLoading: isNotificationLoading, setInvitationStatusToAccepted } = useNotification(user)
 
   if (isUserLoading || isGamesLoading) return null
-  if (isNotificationLoading) return null
+
   const index = games.data.findIndex((item) => item.title === 'Path of Exile')
 
   const handleCreateProfileModal = (id) => {
@@ -47,8 +47,8 @@ export default function PagesHome() {
     })
   }
 
-  const handleInvitationStatus = (invitationId) => {
-    setInvitationStatusToAccepted(invitationId)
+  const handleInvitationStatus = (inviOwnerProfileId, invitationId) => {
+    setInvitationStatusToAccepted(inviOwnerProfileId, invitationId)
   }
 
   // notification drop down
@@ -131,7 +131,7 @@ export default function PagesHome() {
 
           {/* notification column */}
           <div ref={ref} className="notification-section">
-            <Button onClick={handleClick} className="notification-toggle-btn">Holy guacamole!</Button>
+            <Button onClick={handleClick} className="notification-toggle-btn">Invitations</Button>
 
             <Overlay
               show={show}
@@ -143,10 +143,14 @@ export default function PagesHome() {
             >
               <Popover id="popover-contained" className="pop-over-position">
                 {
-
+              isNotificationLoading && (
+                <Popover.Body as="h3">You need to <strong>log in</strong> first, so that others can challenge you</Popover.Body>
+              )
+                }
+                {
                   notifications && notifications.invitation1.map((item) => (
                     <div key={item.id}>
-                      <Popover.Header as="h3">Popover bottom</Popover.Header>
+                      <Popover.Header as="h3">Challenges</Popover.Header>
                       <Popover.Body>
                         {
                           item.status === 'pending' && (
@@ -162,14 +166,20 @@ export default function PagesHome() {
                           )
                         }
                         {/* accept --> status becomes accepted, reject --> delete the invitation */}
-                        <Button className="ms-4 mt-4" onClick={() => handleInvitationStatus(item.OwnerProfile.id, item.id)}>Accept</Button>
+                        <Button
+                          className="ms-4 mt-4"
+                          onClick={() => {
+                            handleInvitationStatus(item.OwnerProfile.id, item.id)
+                            console.log(item.OwnerProfile.id, item.id)
+                          }}
+                        >Accept</Button>
                         <Button className="ms-5 mt-4" onClick={() => destroyInvitation(item.id)}>Reject</Button>
                       </Popover.Body>
                     </div>
                   ))
                 }
                 {
-                  !notifications?.invitation1[0]?.id && (
+                  !isNotificationLoading && !notifications?.invitation1[0]?.id && (
                     <>
                       <Popover.Header as="h3">You have not been challenged yet.</Popover.Header>
                       <Popover.Body>

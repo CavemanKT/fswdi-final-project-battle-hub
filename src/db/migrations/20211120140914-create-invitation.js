@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Invitations', {
@@ -8,10 +7,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      Profile1: {
+      profile1: {
         type: Sequelize.INTEGER
       },
-      Profile2: {
+      profile2: {
         type: Sequelize.INTEGER
       },
       result1: {
@@ -31,9 +30,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Invitations');
+    await queryInterface.dropTable('Invitations')
   }
-};
+}

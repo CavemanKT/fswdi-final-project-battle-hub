@@ -7,19 +7,42 @@ import { useRouter } from 'next/router'
 import fetcher from '@/_services/fetcher'
 
 export default function useInvitation(profileId) {
-  // const url = gameTitle ? `/api/candidates/${gameTitle}` : null
-  // const { data, error, mutate } = useSWR(url, fetcher, {
-  //   shouldRetryOnError: false
-  // })
+  const url = profileId ? `/api/invitation/${profileId}` : null
+  const { data, error, mutate } = useSWR(url, fetcher, {
+    shouldRetryOnError: false
+  })
 
-  // axios({
-  //   method: 'POST',
-  //   url: `/api/`
-  // })
+  const createInvitation = () => (new Promise((resolve, reject) => {
+    axios({
+      method: 'POST',
+      url: `/api/invitation/${profileId}`,
+      withCredentials: true
+    }).then((resp) => {
+      resolve(resp)
+      mutate(resp.data)
+    }).catch((err) => {
+      reject(err)
+    })
+  }))
+
+  const destroyInvitation = () => (new Promise((resolve, reject) => {
+    axios({
+      method: 'DELETE',
+      url: `/api/invitation/${profileId}`,
+      withCredentials: true
+    }).then((resp) => {
+      resolve(resp)
+      mutate(resp.data)
+    }).catch((err) => {
+      reject(err)
+    })
+  }))
+
   return {
-    // invitation: data,
-    // isLoading: !error && !data,
-    // isError: error,
-    // createInvitation
+    invitation: data,
+    isLoading: !error && !data,
+    isError: error,
+    createInvitation,
+    destroyInvitation
   }
 }

@@ -1,14 +1,20 @@
 @import '~bootstrap/scss/bootstrap';
 
+// public
+
+
 // index page
 @import './home-page/home-page';
 @import './home-page/footer';
+@import './home-page/notification-section.scss';
+@import './home-page/game-list.scss';
 
 // modals
 @import './candidateList';
 
 // profile modal
 @import './profile-modal/right-column.scss';
+@import './profile-modal/head-bar.scss';
 
 
 html {
@@ -21,8 +27,6 @@ html {
 
   .font-color {
     /* Battle Hub */
-
-    // position: absolute;
     width: 122px;
     height: 52px;
 

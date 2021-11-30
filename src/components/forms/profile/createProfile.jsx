@@ -89,7 +89,7 @@ const FormsProfileCreate = ({ onSubmit, gameTitle }) => (
   <Formik
     initialValues={{
       characterName: '',
-      gameTitle: gameTitle,
+      gameTitle,
       weapon: '',
       amulet: '',
       armour: '',

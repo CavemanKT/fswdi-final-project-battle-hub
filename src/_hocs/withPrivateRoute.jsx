@@ -11,7 +11,10 @@ export default function withPrivateRoute(WrappedComponent) {
     const { user, isLoading } = useUser()
 
     useEffect(() => {
-      if (!isLoading && !user) router.push('/')
+      if (!isLoading && !user) {
+        router.push('/')
+        // remember to add toastify to pop up a toast  or use react-bootstrap
+      }
     }, [isLoading, user])
 
     if (isLoading || !user) return <CompsLoading />

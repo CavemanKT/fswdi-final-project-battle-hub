@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
   class History extends Model {
     static associate(models) {
       History.Profile = this.belongsTo(models.Profile)
-      // History.User = this.belongsTo(models.User)
     }
   }
   const { tableAttributes } = historySchema(sequelize, DataTypes)

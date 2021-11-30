@@ -4,7 +4,7 @@ export default function CompsLayoutsFooter() {
       <div className="container">
         <div className="row">
           <div className="col-md-4 footer-column">
-            <ul className="nav flex-column">
+            <ul className="nav flex-column text-center">
               <li className="nav-item">
                 <span className="footer-title">Product</span>
               </li>
@@ -15,15 +15,12 @@ export default function CompsLayoutsFooter() {
                 <a className="nav-link google-play-button" href="#" />
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">Plans & Prices</a>
-              </li>
-              <li className="nav-item">
                 <a className="nav-link" href="#">Frequently asked questions</a>
               </li>
             </ul>
           </div>
           <div className="col-md-4 footer-column">
-            <ul className="nav flex-column">
+            <ul className="nav flex-column text-center">
               <li className="nav-item">
                 <span className="footer-title">Company</span>
               </li>
@@ -39,7 +36,7 @@ export default function CompsLayoutsFooter() {
             </ul>
           </div>
           <div className="col-md-4 footer-column">
-            <ul className="nav flex-column">
+            <ul className="nav flex-column text-center">
               <li className="nav-item">
                 <span className="footer-title">Contact & Support</span>
               </li>
@@ -69,19 +66,13 @@ export default function CompsLayoutsFooter() {
           <div className="col-md-4 box">
             <ul className="list-inline social-buttons">
               <li className="list-inline-item">
-                <a href="#">
-                  <a className="fab fa-twitter" />
-                </a>
+                <a href="#" className="fab fa-twitter" />
               </li>
               <li className="list-inline-item">
-                <a href="#">
-                  <a className="fab fa-facebook-f" />
-                </a>
+                <a href="#" className="fab fa-facebook-f" />
               </li>
               <li className="list-inline-item">
-                <a href="#">
-                  <a className="fab fa-linkedin-in" />
-                </a>
+                <a href="#" className="fab fa-linkedin-in" />
               </li>
             </ul>
           </div>

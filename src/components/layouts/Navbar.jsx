@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav'
 import { useState } from 'react'
 
 import Image from 'next/image'
+
 import ModalsSignup from '@/components/modals/auth/signup'
 import ModalsLogin from '@/components/modals/auth/login'
 
@@ -68,7 +69,7 @@ export default function CompsLayoutsNavbar() {
           </span>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+            <Nav className="me-auto d-flex">
               <Nav.Link as={Link} href="/private"><a className="nav-link">Private</a></Nav.Link>
               <Nav.Link as={Link} href="/blog"><a className="nav-link">Blog</a></Nav.Link>
 
@@ -81,7 +82,7 @@ export default function CompsLayoutsNavbar() {
               )}
               {
               user && (
-              <Nav.Link className="" onClick={handleLogout}>Log out</Nav.Link>
+                <Nav.Link className="" onClick={handleLogout}>Log out</Nav.Link>
               )
             }
 

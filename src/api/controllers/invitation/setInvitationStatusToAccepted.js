@@ -7,10 +7,8 @@ import session from '@/api/helpers/session'
 const { Op } = require('sequelize')
 
 const setInvitationStatusToAccepted = async (req, res) => {
-  const { query: { invitationId } } = req
+  const { query: { invitationId, profileId } } = req
   const { currentProfile } = res
-  console.log('req.query', req.query)
-  console.log('res.currentUser.Profile', currentProfile)
 
   await Invitation.update({
     status: 'accepted'
@@ -30,6 +28,12 @@ const setInvitationStatusToAccepted = async (req, res) => {
             },
             {
               profile2: currentProfile.id
+            },
+            {
+              profile1: profileId
+            },
+            {
+              profile2: profileId
             }
           ]
         },
@@ -39,6 +43,7 @@ const setInvitationStatusToAccepted = async (req, res) => {
       ]
     }
   })
+  res.status(200).json()
 }
 
 export default nc()

@@ -23,7 +23,12 @@ export default function PagesHome() {
 
   const { user, apiProfileCreate, isLoading: isUserLoading } = useUser()
   const { games, isLoading: isGamesLoading } = useGames()
-  const { notifications, isLoading: isNotificationLoading, setInvitationStatusToAccepted } = useNotification(user)
+  const {
+    notifications, isLoading: isNotificationLoading,
+    setInvitationStatusToAccepted,
+    rejectInvitation,
+    setInvitationResult
+  } = useNotification(user)
 
   if (isUserLoading || isGamesLoading) return null
 
@@ -51,10 +56,18 @@ export default function PagesHome() {
     setInvitationStatusToAccepted(inviOwnerProfileId, invitationId)
   }
 
+  const destroyInvitation = (invitationId) => {
+    rejectInvitation(invitationId)
+  }
+
   // notification drop down
   const handleClick = (event) => {
     setShow(!show)
     setTarget(event.target)
+  }
+
+  const setGameResult = (result, profileId, invitationId) => {
+    setInvitationResult(result, profileId, invitationId)
   }
 
   return (
@@ -97,7 +110,8 @@ export default function PagesHome() {
                     <Link href={`/candidateList/${games && games.data[index].title}`}>
                       <a className="text-decoration-none me-5">Candidate List</a>
                     </Link>
-                    {// logined and didn't create profile
+
+                    {// logged in and created profile
                         user && user.Profile
                         && (
                           <Link href="#">
@@ -105,7 +119,7 @@ export default function PagesHome() {
                           </Link>
                         )
                     }
-                    {// logined and didn't create profile
+                    {// logged in and didn't create profile
                         user && !user.Profile
                         && (
                           <Link href="#">
@@ -142,49 +156,99 @@ export default function PagesHome() {
               className="notification-container"
             >
               <Popover id="popover-contained" className="pop-over-position">
+
+                {/* Please log in */}
                 {
-              isNotificationLoading && (
-                <Popover.Body as="h3">You need to <strong>log in</strong> first, so that others can challenge you</Popover.Body>
+              !user && (
+                <Popover.Body as="h3">Please<strong>log in</strong>.</Popover.Body>
               )
                 }
+
+                {/* Please create profile */}
                 {
-                  notifications && notifications.invitation1.map((item) => (
+                  user && isNotificationLoading && (
+                  <Popover.Body as="h3">In order to battle, please <strong>create your own profile</strong>.</Popover.Body>
+                  )
+                }
+
+                {/* you as a inviter */}
+                {
+                  !isNotificationLoading && notifications && notifications?.invitation1.map((item) => (
                     <div key={item.id}>
                       <Popover.Header as="h3">Challenges</Popover.Header>
                       <Popover.Body>
                         {
                           item.status === 'pending' && (
-                          <p><strong>{`${item.OwnerProfile.characterName}`}</strong> from <strong>{` ${item.OwnerProfile.gameTitle}`}</strong> invite you for PVP.
-                          </p>
+                            <>
+                              <p><strong>{`${item.OwnerProfile.characterName}`}</strong> from <strong>{` ${item.OwnerProfile.gameTitle}`}</strong> invite you for PVP.
+                              </p>
+                              <Button
+                                className="ms-4 mt-4"
+                                onClick={() => {
+                                  handleInvitationStatus(item.OwnerProfile.id, item.id)
+                                }}
+                              >Accept</Button>
+                              <Button className="ms-5 mt-4" onClick={() => destroyInvitation(item.id)}>Reject</Button>
+                            </>
                           )
                         }
                         {
                           item.status === 'accepted' && (
-                            <p>
-                              You can take challenge after the match
-                            </p>
+                            <>
+                              <p>
+                                You cannot take challenge until the result comes out
+                              </p>
+                              <Button className="ms-2 mt-3" onClick={() => setGameResult('won', item.OwnerProfile.id, item.id)}>Won</Button>
+                              <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item.OwnerProfile.id, item.id)}>Lost</Button>
+                              <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item.OwnerProfile.id, item.id)}>Draw</Button>
+                              </>
                           )
                         }
-                        {/* accept --> status becomes accepted, reject --> delete the invitation */}
-                        <Button
-                          className="ms-4 mt-4"
-                          onClick={() => {
-                            handleInvitationStatus(item.OwnerProfile.id, item.id)
-                            console.log(item.OwnerProfile.id, item.id)
-                          }}
-                        >Accept</Button>
-                        <Button className="ms-5 mt-4" onClick={() => destroyInvitation(item.id)}>Reject</Button>
+
                       </Popover.Body>
                     </div>
                   ))
                 }
+
+                {/* you as a receiver */}
                 {
-                  !isNotificationLoading && !notifications?.invitation1[0]?.id && (
+                  !isNotificationLoading && notifications && notifications?.invitation2.map((item) => (
+                    <div key={item.id}>
+                      <Popover.Header as="h3">Challenges</Popover.Header>
+                      <Popover.Body>
+                        {
+                          item.status === 'pending' && (
+                            <p>
+                              you have <strong>invited {`${item.ReceiverProfile.characterName}`}</strong> from <strong>{` ${item.ReceiverProfile.gameTitle}`}</strong> for PVP, please wait til the opponent accepts your challenge.
+                            </p>
+                          )
+                        }
+                        {
+                          item.status === 'accepted' && (
+                            <>
+                              <p>
+                                You cannot take challenge until the result comes out
+                              </p>
+                              <Button className="ms-2 mt-3" onClick={() => setGameResult('won', item.ReceiverProfile.id, item.id)}>Won</Button>
+                              <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item.ReceiverProfile.id, item.id)}>Lost</Button>
+                              <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item.ReceiverProfile.id, item.id)}>Draw</Button>
+                              </>
+                          )
+                        }
+
+                      </Popover.Body>
+                    </div>
+                  ))
+                }
+
+                {/* neither */}
+                {
+                  !isNotificationLoading && !notifications?.invitation1[0]?.id && !notifications?.invitation2[0]?.id && (
                     <>
                       <Popover.Header as="h3">You have not been challenged yet.</Popover.Header>
                       <Popover.Body>
                         <strong>
-                          Go challenge others, so that they will know you.
+                          Go invite others for a battle, so that you have higher chance to have PVP.
                         </strong>
                       </Popover.Body>
                     </>

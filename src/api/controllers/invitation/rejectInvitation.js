@@ -6,23 +6,11 @@ import session from '@/api/helpers/session'
 import { Invitation } from '@/db/models'
 
 const invitationDestroy = async (req, res) => {
-  const { query: { profileId } } = req
-  const { currentProfile } = res
+  const { query: { invitationId } } = req
 
   const invitation = await Invitation.destroy({
     where: {
-      [Op.or]: [
-        {
-          profile1: currentProfile.id,
-          profile2: profileId,
-          status: 'pending'
-        },
-        {
-          profile1: profileId,
-          profile2: currentProfile.id,
-          status: 'pending'
-        }
-      ]
+      id: invitationId
     }
   })
 

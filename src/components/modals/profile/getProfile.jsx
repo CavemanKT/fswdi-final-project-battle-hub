@@ -19,9 +19,23 @@ const CompsModalGetProfile = ({ data, close }) => {
     createInvitation, destroyInvitation
   } = useInvitation(data.id) // useSWR or axios
 
-  const handleInvitationSubmitBtn = () => {
+  const [showBusyOrSuccess, setShowBusyOrSuccess] = useState(false)
+  const [targetBusyOrSuccess, setTargetBusyOrSuccess] = useState(null)
+  const refBusyOrSuccess = useRef(null)
+
+  const [showSuccessReminder, setShowSuccessReminder] = useState(false)
+  const [targetSuccessReminder, setTargetSuccessReminder] = useState(null)
+  const refSuccessReminder = useRef(null)
+
+  const handleInvitationSubmitBtn = (event) => {
     createInvitation().then((resp) => {
-      // sendNotification()
+      if (!resp.opponentIsBusy) {
+        setShowBusyOrSuccess(!showBusyOrSuccess)
+        setTargetBusyOrSuccess(event.target)
+      } else {
+        setShowSuccessReminder(!showSuccessReminder)
+        setTargetSuccessReminder(event.target)
+      }
     })
   }
 
@@ -32,7 +46,7 @@ const CompsModalGetProfile = ({ data, close }) => {
   const handleInvitationCancelBtn = (event) => {
     destroyInvitation()
       .then((resp) => {
-        if (resp.data.invitation1 === 0 && resp.data.invitation2 === 0) {
+        if (!resp.data.invitation) {
           setShow(!show)
           setTarget(event.target)
         }
@@ -77,8 +91,40 @@ const CompsModalGetProfile = ({ data, close }) => {
         <Modal.Title>{data.characterName}&#39;s Profile</Modal.Title>
         {
           !invited && !myself && (
-            <Button onClick={() => handleInvitationSubmitBtn()} variant="outline-danger" className="ms-5">Challenge</Button>
+            <div ref={refBusyOrSuccess}>
 
+              <Button
+                onClick={handleInvitationSubmitBtn}
+                variant="outline-danger"
+                className="profile-modal-bar-cancel-btn"
+              >
+                Challenge
+              </Button>
+              <Overlay
+                show={showBusyOrSuccess}
+                target={targetBusyOrSuccess}
+                placement="bottom"
+                container={refBusyOrSuccess}
+                containerPadding={20}
+              >
+                <Popover id="popover-contained">
+                  <Popover.Header as="h3">Battling</Popover.Header>
+                  <Popover.Body>
+                    <strong>One of you has begun the battle.  We are waiting for the results.</strong>
+                  </Popover.Body>
+                </Popover>
+                {/* {
+                  showSuccessReminder && (
+                  <Popover id="popover-contained">
+                    <Popover.Header as="h3">Success</Popover.Header>
+                    <Popover.Body>
+                      <strong>Successfully invited.</strong>
+                    </Popover.Body>
+                  </Popover>
+                  )
+                } */}
+              </Overlay>
+              </div>
           )
         }
         {
@@ -98,11 +144,12 @@ const CompsModalGetProfile = ({ data, close }) => {
                 placement="bottom"
                 container={ref}
                 containerPadding={20}
+                className="overlay-contained d-flex"
               >
                 <Popover id="popover-contained">
                   <Popover.Header as="h3">Battling</Popover.Header>
                   <Popover.Body>
-                    <strong>Please wait for the messages. The opponent is busy at the moment</strong>
+                    <p>This candidate has <strong>started</strong> the battle, it cannot be cancelled until there is a result</p>
                   </Popover.Body>
                 </Popover>
               </Overlay>

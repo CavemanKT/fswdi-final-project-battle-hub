@@ -20,6 +20,34 @@ export default function useNotification(user) {
       withCredentials: true
     }).then((resp) => {
       resolve(resp)
+      // mutate(resp)
+    }).catch((err) => {
+      reject(err)
+    })
+  }))
+
+  const rejectInvitation = (invitationId) => (new Promise((resolve, reject) => {
+    axios({
+      method: 'DELETE',
+      url: `/api/invitation/rejectInvitation/${invitationId}`,
+      withCredentials: true
+    }).then((resp) => {
+      resolve(resp)
+      // mutate(resp)
+    }).catch((err) => {
+      reject(err)
+    })
+  }))
+
+  const setInvitationResult = (result, profileId, invitationId) => (new Promise((resolve, reject) => {
+    axios({
+      method: 'PUT',
+      url: `/api/invitation/invitationUpdate/${profileId}/updateResult/${invitationId}`,
+      data: result,
+      withCredentials: true
+    }).then((resp) => {
+      resolve(resp)
+      // mutate(resp)
     }).catch((err) => {
       reject(err)
     })
@@ -29,6 +57,8 @@ export default function useNotification(user) {
     notifications: data,
     isLoading: !error && !data,
     isError: error,
-    setInvitationStatusToAccepted
+    setInvitationStatusToAccepted,
+    rejectInvitation,
+    setInvitationResult
   }
 }

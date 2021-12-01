@@ -109,8 +109,9 @@ export default function PagesHome() {
               {
                 user && !isNotificationLoading && notifications?.invitation1 && notifications?.invitation2 && (
                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  <span className="visually-hidden">unread messages</span>
-                  {notifications.invitation1.length + notifications.invitation2.length}
+                  {
+                    notifications.invitation1.length + notifications.invitation2.length
+                  }
                 </span>
 
                 )

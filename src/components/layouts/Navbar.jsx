@@ -11,7 +11,7 @@ import ModalsSignup from '@/components/modals/auth/signup'
 import ModalsLogin from '@/components/modals/auth/login'
 
 // img
-import brandLogo from '../../public/assets/logo_transparent_1.png'
+import brandLogo from '../../../public/assets/logo_transparent_1.png'
 
 // user
 import useUser from '@/_hooks/user'

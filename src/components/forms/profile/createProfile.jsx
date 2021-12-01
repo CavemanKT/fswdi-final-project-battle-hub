@@ -82,7 +82,11 @@ RenderForm.propTypes = {
 
 const FormsProfileCreateSchema = yup.object().shape({
   characterName: yup.string().required('Required'),
-  gameTitle: yup.string().required('Required')
+  gameTitle: yup.string().required('Required'),
+  weapon: yup.string().required('Required'),
+  armour: yup.string().required('Required'),
+  amulet: yup.string().required('Required'),
+  boots: yup.string().required('Required')
 })
 
 const FormsProfileCreate = ({ onSubmit, gameTitle }) => (
@@ -93,7 +97,12 @@ const FormsProfileCreate = ({ onSubmit, gameTitle }) => (
       weapon: '',
       amulet: '',
       armour: '',
-      boots: ''
+      boots: '',
+      thumbnail: '',
+      img1: '',
+      img2: '',
+      img3: '',
+      video: ''
     }}
     validationSchema={FormsProfileCreateSchema}
     onSubmit={onSubmit}

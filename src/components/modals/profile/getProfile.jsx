@@ -233,8 +233,17 @@ const CompsModalGetProfile = ({ data, close }) => {
 
           <div className="carousel-container mt-3">
             <div id="showpage-carousel-container">
-              <Carousel variant="dark">
-                {
+              {
+                      !data?.img1 && !data?.img2 && !data?.img3 && (
+                        <div>Candidate didn't upload any image</div>
+
+                      )
+                    }
+
+              {
+                      (data?.img1 || data?.img2 || data?.img3) && (
+                      <Carousel variant="dark">
+                        {
                     data?.img2 && (
                       <Carousel.Item className="showpage-carousel-item">
                         <img
@@ -245,7 +254,7 @@ const CompsModalGetProfile = ({ data, close }) => {
                       </Carousel.Item>
                     )
                   }
-                {
+                        {
                     data?.img2 && (
                       <Carousel.Item>
                         <img
@@ -256,7 +265,7 @@ const CompsModalGetProfile = ({ data, close }) => {
                       </Carousel.Item>
                     )
                   }
-                {
+                        {
                     data?.img2 && (
                       <Carousel.Item>
                         <img
@@ -267,7 +276,10 @@ const CompsModalGetProfile = ({ data, close }) => {
                       </Carousel.Item>
                     )
                   }
-              </Carousel>
+                      </Carousel>
+                      )
+                    }
+
             </div>
           </div>
 

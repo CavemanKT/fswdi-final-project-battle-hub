@@ -32,6 +32,7 @@ export default function PageCandidateList() {
   if (isLoading) return null
 
   const handleCandidateListProfileModal = (i) => {
+    delete candidates.candidateList[i].Histories
     setProfileData(candidates.candidateList[i])
     setProfileOpenModal(true)
   }

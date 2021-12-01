@@ -76,17 +76,19 @@ export default function PagesHome() {
         <div className="d-flex home-page-row-wrapper">
 
           {/* navigation column */}
-          <div className="navigation-section me-5">
-            <a href="#comps-layouts-navbar" className="triangle" id="upward-triangle" />
-            <a href="#candidate-list" className="navigation-font" id="ranking">Ranking</a>
-            <a href="#game-list" className="navigation-font" id="games">Games</a>
-            <a href="#footer" className="triangle" id="downward-triangle" />
+          <div className="navigation-section me-5 col-sm-1">
+            <div className="navigation-selection-wrapper">
+              <a href="#comps-layouts-navbar" className="triangle" id="upward-triangle" />
+              <a href="#candidate-list" className="navigation-font" id="ranking">Ranking</a>
+              <a href="#game-list" className="navigation-font" id="games">Games</a>
+              <a href="#footer" className="triangle" id="downward-triangle" />
+            </div>
           </div>
 
           {/* candidate ranking column */}
 
           <div className="middle-section d-flex flex-column flex-grow-1 mb-5">
-            <div id="candidate-list m-5">
+            <div id="candidate-list" className="m-5">
               <ul>
                 {/* todo: issue! */}
                 {/* {candidates.forEach((item, i )=> {
@@ -95,57 +97,26 @@ export default function PagesHome() {
               </ul>
             </div>
 
-            {/* map the response and iterate the cards */}
-            {games
-            && (
-            <div id="game-list" className="col-12 col-sm-6 col-md-4 col-lg-3 card-style m-5">
-              <div className="card">
-                <img src={games && games.data[index].thumbnail} className="card-img-top" alt="Path_of_Exile_Image" />
-                <div className="card-body">
-                  <h5 className="card-title">{games && games.data[index].title}</h5>
-                  <p className="card-text">{games && games.data[index].short_description}</p>
-                </div>
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item ">
-                    <Link href={`/candidateList/${games && games.data[index].title}`}>
-                      <a className="text-decoration-none me-5">Candidate List</a>
-                    </Link>
-
-                    {// logged in and created profile
-                        user && user.Profile
-                        && (
-                          <Link href="#">
-                            <a className="text-decoration-none" onClick={() => handleMyProfileModal(games.data[index].id)}>Your Profile</a>
-                          </Link>
-                        )
-                    }
-                    {// logged in and didn't create profile
-                        user && !user.Profile
-                        && (
-                          <Link href="#">
-                            <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games.data[index].id)}>Create Profile</a>
-                          </Link>
-                        )
-                    }
-                  </li>
-
-                </ul>
-
-                <div className="card-body">
-                  <Link href="https://www.freetogame.com/open/path-of-exile">
-                    <a className="card-link text-decoration-none">Official Website</a>
-                  </Link>
-                </div>
-
-              </div>
-
-            </div>
-            )}
           </div>
 
           {/* notification column */}
           <div ref={ref} className="notification-section">
-            <Button onClick={handleClick} className="notification-toggle-btn">Invitations</Button>
+            <Button onClick={handleClick} className="notification-toggle-btn btn btn-primary position-relative">Notifications
+
+              {
+                !user && null
+              }
+              {
+                user && !isNotificationLoading && notifications?.invitation1 && notifications?.invitation2 && (
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <span className="visually-hidden">unread messages</span>
+                  {notifications.invitation1.length + notifications.invitation2.length}
+                </span>
+
+                )
+              }
+
+            </Button>
 
             <Overlay
               show={show}
@@ -160,7 +131,7 @@ export default function PagesHome() {
                 {/* Please log in */}
                 {
               !user && (
-                <Popover.Body as="h3">Please<strong>log in</strong>.</Popover.Body>
+                <Popover.Body as="h3">Please <strong>log in</strong>.</Popover.Body>
               )
                 }
 
@@ -183,12 +154,12 @@ export default function PagesHome() {
                               <p><strong>{`${item.OwnerProfile.characterName}`}</strong> from <strong>{` ${item.OwnerProfile.gameTitle}`}</strong> invite you for PVP.
                               </p>
                               <Button
-                                className="ms-4 mt-4"
+                                className="ms-4 mt-1"
                                 onClick={() => {
                                   handleInvitationStatus(item.OwnerProfile.id, item.id)
                                 }}
                               >Accept</Button>
-                              <Button className="ms-5 mt-4" onClick={() => destroyInvitation(item.id)}>Reject</Button>
+                              <Button className="ms-5 mt-1" onClick={() => destroyInvitation(item.id)}>Reject</Button>
                             </>
                           )
                         }
@@ -260,6 +231,55 @@ export default function PagesHome() {
           </div>
         </div>
 
+        <div id="home-page-second-row-wrapper">
+          {/* map the response and iterate the cards */}
+          {games
+            && (
+            <div id="game-list" className="col-6 col-sm-8 col-md-6 col-lg-4 card-style m-5">
+              <div className="card">
+                <img src={games && games.data[index].thumbnail} className="card-img-top" alt="Path_of_Exile_Image" />
+                <div className="card-body">
+                  <h5 className="card-title">{games && games.data[index].title}</h5>
+                  <p className="card-text">{games && games.data[index].short_description}</p>
+                </div>
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item ">
+                    <Link href={`/candidateList/${games && games.data[index].title}`}>
+                      <a className="text-decoration-none me-5">Candidate List</a>
+                    </Link>
+
+                    {// logged in and created profile
+                        user && user.Profile
+                        && (
+                          <Link href="#">
+                            <a className="text-decoration-none" onClick={() => handleMyProfileModal(games.data[index].id)}>Your Profile</a>
+                          </Link>
+                        )
+                    }
+                    {// logged in and didn't create profile
+                        user && !user.Profile
+                        && (
+                          <Link href="#">
+                            <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games.data[index].id)}>Create Profile</a>
+                          </Link>
+                        )
+                    }
+                  </li>
+
+                </ul>
+
+                <div className="card-body">
+                  <Link href="https://www.freetogame.com/open/path-of-exile">
+                    <a className="card-link text-decoration-none">Official Website</a>
+                  </Link>
+                </div>
+
+              </div>
+
+            </div>
+            )}
+
+        </div>
         {
             openCreateProfileModal && (
               <CompsModalCreateProfile

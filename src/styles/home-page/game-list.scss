@@ -1,0 +1,22 @@
+html {
+  body {
+
+    #home-page-second-row-wrapper {
+      display: flex;
+      justify-content: space-evenly;
+      background-color: #D63030;
+
+      #game-list {
+        border: 20px solid #FFFFFF;
+        border-radius: 10px;
+        position: relative;
+
+        .card {
+          border: none;
+        }
+
+      }
+    }
+
+  }
+}

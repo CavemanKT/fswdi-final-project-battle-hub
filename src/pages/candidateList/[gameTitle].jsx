@@ -63,7 +63,7 @@ export default function PageCandidateList() {
               {
                 candidates && candidates.candidateList.map((item, i) => (
                   <tr key={item.id}>
-                    <td>{i}</td>
+                    <td>{i + 1}</td>
                     <td>{item.gameTitle}</td>
                     <td>{item.characterName}</td>
                     <td>{item.weapon}</td>

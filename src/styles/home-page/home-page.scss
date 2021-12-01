@@ -10,62 +10,85 @@ html {
       // navigation-section
       .navigation-section {
         position: relative;
-        min-width: 200px;
+        width: 25%;
         min-height: 200px;
 
-        .navigation-font {
-          /* common font feature */
+        .navigation-selection-wrapper {
           position: fixed;
-          width: 130px;
-          height: 42px;
-          left: 79px;
 
-          text-decoration: none;
-          font-family: Montserrat;
-          font-style: normal;
-          font-weight: 600;
-          font-size: 21px;
-          line-height: 26px;
-          text-align: center;
+          .navigation-font {
+            /* common font feature */
+            width: 130px;
+            height: 42px;
+            margin-left: 45px;
+            margin-top: 45px;
+            text-decoration: none;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 21px;
+            line-height: 26px;
+            text-align: center;
 
-          color: #878787;
+            color: rgba(#C490E4, 0.5);
+          }
+
+          .navigation-font:hover {
+            color: rgba(#C490E4, 1);
+
+          }
+
+          #ranking {
+            // Ranking
+            top: 304px;
+            display: block;
+          }
+
+          #games {
+            /* Games */
+            top: 406px;
+            display: block;
+          }
+
+          .triangle {
+            display: inline-block;
+            margin: 0 5px;
+          }
+
+          #upward-triangle {
+            border-bottom: solid 30px rgba(#F5C6AA, 0.5);
+            border-left: solid 30px transparent;
+            border-right: solid 30px transparent;
+            width: 7px;
+            height: 10px;
+            margin-left: 79px;
+            margin-top: 100px;
+          }
+
+          #upward-triangle:hover {
+            border-bottom: solid 30px rgba(#F5C6AA, 1);
+          }
+
+          #downward-triangle {
+            border-top: solid 30px rgba(#F5C6AA, 0.5);
+            border-left: solid 30px transparent;
+            border-right: solid 30px transparent;
+            width: 7px;
+            height: 10px;
+            margin-left: 79px;
+            margin-top: 45px;
+          }
+
+          #downward-triangle:hover {
+            border-top: solid 30px rgba(#F5C6AA, 1);
+          }
         }
 
-        #ranking {
-          // Ranking
-          top: 304px;
-        }
+        @media screen and (max-width: 767px) {
+          .navigation-selection-wrapper {
+            display: none;
 
-        #games {
-          /* Games */
-          top: 406px;
-        }
-
-        .triangle {
-          display: inline-block;
-          margin: 0 5px;
-        }
-
-        #upward-triangle {
-          border-bottom: solid 30px #C87070;
-          border-left: solid 30px transparent;
-          border-right: solid 30px transparent;
-          position: fixed;
-          width: 7px;
-          height: 10px;
-          left: 107px;
-          top: 190px;
-        }
-
-        #downward-triangle {
-          border-top: solid 30px #C87070;
-          border-left: solid 30px transparent;
-          border-right: solid 30px transparent;
-          position: fixed;
-          width: 7px;
-          height: 10px;
-          left: 107px;
-          top: 500px;
+          }
         }
       }
 
@@ -74,11 +97,6 @@ html {
         min-height: 100vh;
 
         #candidate-list {
-          min-height: 100vh;
-        }
-
-        #game-list {
-          position: relative;
           min-height: 100vh;
         }
 

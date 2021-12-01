@@ -1,7 +1,6 @@
 import '@/styles/globals.scss'
 import * as React from 'react'
 import { ToastContainer } from 'react-toastify'
-import toast from '../components/Toast'
 import 'react-toastify/dist/ReactToastify.css'
 
 export default function MyApp({ Component, pageProps }) {

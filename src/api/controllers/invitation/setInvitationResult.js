@@ -110,8 +110,6 @@ const setInvitationResult = async (req, res) => {
     ProfileId: currentProfile.id, result
   })
 
-  console.log(invitation1, invitation2, history)
-
   res.status(200).json({ history })
 }
 

@@ -1,0 +1,62 @@
+html {
+  body {
+
+    #inspector-dashBoard {
+      height: 200px;
+
+
+      .btn-animated-arrow {
+        top: 10px;
+        margin-left: 10px;
+        width: 50px;
+        height: 50px;
+        background-color: #D63030;
+        border-radius: 50%;
+        position: relative;
+        z-index: 1;
+
+
+        &:before {
+          // white cross
+          width: 6px;
+          height: 20px;
+          content: "";
+          border-radius: 6px;
+          background-color: #FFF;
+          display: block;
+          position: absolute;
+          top: 9px;
+          right: 0;
+          left: 0;
+          margin: auto;
+          transform: rotate(-45deg);
+        }
+
+        &:after {
+          width: 6px;
+          height: 20px;
+          content: "";
+          border-radius: 6px;
+          background-color: #FFF;
+          display: block;
+          position: absolute;
+          right: 0;
+          bottom: 9px;
+          left: 0;
+          margin: auto;
+          transform: rotate(45deg);
+        }
+
+        &:hover {
+          cursor: pointer;
+
+          &:after {}
+
+          &:before {}
+        }
+
+      }
+    }
+
+  }
+}

@@ -1,7 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 
 // public
-
+@import './nar-bar.scss';
 
 // index page
 @import './home-page/home-page';
@@ -16,6 +16,8 @@
 @import './profile-modal/right-column.scss';
 @import './profile-modal/head-bar.scss';
 
+// inspector's dashboard
+@import './inspector-page//dashboard/off-canvas-feature.scss';
 
 html {
   body {
@@ -25,16 +27,5 @@ html {
     background: #FFFFFF;
   }
 
-  .font-color {
-    /* Battle Hub */
-    width: 122px;
-    height: 52px;
 
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 25px;
-    line-height: 30px;
-
-  }
 }

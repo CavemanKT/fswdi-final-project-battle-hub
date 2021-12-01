@@ -3,6 +3,13 @@ import crypto from 'crypto'
 
 import session from '@/api/helpers/session'
 import passport from '@/api/helpers/passport'
+
+const userSerializer = function (values) {
+  const { ...user } = values.dataValues
+  delete user.passwordHash
+  return user
+}
+
 const authEmailLogin = async (req, res, next) => {
   passport.authenticate('local', async (err, user, info) => {
     if (err) return res.status(500).end(err.toString())
@@ -14,7 +21,7 @@ const authEmailLogin = async (req, res, next) => {
     req.session.set('token', token)
     await req.session.save()
 
-    return res.status(200).json({ user })
+    return res.status(200).json(userSerializer(user))
   })(req, res, next)
 }
 

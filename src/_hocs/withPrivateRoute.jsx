@@ -14,7 +14,7 @@ export default function withPrivateRoute(WrappedComponent) {
     useEffect(() => {
       if (!isLoading && !user) {
         router.push('/')
-        toast('Please Login First!', {
+        toast.warning('Please Login First!', {
           position: 'bottom-left',
           autoClose: 5000,
           hideProgressBar: false,
@@ -23,7 +23,6 @@ export default function withPrivateRoute(WrappedComponent) {
           draggable: true,
           progress: undefined
         })
-        // remember to add toastify to pop up a toast  or use react-bootstrap
       }
     }, [isLoading, user])
 

@@ -17,7 +17,8 @@
 @import './profile-modal/head-bar.scss';
 
 // inspector's dashboard
-@import './inspector-page//dashboard/off-canvas-feature.scss';
+@import './inspector-page/dashboard/off-canvas-feature.scss';
+@import './inspector-page/dashboard/candidate-list-container.scss';
 
 html {
   body {

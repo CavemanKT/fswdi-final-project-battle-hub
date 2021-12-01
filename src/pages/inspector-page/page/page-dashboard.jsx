@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
+import Table from 'react-bootstrap/Table'
 
 import useInvitation from '@/_hooks/invitation'
 import useGames from '@/_hooks/games'
@@ -9,15 +10,26 @@ import useCandidates from '@/_hooks/candidateList'
 // import useHistory from '@/_hooks/history'
 import CompsLayout from '@/components/layouts/Layout'
 
+import CompsModalGetHistory from '@/components/modals/history/get'
+
 export default function pageDashBoard() {
   const [show, setShow] = useState(false)
-
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-  const { games, isLoading: isGamesLoading } = useGames()
+
+  const [candidateList, setCandidateList] = useState(null)
+  const [historyData, setHistoryData] = useState(null)
+  const [historyOpenModal, setHistoryOpenModal] = useState(false)
+
+  const { games, isLoading: isGamesLoading,
+    getGameCandidateList
+  } = useGames()
+
   if (isGamesLoading) return null
 
   const index = games.data.findIndex((item) => item.title === 'Path of Exile')
+  const gameTitle = games?.data[index].title
+  const gameImg = games?.data[index].thumbnail
 
   // const { candidates, isLoading } = useCandidates(gameTitle)
   // const {
@@ -27,25 +39,134 @@ export default function pageDashBoard() {
   //   setHistory // for now , here, we use timeStamp to identity which battle the candidate fought, so that we know which data is supposed to be modified.
   // } = useHistory()
 
-  const handleGetList = (gameTitle) => {
-    // getGameCandidateList()
+  const handleGetList = (game) => {
+    getGameCandidateList(game).then((resp) => {
+      setCandidateList(resp.data)
+    })
   }
+
+  const handleCandidateListHistoryModal = (i) => {
+    setHistoryData(candidateList.candidateList[i])
+    setHistoryOpenModal(true)
+  }
+
+  const closeModalsHistory = () => {
+    setHistoryOpenModal(false)
+  }
+
+  const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'Profile', 'History'] //
 
   return (
 
-    <div id="inspector-dashBoard">
+    <div id="inspector-dash-board">
       <Button variant="animated-arrow" onClick={handleShow} className="me-2" />
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Games</Offcanvas.Title>
+          <Offcanvas.Title>
+            <div>
+              Games
+            </div>
+          </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <div onClick={() => handleGetList()} />
+          {gameTitle && (
+            <>
+              <Image src={`${gameImg}`} alt="game_thumbnail" onClick={() => handleGetList(gameTitle)} />
+              <Button onClick={() => handleGetList(gameTitle)} className="mt-3">{gameTitle}</Button>
+            </>
+          )}
 
         </Offcanvas.Body>
       </Offcanvas>
-      <div className="main-candidate-list" />
+      <div id="candidate-list-container" className="">
+
+        {
+              !candidateList && !candidateList?.candidateList && (
+                <div className="text-center">
+                  <h1>
+                    Please select a game to view list of candidates
+                  </h1>
+                </div>
+              )
+            }
+        {candidateList && (
+        <>
+          <div id="candidate-list-heading">
+            <h3>Candidate List</h3>
+          </div>
+
+          <div className="candidate-list-wrapper">
+
+            <Table responsive>
+              <thead>
+                <tr>
+                  <th />
+                  {
+                  profile.map((item) => (
+                    <th key={item}>{item}</th>
+                  ))
+                }
+                </tr>
+              </thead>
+              <tbody>
+                {
+                candidateList && candidateList?.candidateList?.map((item, i) => (
+                  <tr key={item.id}>
+                    <td>{i + 1}</td>
+                    <td>{item.gameTitle}</td>
+                    <td>{item.characterName}</td>
+                    <td>{item.weapon}</td>
+                    <td>{item.amulet}</td>
+                    <td>{item.armour}</td>
+                    <td>{item.boots}</td>
+                    <td className="d-flex justify-content-center">
+                      <button type="button" className="basic-btn-feature btn-profile" onClick={() => handleCandidateListProfileModal(i)}>
+                        Profile
+                      </button>
+                    </td>
+                    <td><button type="button" className="basic-btn-feature btn-history" onClick={() => handleCandidateListHistoryModal(i)}>History</button></td>
+                  </tr>
+                ))
+              }
+              </tbody>
+            </Table>
+
+          </div>
+        </>
+        )}
+      </div>
+
+      {/* {
+        openProfileModal && (
+          <div id="compsModalProfile">
+            <CompsModalGetProfile
+              data={profileData}
+              close={closeModalsProfile}
+            />
+          </div>
+        )
+      } */}
+
+      {
+        historyOpenModal && (
+          <div id="compsModalHistory">
+            <CompsModalGetHistory
+              data={historyData}
+              close={closeModalsHistory}
+            />
+          </div>
+        )
+      }
+
+      {/* <ul>
+          {
+          candidateList && candidateList?.candidateList?.map((item, i) => (
+            <li>{item.id}</li>
+          ))
+        }
+
+        </ul> */}
     </div>
   )
 }

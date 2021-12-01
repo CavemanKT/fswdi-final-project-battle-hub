@@ -23,7 +23,7 @@ export default function PageCandidateList() {
   // const { invitation, isLoading: isInvitationLoading } = useInvitation(candidates)
 
   // modal state
-  const [openModal, setProfileOpenModal] = useState(false)
+  const [openProfileModal, setProfileOpenModal] = useState(false)
 
   // data state
   const [profileData, setProfileData] = useState(null)
@@ -85,7 +85,7 @@ export default function PageCandidateList() {
       </div>
 
       {
-        openModal && (
+        openProfileModal && (
           <div id="compsModalProfile">
             <CompsModalGetProfile
               data={profileData}

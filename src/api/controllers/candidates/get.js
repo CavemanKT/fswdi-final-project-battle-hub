@@ -9,10 +9,15 @@ const getCandidateList = async (req, res) => {
     where: {
       gameTitle
     },
-    include: Profile.User
+    include: [
+      {
+        association: Profile.User
+      },
+      {
+        association: Profile.Histories
+      }
+    ]
   })
-
-  // console.log('candidateList',candidateList[0].User);
 
   res.status(200).json({ candidateList })
 }

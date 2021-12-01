@@ -1,5 +1,6 @@
 import useSWR from 'swr'
 import axios from 'axios'
+import { resolveHref } from 'next/dist/shared/lib/router/router'
 
 const options = {
   method: 'GET',
@@ -20,10 +21,22 @@ export default function useGames() {
   // if (data){
   //   console.log(data.data[45])
   // }
+  const getGameCandidateList = (gameTitle) => (new Promise((resolve, reject) => {
+    axios({
+      method: 'GET',
+      url: `/api/candidates/${gameTitle}`
+    }).then((resp) => {
+      resolve(resp)
+      console.log('containing histories:', resp)
+    }).catch((err) => {
+      reject(err)
+    })
+  }))
 
   return {
     games: data,
     isLoading: !error && !data,
-    isError: error
+    isError: error,
+    getGameCandidateList
   }
 }

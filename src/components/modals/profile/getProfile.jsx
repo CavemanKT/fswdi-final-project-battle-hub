@@ -1,17 +1,21 @@
 import React, { useRef, useState } from 'react'
 import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
+import { Player } from 'video-react'
+import Carousel from 'react-bootstrap/Carousel'
 
 import PropTypes from 'prop-types'
 import Modal from 'react-bootstrap/Modal'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import Head from 'next/head'
 
 import useInvitation from '@/_hooks/invitation'
 import useUser from '@/_hooks/user'
 import withPrivateRoute from '@/_hocs/withPrivateRoute'
 
 const CompsModalGetProfile = ({ data, close }) => {
+  console.log(data)
   const { user, isLoading: isUserLoading, error: isUserErr } = useUser()
 
   const {
@@ -85,11 +89,16 @@ const CompsModalGetProfile = ({ data, close }) => {
   valueArrUser.splice(2, 2)
 
   return (
+    <>
+      <Head>
+        <title>Profile</title>
+        <link rel="stylesheet" href="/css/video-react.css" />
+      </Head>
 
-    <Modal fullscreen show onHide={close} className="modal-fullscreen">
-      <Modal.Header closeButton className="d-flex">
-        <Modal.Title>{data.characterName}&#39;s Profile</Modal.Title>
-        {
+      <Modal fullscreen show onHide={close} className="modal-fullscreen">
+        <Modal.Header closeButton className="d-flex">
+          <Modal.Title>{data.characterName}&#39;s Profile</Modal.Title>
+          {
           !invited && !myself && (
             <div ref={refBusyOrSuccess}>
 
@@ -127,7 +136,7 @@ const CompsModalGetProfile = ({ data, close }) => {
               </div>
           )
         }
-        {
+          {
           invited && !myself && (
             <div ref={ref}>
               <Button
@@ -157,25 +166,36 @@ const CompsModalGetProfile = ({ data, close }) => {
           )
         }
 
-      </Modal.Header>
-      <Modal.Body>
+        </Modal.Header>
+        <Modal.Body>
 
-        <div id="profile-container" className="position-relative">
-          <div className="profile-wrapper row">
+          <div id="profile-container" className="position-relative">
+            <div className="profile-wrapper row">
 
-            {/* needs images and video */}
-            <div className="left-column col" />
+              {/* needs images and video */}
+              <div className="left-column col">
+                {
+                  data?.video && (
+                  <Player
+                    playsInline
+                    poster="/assets/poster.png"
+                    src={data.video}
+                    poster={data.thumbnail} // remember to add thumbnail and more images column in the table Profile
+                  />
+                  )
+                }
+              </div>
 
-            <div className="right-column col">
-              <Table responsive>
-                <thead>
-                  <tr className="tr-font">
-                    <th>Character</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="d-flex flex-column">
-                    {
+              <div className="right-column col">
+                <Table responsive>
+                  <thead>
+                    <tr className="tr-font">
+                      <th>Character</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="d-flex flex-column">
+                      {
                       keyArr && keyArr.map((item, i) => (
                         <td key={item} className="d-flex justify-content-between">
                           <span>{item} :</span>
@@ -183,19 +203,19 @@ const CompsModalGetProfile = ({ data, close }) => {
                         </td>
                       ))
                     }
-                  </tr>
-                </tbody>
-              </Table>
+                    </tr>
+                  </tbody>
+                </Table>
 
-              <Table responsive>
-                <thead>
-                  <tr className="tr-font">
-                    <th>User</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="d-flex flex-column">
-                    {
+                <Table responsive>
+                  <thead>
+                    <tr className="tr-font">
+                      <th>User</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="d-flex flex-column">
+                      {
                       keyArrUser && keyArrUser.map((item, i) => (
                         <td key={item} className="d-flex justify-content-between">
                           <span>{ item } :</span>
@@ -203,16 +223,58 @@ const CompsModalGetProfile = ({ data, close }) => {
                         </td>
                       ))
                     }
-                  </tr>
-                </tbody>
-              </Table>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+
             </div>
-
           </div>
-        </div>
 
-      </Modal.Body>
-    </Modal>
+          <div className="carousel-container mt-3">
+            <div id="showpage-carousel-container">
+              <Carousel variant="dark">
+                {
+                    data?.img2 && (
+                      <Carousel.Item className="showpage-carousel-item">
+                        <img
+                          className="w-100"
+                          src={data?.img2}
+                          alt="First slide"
+                        />
+                      </Carousel.Item>
+                    )
+                  }
+                {
+                    data?.img2 && (
+                      <Carousel.Item>
+                        <img
+                          className="w-100"
+                          src={data?.img2}
+                          alt="Second slide"
+                        />
+                      </Carousel.Item>
+                    )
+                  }
+                {
+                    data?.img2 && (
+                      <Carousel.Item>
+                        <img
+                          className="w-100"
+                          src={data?.img2}
+                          alt="Third slide"
+                        />
+                      </Carousel.Item>
+                    )
+                  }
+              </Carousel>
+            </div>
+          </div>
+
+        </Modal.Body>
+      </Modal>
+    </>
+
   )
 }
 CompsModalGetProfile.propTypes = {

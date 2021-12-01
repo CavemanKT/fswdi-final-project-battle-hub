@@ -1,4 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
+@import '~video-react/styles/scss/video-react';
 
 // public
 @import './nar-bar.scss';
@@ -15,6 +16,7 @@
 // profile modal
 @import './profile-modal/right-column.scss';
 @import './profile-modal/head-bar.scss';
+@import './profile-modal/carousel.scss';
 
 // inspector's dashboard
 @import './inspector-page/dashboard/off-canvas-feature.scss';

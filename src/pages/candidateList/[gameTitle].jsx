@@ -14,7 +14,7 @@ import CompsLayout from '@/components/layouts/Layout'
 // import modal
 import CompsModalGetProfile from '@/components/modals/profile/getProfile'
 
-const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'Profile', 'History'] //
+const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'Profile']
 
 export default function PageCandidateList() {
   const router = useRouter()
@@ -76,7 +76,6 @@ export default function PageCandidateList() {
                         Profile
                       </button>
                     </td>
-                    <td><button type="button" className="basic-btn-feature btn-history">History</button></td>
                   </tr>
                 ))
               }

@@ -10,9 +10,12 @@ import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
 import useGames from '@/_hooks/games'
 import useUser from '@/_hooks/user'
-import CompsModalCreateProfile from '@/components/modals/profile/createProfile'
-import CompsLayout from '@/components/layouts/Layout'
+import useCandidates from '@/_hooks/candidateList'
 import useNotification from '@/_hooks/notification'
+
+import CompsModalCreateProfile from '@/components/modals/profile/createProfile'
+import CompsModalUserProfile from '@/components/modals/profile/getProfile'
+import CompsLayout from '@/components/layouts/Layout'
 
 export default function PagesHome() {
   const [show, setShow] = useState(false)
@@ -20,9 +23,14 @@ export default function PagesHome() {
   const ref = useRef(null)
 
   const [openCreateProfileModal, setOpenCreateProfileModal] = useState(null)
+  const [openMyProfileModal, setOpenMyProfileModal] = useState(null)
 
   const { user, apiProfileCreate, isLoading: isUserLoading } = useUser()
+  console.log(user)
   const { games, isLoading: isGamesLoading } = useGames()
+
+  const { candidates, isLoading } = useCandidates(user?.Profile?.gameTitle)
+
   const {
     notifications, isLoading: isNotificationLoading,
     setInvitationStatusToAccepted,
@@ -34,16 +42,22 @@ export default function PagesHome() {
 
   const index = games.data.findIndex((item) => item.title === 'Path of Exile')
 
-  const handleCreateProfileModal = (id) => {
-    setOpenCreateProfileModal(id)
+  const indexOfCandidates = candidates?.candidateList?.findIndex((item) => item?.id === user?.Profile?.id)
+
+  const handleCreateProfileModal = (gameId) => {
+    setOpenCreateProfileModal(gameId)
   }
 
   const closeCreateProfileModal = () => {
     setOpenCreateProfileModal(null)
   }
 
-  const handleMyProfileModal = (id) => { //  < ------ need a fix
+  const handleMyProfileModal = (gameId) => { //  < ------ need a fix
+    setOpenMyProfileModal(gameId)
+  }
 
+  const closeUserProfileModal = () => {
+    setOpenMyProfileModal(null)
   }
 
   const handleSubmitProfileCreate = (values) => {
@@ -288,6 +302,15 @@ export default function PagesHome() {
                 onSubmit={handleSubmitProfileCreate}
                 gameTitle={games && games.data[index].title}
               />
+            )
+          }
+        {
+            openMyProfileModal && (
+              <CompsModalUserProfile
+                close={closeUserProfileModal}
+                data={candidates.candidateList[indexOfCandidates]}
+              />
+
             )
           }
       </div>

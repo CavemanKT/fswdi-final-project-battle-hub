@@ -1,3 +1,13 @@
 .carousel-container {
   min-height: 40%;
+
+  .fixed-the-size {
+    max-height: 400px;
+    max-width: 600px;
+
+    .showpage-carousel-item {
+      min-height: 400px;
+      min-width: 600px;
+    }
+  }
 }

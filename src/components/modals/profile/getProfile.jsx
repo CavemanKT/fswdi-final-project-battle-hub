@@ -3,7 +3,7 @@ import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
 import { Player } from 'video-react'
 import Carousel from 'react-bootstrap/Carousel'
-
+import Image from 'react-bootstrap/Image'
 import PropTypes from 'prop-types'
 import Modal from 'react-bootstrap/Modal'
 import Table from 'react-bootstrap/Table'
@@ -67,24 +67,13 @@ const CompsModalGetProfile = ({ data, close }) => {
   // get rid of id, createdBy... atrributes
   const keyArr = Object.keys(data)
   const valueArr = Object.values(data)
-  const userData = valueArr[13]
+  keyArr.splice(7, 9)
+  valueArr.splice(7, 9)
 
-  keyArr.splice(0, 1)
-  keyArr.splice(6, 7)
-  valueArr.splice(0, 1)
-  valueArr.splice(6, 7)
-
-  // destructure User object
-  const keyArrUser = Object.keys(userData)
-  const valueArrUser = Object.values(userData)
-
-  // only keep Name and Type
-  keyArrUser.splice(0, 1)
-  keyArrUser.splice(1, 4)
-  keyArrUser.splice(2, 2)
-  valueArrUser.splice(0, 1)
-  valueArrUser.splice(1, 4)
-  valueArrUser.splice(2, 2)
+  const userKeyArr = Object.keys(data)
+  const userValueArr = Object.keys(data)
+  userKeyArr.splice(0, 1)
+  userValueArr.splice(0, 1)
 
   return (
     <>
@@ -173,7 +162,7 @@ const CompsModalGetProfile = ({ data, close }) => {
               {
               !user?.Profile?.id && (
                 <div className="d-flex ms-5 challenge-no-user-warning">
-                  <div>Create your own profile to challange other opponents</div>
+                  <div>Create your own profile to challenge other opponents</div>
                 </div>
               )
             }
@@ -183,6 +172,8 @@ const CompsModalGetProfile = ({ data, close }) => {
         }
 
         </Modal.Header>
+
+        {/* video, images, equipments */}
         <Modal.Body>
 
           <div id="profile-container" className="position-relative">
@@ -202,8 +193,8 @@ const CompsModalGetProfile = ({ data, close }) => {
                   <Player
                     playsInline
                     poster="/assets/poster.png"
-                    src={data.video}
-                    poster={data.thumbnail} // remember to add thumbnail and more images column in the table Profile
+                    src={data?.video}
+                    poster={data?.thumbnail}
                   />
                   )
                 }
@@ -239,12 +230,18 @@ const CompsModalGetProfile = ({ data, close }) => {
                   <tbody>
                     <tr className="d-flex flex-column">
                       {
-                      keyArrUser && keyArrUser.map((item, i) => (
-                        <td key={item} className="d-flex justify-content-between">
-                          <span>{ item } :</span>
-                          <span className="ms-5">{ valueArrUser[i] }</span>
-                        </td>
-                      ))
+                        data?.User && (
+                          <>
+                            <td className="d-flex justify-content-between">
+                              <span> {Object.keys(data.User)[1]} :</span>
+                              <span className="ms-5">{ data.User.name }</span>
+                            </td>
+                            <td className="d-flex justify-content-between">
+                              <span> {Object.keys(data.User)[6]} :</span>
+                              <span className="ms-5">{ data.User.name }</span>
+                            </td>
+                          </>
+                        )
                     }
                     </tr>
                   </tbody>
@@ -255,7 +252,7 @@ const CompsModalGetProfile = ({ data, close }) => {
           </div>
 
           <div className="carousel-container mt-3 d-flex justify-content-center align-items-center">
-            <div id="showpage-carousel-container">
+            <div id="showpage-carousel-container" className="fixed-the-size">
               {
                       !data?.img1 && !data?.img2 && !data?.img3 && (
                         <div>Candidate have not yet uploaded any image.</div>
@@ -269,10 +266,10 @@ const CompsModalGetProfile = ({ data, close }) => {
                         {
                     data?.img2 && (
                       <Carousel.Item className="showpage-carousel-item">
-                        <img
+                        <Image
                           className="w-100"
-                          src={data?.img2}
-                          alt="First slide"
+                          src={data?.img1}
+                          alt="Candidate forgot to upload the image"
                         />
                       </Carousel.Item>
                     )
@@ -280,21 +277,21 @@ const CompsModalGetProfile = ({ data, close }) => {
                         {
                     data?.img2 && (
                       <Carousel.Item>
-                        <img
+                        <Image
                           className="w-100"
                           src={data?.img2}
-                          alt="Second slide"
+                          alt="Candidate forgot to upload the image"
                         />
                       </Carousel.Item>
                     )
                   }
                         {
-                    data?.img2 && (
+                    data?.img3 && (
                       <Carousel.Item>
-                        <img
+                        <Image
                           className="w-100"
-                          src={data?.img2}
-                          alt="Third slide"
+                          src={data?.img3}
+                          alt="Candidate forgot to upload the image"
                         />
                       </Carousel.Item>
                     )

@@ -10,7 +10,7 @@ export default function useCandidates(gameTitle) {
   const { data, error, mutate } = useSWR(url, fetcher, {
     shouldRetryOnError: false
   })
-
+  console.log(gameTitle, data)
   return {
     candidates: data,
     isLoading: !error && !data,

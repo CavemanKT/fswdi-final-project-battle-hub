@@ -54,7 +54,7 @@ export default function pageDashBoard() {
     setHistoryOpenModal(false)
   }
 
-  const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'Profile', 'History'] //
+  const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'History']
 
   return (
 
@@ -120,12 +120,10 @@ export default function pageDashBoard() {
                     <td>{item.amulet}</td>
                     <td>{item.armour}</td>
                     <td>{item.boots}</td>
+
                     <td className="d-flex justify-content-center">
-                      <button type="button" className="basic-btn-feature btn-profile" onClick={() => handleCandidateListProfileModal(i)}>
-                        Profile
-                      </button>
+                      <button type="button" className="basic-btn-feature btn-history" onClick={() => handleCandidateListHistoryModal(i)}>History</button>
                     </td>
-                    <td><button type="button" className="basic-btn-feature btn-history" onClick={() => handleCandidateListHistoryModal(i)}>History</button></td>
                   </tr>
                 ))
               }
@@ -136,18 +134,6 @@ export default function pageDashBoard() {
         </>
         )}
       </div>
-
-      {/* {
-        openProfileModal && (
-          <div id="compsModalProfile">
-            <CompsModalGetProfile
-              data={profileData}
-              close={closeModalsProfile}
-            />
-          </div>
-        )
-      } */}
-
       {
         historyOpenModal && (
           <div id="compsModalHistory">

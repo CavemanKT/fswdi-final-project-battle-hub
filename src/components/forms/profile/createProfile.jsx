@@ -115,6 +115,9 @@ RenderForm.propTypes = {
   values: PropTypes.shape().isRequired
 }
 
+// const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png']
+// const SUPPORTED_VIDEO_FORMATS = ['image/jpg', 'image/jpeg', 'image/png', 'audio/mp3', 'video/mp4', 'video/mov']
+
 const FormsProfileCreateSchema = yup.object().shape({
   characterName: yup.string().required('Required'),
   gameTitle: yup.string().required('Required'),
@@ -122,6 +125,7 @@ const FormsProfileCreateSchema = yup.object().shape({
   armour: yup.string().required('Required'),
   amulet: yup.string().required('Required'),
   boots: yup.string().required('Required')
+
 })
 
 const FormsProfileCreate = ({ onSubmit, gameTitle }) => (

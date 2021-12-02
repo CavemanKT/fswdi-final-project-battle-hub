@@ -18,7 +18,7 @@ const getCandidateList = async (req, res) => {
       }
     ]
   })
-
+  console.log(candidateList)
   res.status(200).json({ candidateList })
 }
 

@@ -72,7 +72,7 @@ export default function CompsLayoutsNavbar() {
             <Nav className="me-auto d-flex">
               <Nav.Link as={Link} href="/about-us"><a className="nav-link">About Us</a></Nav.Link>
               <Nav.Link as={Link} href="/private"><a className="nav-link">User</a></Nav.Link>
-              <Nav.Link as={Link} href="/blog"><a className="nav-link">Blog</a></Nav.Link>
+              {/* <Nav.Link as={Link} href="/blog"><a className="nav-link">Blog</a></Nav.Link> */}
 
               { !user
               && (

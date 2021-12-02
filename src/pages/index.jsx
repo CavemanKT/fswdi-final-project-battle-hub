@@ -244,9 +244,10 @@ export default function PagesHome() {
                   <p className="card-text">{games && games.data[index].short_description}</p>
                 </div>
                 <ul className="list-group list-group-flush">
-                  <li className="list-group-item ">
+
+                  <li className="list-group-item d-flex justify-content-evenly">
                     <Link href={`/candidateList/${games && games.data[index].title}`}>
-                      <a className="text-decoration-none me-5">Candidate List</a>
+                      <a className="text-decoration-none">Candidate List</a>
                     </Link>
 
                     {// logged in and created profile
@@ -266,10 +267,9 @@ export default function PagesHome() {
                         )
                     }
                   </li>
-
                 </ul>
 
-                <div className="card-body">
+                <div className="card-body d-flex justify-content-center">
                   <Link href="https://www.freetogame.com/open/path-of-exile">
                     <a className="card-link text-decoration-none">Official Website</a>
                   </Link>

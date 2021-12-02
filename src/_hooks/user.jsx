@@ -2,12 +2,13 @@ import useSWR from 'swr'
 import axios from 'axios'
 
 import fetcher from '@/_services/fetcher'
+import getFormData from '@/_services/getFormData'
 
 export default function useUser() {
   const { data, error, mutate } = useSWR('/api/my/profile', fetcher, {
     shouldRetryOnError: false
   })
-
+  console.log(data)
   const apiSignup = (values) => (new Promise((resolve, reject) => {
     axios({
       method: 'POST',
@@ -51,10 +52,11 @@ export default function useUser() {
   }))
 
   const apiProfileCreate = (values) => (new Promise((resolve, reject) => {
+    console.log(values)
     axios({
       method: 'POST',
       url: '/api/profile/create',
-      data: values,
+      data: getFormData(values, 'profile'),
       withCredentials: true
     }).then((resp) => {
       console.log('resp ---->', resp)

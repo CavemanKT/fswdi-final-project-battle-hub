@@ -15,9 +15,7 @@ import useUser from '@/_hooks/user'
 import withPrivateRoute from '@/_hocs/withPrivateRoute'
 
 const CompsModalGetProfile = ({ data, close }) => {
-  console.log(data)
   const { user, isLoading: isUserLoading, error: isUserErr } = useUser()
-
   const {
     invitation, isLoading: isInvitationLoading, error: isInvitationErr,
     createInvitation, destroyInvitation
@@ -64,7 +62,7 @@ const CompsModalGetProfile = ({ data, close }) => {
   invited = invitation ? invitation.invitation1 || invitation.invitation2 : null
 
   let myself = null
-  myself = data.id === user.Profile.id
+  myself = data.id === user?.Profile?.id
 
   // get rid of id, createdBy... atrributes
   const keyArr = Object.keys(data)
@@ -98,70 +96,88 @@ const CompsModalGetProfile = ({ data, close }) => {
       <Modal fullscreen show onHide={close} className="modal-fullscreen">
         <Modal.Header closeButton className="d-flex">
           <Modal.Title>{data.characterName}&#39;s Profile</Modal.Title>
+
           {
           !invited && !myself && (
             <div ref={refBusyOrSuccess}>
+              {
+                user?.Profile?.id && (
+                  <>
+                    <Button
+                      onClick={handleInvitationSubmitBtn}
+                      variant="outline-danger"
+                      className="profile-modal-bar-cancel-btn"
+                    >
+                      Challenge
+                    </Button>
+                    <Overlay
+                      show={showBusyOrSuccess}
+                      target={targetBusyOrSuccess}
+                      placement="bottom"
+                      container={refBusyOrSuccess}
+                      containerPadding={20}
+                    >
+                      <Popover id="popover-contained">
+                        <Popover.Header as="h3">Battling</Popover.Header>
+                        <Popover.Body>
+                          <strong>One of you has begun the battle.  We are waiting for the results.</strong>
+                        </Popover.Body>
+                      </Popover>
+                    </Overlay>
+                  </>
+                )
+              }
+              {
+              !user?.Profile?.id && (
+                <div className="d-flex ms-5 challenge-no-user-warning">
+                  <div>Create your own profile to challange other opponents</div>
+                </div>
+              )
+            }
 
-              <Button
-                onClick={handleInvitationSubmitBtn}
-                variant="outline-danger"
-                className="profile-modal-bar-cancel-btn"
-              >
-                Challenge
-              </Button>
-              <Overlay
-                show={showBusyOrSuccess}
-                target={targetBusyOrSuccess}
-                placement="bottom"
-                container={refBusyOrSuccess}
-                containerPadding={20}
-              >
-                <Popover id="popover-contained">
-                  <Popover.Header as="h3">Battling</Popover.Header>
-                  <Popover.Body>
-                    <strong>One of you has begun the battle.  We are waiting for the results.</strong>
-                  </Popover.Body>
-                </Popover>
-                {/* {
-                  showSuccessReminder && (
-                  <Popover id="popover-contained">
-                    <Popover.Header as="h3">Success</Popover.Header>
-                    <Popover.Body>
-                      <strong>Successfully invited.</strong>
-                    </Popover.Body>
-                  </Popover>
-                  )
-                } */}
-              </Overlay>
               </div>
           )
-        }
+          }
           {
-          invited && !myself && (
+          user?.Profile?.id && invited && !myself && (
             <div ref={ref}>
-              <Button
-                onClick={
+              {
+              user?.Profile?.id && (
+                <>
+                  <Button
+                    onClick={
                   handleInvitationCancelBtn
                 }
-                variant="outline-secondary"
-                className="profile-modal-bar-cancel-btn"
-              >Cancel</Button>
+                    variant="outline-secondary"
+                    className="profile-modal-bar-cancel-btn"
+                  >Cancel</Button>
 
-              <Overlay
-                show={show}
-                target={target}
-                placement="bottom"
-                container={ref}
-                containerPadding={20}
-                className="overlay-contained d-flex"
-              >
-                <Popover id="popover-contained">
-                  <Popover.Header as="h3">Battling</Popover.Header>
-                  <Popover.Body>
-                    <p>This candidate has <strong>started</strong> the battle, it cannot be cancelled until there is a result</p>
-                  </Popover.Body>
-                </Popover>
-              </Overlay>
+                  <Overlay
+                    show={show}
+                    target={target}
+                    placement="bottom"
+                    container={ref}
+                    containerPadding={20}
+                    className="overlay-contained d-flex"
+                  >
+                    <Popover id="popover-contained">
+                      <Popover.Header as="h3">Battling</Popover.Header>
+                      <Popover.Body>
+                        <p>This candidate has <strong>started</strong> the battle, it cannot be cancelled until there is a result</p>
+                      </Popover.Body>
+                    </Popover>
+                  </Overlay>
+                </>
+              )
+            }
+              {
+              !user?.Profile?.id && (
+                <div className="d-flex ms-5 challenge-no-user-warning">
+                  <div>Create your own profile to challange other opponents</div>
+                </div>
+              )
+            }
+
               </div>
           )
         }
@@ -173,7 +189,14 @@ const CompsModalGetProfile = ({ data, close }) => {
             <div className="profile-wrapper row">
 
               {/* needs images and video */}
-              <div className="left-column col">
+              <div className="left-column col d-flex justify-content-center align-items-center">
+                {
+                !data?.video && (
+                  <div>
+                    Candidate have not yet uploaded any video.
+                  </div>
+                )
+              }
                 {
                   data?.video && (
                   <Player
@@ -231,11 +254,11 @@ const CompsModalGetProfile = ({ data, close }) => {
             </div>
           </div>
 
-          <div className="carousel-container mt-3">
+          <div className="carousel-container mt-3 d-flex justify-content-center align-items-center">
             <div id="showpage-carousel-container">
               {
                       !data?.img1 && !data?.img2 && !data?.img3 && (
-                        <div>Candidate didn't upload any image</div>
+                        <div>Candidate have not yet uploaded any image.</div>
 
                       )
                     }

@@ -2,6 +2,7 @@ import nc from 'next-connect'
 import authenticateUser from '@/api/helpers/authenticateUser'
 import getCurrentUserByToken from '@/api/helpers/getCurrentUserByToken'
 import session from '@/api/helpers/session'
+import MulterParser from '@/_services/MulterParser'
 
 // , 'Images.*.img1', 'Images.*.img2'
 const permittedFields = ['characterName', 'gameTitle', 'weapon', 'amulet', 'armour', 'boots', 'thumbnail', 'img1', 'img2', 'img3', 'video']
@@ -9,9 +10,9 @@ const permittedFields = ['characterName', 'gameTitle', 'weapon', 'amulet', 'armo
 const profileCreate = async (req, res) => {
   const { currentUser } = res
 
-  const newInfo = { ...req.body }
+  const newInfo = { ...req.body.profile }
 
-  console.log(newInfo, req.body)
+  console.log(newInfo, req.body.profile)
 
   if (req.files && req.files.length > 0) {
     newInfo.thumbnail = req.files?.[0]?.location || null
@@ -33,4 +34,5 @@ export default nc()
   .use(session)
   .use(getCurrentUserByToken)
   .use(authenticateUser)
+  .use(MulterParser.any())
   .use(profileCreate)

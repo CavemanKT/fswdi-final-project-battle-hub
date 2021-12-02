@@ -31,11 +31,19 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: true
     },
+    thumbnail: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
     img1: {
       type: DataTypes.STRING(255),
       allowNull: true
     },
     img2: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    img3: {
       type: DataTypes.STRING(255),
       allowNull: true
     },

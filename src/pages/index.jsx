@@ -141,7 +141,7 @@ export default function PagesHome() {
               containerPadding={20}
               className="notification-container"
             >
-              <Popover id="popover-contained" className="pop-over-position">
+              <Popover id="popover-contained" className="pop-over-position position-absolute">
 
                 {/* Please log in */}
                 {

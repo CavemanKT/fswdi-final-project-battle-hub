@@ -25,19 +25,10 @@ const CompsModalGetProfile = ({ data, close }) => {
   const [targetBusyOrSuccess, setTargetBusyOrSuccess] = useState(null)
   const refBusyOrSuccess = useRef(null)
 
-  const [showSuccessReminder, setShowSuccessReminder] = useState(false)
-  const [targetSuccessReminder, setTargetSuccessReminder] = useState(null)
-  const refSuccessReminder = useRef(null)
-
   const handleInvitationSubmitBtn = (event) => {
     createInvitation().then((resp) => {
-      if (!resp.opponentIsBusy) {
-        setShowBusyOrSuccess(!showBusyOrSuccess)
-        setTargetBusyOrSuccess(event.target)
-      } else {
-        setShowSuccessReminder(!showSuccessReminder)
-        setTargetSuccessReminder(event.target)
-      }
+      setShowBusyOrSuccess(!showBusyOrSuccess)
+      setTargetBusyOrSuccess(event.target)
     })
   }
 
@@ -48,6 +39,9 @@ const CompsModalGetProfile = ({ data, close }) => {
   const handleInvitationCancelBtn = (event) => {
     destroyInvitation()
       .then((resp) => {
+        setShowBusyOrSuccess(false)
+        setShow(false)
+
         if (!resp.data.invitation) {
           setShow(!show)
           setTarget(event.target)
@@ -80,37 +74,34 @@ const CompsModalGetProfile = ({ data, close }) => {
         <link rel="stylesheet" href="/css/video-react.css" />
       </Head>
 
-      <Modal fullscreen show onHide={close} className="modal-fullscreen">
+      <Modal fullscreen show onHide={close} className="modal-fullscreen wrapper d-flex">
         <Modal.Header closeButton className="d-flex">
           <Modal.Title>{data.characterName}&#39;s Profile</Modal.Title>
 
           {
           !invited && !myself && (
-            <div ref={refBusyOrSuccess}>
+            <div className="header-wrapper">
               {
                 user?.Profile?.id && (
                   <>
                     <Button
                       onClick={handleInvitationSubmitBtn}
                       variant="outline-danger"
-                      className="profile-modal-bar-cancel-btn"
+                      className="profile-modal-bar-cancel-btn ms-3"
                     >
                       Challenge
                     </Button>
-                    <Overlay
-                      show={showBusyOrSuccess}
-                      target={targetBusyOrSuccess}
-                      placement="bottom"
-                      container={refBusyOrSuccess}
-                      containerPadding={20}
-                    >
-                      <Popover id="popover-contained">
-                        <Popover.Header as="h3">Battling</Popover.Header>
-                        <Popover.Body>
-                          <strong>One of you has begun the battle.  We are waiting for the results.</strong>
-                        </Popover.Body>
-                      </Popover>
-                    </Overlay>
+
+                      {
+                        showBusyOrSuccess && (
+                        <div className="text-danger ms-4 d-inline">
+                          One of you has <strong>started</strong> the battle.  We are waiting for the results.
+
+                        </div>
+
+                        )
+                      }
+
                   </>
                 )
               }
@@ -136,24 +127,17 @@ const CompsModalGetProfile = ({ data, close }) => {
                   handleInvitationCancelBtn
                 }
                     variant="outline-secondary"
-                    className="profile-modal-bar-cancel-btn"
+                    className="profile-modal-bar-cancel-btn ms-5"
                   >Cancel</Button>
 
-                  <Overlay
-                    show={show}
-                    target={target}
-                    placement="bottom"
-                    container={ref}
-                    containerPadding={20}
-                    className="overlay-contained d-flex"
-                  >
-                    <Popover id="popover-contained">
-                      <Popover.Header as="h3">Battling</Popover.Header>
-                      <Popover.Body>
-                        <p>This candidate has <strong>started</strong> the battle, it cannot be cancelled until there is a result</p>
-                      </Popover.Body>
-                    </Popover>
-                  </Overlay>
+                  {
+                    show && (
+                      <div className="d-inline text-danger ms-4">
+                        This candidate has <strong>started</strong> the battle, it cannot be cancelled until there is a result
+                      </div>
+                    )
+                  }
+
                 </>
               )
             }

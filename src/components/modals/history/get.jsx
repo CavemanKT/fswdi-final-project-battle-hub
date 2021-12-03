@@ -4,19 +4,23 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import React, { useRef, useState } from 'react'
 
+import LineChart from '@/components/charts/line-chart'
+
 const compsModalHistory = ({ data, close }) => {
-  console.log(data)
+  console.log('data')
   return (
 
     <Modal fullscreen show onHide={close} className="modal-fullscreen">
       <Modal.Header closeButton className="d-flex">
         <Modal.Title>
-          {data.characterName}&#39;s Match history
+          {data.User.name}&#39;s Match history
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div>
-          asdf
+          <LineChart
+            data={data}
+          />
         </div>
 
       </Modal.Body>

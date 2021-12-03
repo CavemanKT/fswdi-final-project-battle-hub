@@ -9,6 +9,7 @@ export default function useCandidates(gameTitle) {
   const url = gameTitle ? `/api/candidates/${gameTitle}` : null
   const { data, error, mutate } = useSWR(url, fetcher, {
     shouldRetryOnError: false
+
   })
   console.log(gameTitle, data)
   return {

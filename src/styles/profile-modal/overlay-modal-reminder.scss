@@ -2,15 +2,21 @@ html {
   body {
     #compsModalProfile {
 
-      .overlay-contained {
-        justify-self: start;
+      .wrapper {
+        .header-wrapper {
 
-        #popover-contained {
-          margin: 0px;
+          .popover-wrapper {
+
+            #popover-contained {
+              position: absolute;
+              margin-right: 100px;
+            }
+
+          }
 
         }
-
       }
+
     }
   }
 }

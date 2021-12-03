@@ -11,10 +11,18 @@ const armours = ['Plate Vest', 'Chestplate', 'Copper Plate', 'War Plate', 'Full 
 
 const boots = ['Iron Greaves', 'Steel Greaves', 'Basemetal Treads', 'Plated Greaves', 'Reinforced Greaves', 'Antique Greaves', 'Ancient Greaves', 'Darksteel Treads', 'Goliath Greaves', 'Vaal Greaves', 'Titan Greaves', 'Brimstone Treads', 'Rawhide Boots', 'Goathide Boots', 'Cloudwhisper Boots', 'Deerskin Boots', 'Nubuck Boots', 'Eelskin Boots', 'Sharkskin Boots', 'Windbreak Boots', 'Shagreen Boots', 'Stealth Boots', 'Slink Boots', 'Stormrider Boots', 'Wool Shoes', 'Velvet Slippers', 'Duskwalk Slippers', 'Silk Slippers', 'Scholar Boots', 'Satin Slippers', 'Samite Slippers', 'Nightwind Slippers', 'Conjurer Boots', 'Arcanist Slippers', 'Sorcerer Boots', 'Dreamquest Slippers', 'Leatherscale Boots', 'Ironscale Boots', 'Bronzescale Boots', 'Steelscale Boots', 'Serpentscale Boots', 'Wyrmscale Boots', 'Hydrascale Boots', 'Dragonscale Boots', 'Two-Toned Boots', 'Chain Boots', 'Ringmail Boots', 'Mesh Boots', 'Riveted Boots', 'Zealot Boots', 'Soldier Boots', 'Legion Boots', 'Crusader Boots', 'Two-Toned Boots', 'Wrapped Boots', 'Strapped Boots', 'Clasped Boots', 'Shackled Boots', 'Trapper Boots', 'Ambush Boots', 'Carnal Boots', "Assassin's Boots", 'Murder Boots', 'Fugitive Boots', 'Two-Toned Boots']
 
+const genRandProfileId = (i, maxi) => {
+  const randProfileId = Math.floor(Math.random() * maxi)
+  if (randProfileId === 0) {
+    return genRandProfileId(i, maxi)
+  }
+  return randProfileId
+}
+
 const genRandNum = (i) => {
   const randNum = Math.floor(Math.random() * 30)
-  if (randNum === i) {
-    genRandNum(i)
+  if (randNum === i && randNum === 0) {
+    return genRandNum(i)
   }
   return randNum
 }
@@ -26,8 +34,32 @@ const genRandResult = () => {
   return randResult
 }
 
+// generate a time stamp for createdAt
+const genRandDay = () => {
+  const randDay = Math.floor(Math.random() * 27) + 1
+  return randDay
+}
+
+const genRandMonth = () => {
+  const randMonth = Math.floor(Math.random() * 12) + 1
+  if (randMonth > 12) {
+    return genRandMonth()
+  }
+  return randMonth
+}
+
+const genRandYear = () => {
+  const randNum = Math.floor(Math.random() * 4)
+  const randYear = 2010 + randNum
+  return randYear
+}
+
 const genRandDate = () => {
-  const randDate = 'as'
+  const randDay = genRandDay()
+  const randMonth = genRandMonth()
+  const randYear = genRandYear()
+
+  const randDate = `${randYear}-${randMonth}-${randDay} 13:29:29.516+08`
   return randDate
 }
 
@@ -40,6 +72,18 @@ module.exports = {
 
     const passwordHash = await bcrypt.hash('123123', 10)
 
+    // create User-candidate
+    // eslint-disable-next-line no-plusplus
+    for (let i = 1; i <= 31; i++) {
+      await User.create({
+        name: `${Faker.Name.firstName()} ${Faker.Name.lastName()}`,
+        email: `${i}@test.com`,
+        passwordHash,
+        registrationType: 'email',
+        type: 'candidate'
+      })
+    }
+
     // create User-inspector
     await User.create({
       name: 'Inspector',
@@ -49,18 +93,7 @@ module.exports = {
       type: 'inspector'
     })
 
-    // create User-candidate
-    // eslint-disable-next-line no-plusplus
     for (let i = 1; i <= 30; i++) {
-      await User.create({
-        name: `${Faker.Name.firstName} ${Faker.Name.lastName}`,
-        email: `${i}@${i}.com`,
-        passwordHash,
-        registrationType: 'email',
-        type: 'candidate'
-      })
-    }
-    for (let i = 6; i <= 30; i++) {
       await Profile.create({
         characterName: Faker.Internet.userName(),
         gameTitle: 'Path of Exile',
@@ -71,17 +104,18 @@ module.exports = {
         UserId: i
       })
       await Invitation.create({
-        profile1: i,
+        profile1: genRandNum(i),
         profile2: genRandNum(i),
         status: 'pending'
       })
     }
-    for (let i = 6; i <= 100; i++) {
+    for (let i = 1; i <= 100; i++) {
       await History.create({
-        ProfileId: i,
+        ProfileId: genRandProfileId(1, 2),
         result: genRandResult(),
         createdAt: genRandDate()
       })
     }
   }
+
 }

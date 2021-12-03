@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 import Table from 'react-bootstrap/Table'
 
+import useUser from '@/_hooks/user'
 import useInvitation from '@/_hooks/invitation'
 import useGames from '@/_hooks/games'
 import useCandidates from '@/_hooks/candidateList'
@@ -12,7 +14,10 @@ import CompsLayout from '@/components/layouts/Layout'
 
 import CompsModalGetHistory from '@/components/modals/history/get'
 
-export default function pageDashBoard() {
+import withInspectorRoute from '@/_hocs/withInspectorRouter'
+
+const PageDashBoard = () => {
+  const router = useRouter()
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -20,6 +25,8 @@ export default function pageDashBoard() {
   const [candidateList, setCandidateList] = useState(null)
   const [historyData, setHistoryData] = useState(null)
   const [historyOpenModal, setHistoryOpenModal] = useState(false)
+
+  const { user, apiSignup, apiLogin, apiInspectorLogin, apiLogout } = useUser()
 
   const { games, isLoading: isGamesLoading,
     getGameCandidateList
@@ -54,6 +61,12 @@ export default function pageDashBoard() {
     setHistoryOpenModal(false)
   }
 
+  const handleInspectorLogout = () => {
+    apiLogout().then(() => {
+      router.push('/inspector-page/page/page-login')
+    })
+  }
+
   const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'History']
 
   return (
@@ -76,6 +89,9 @@ export default function pageDashBoard() {
               <Button onClick={() => handleGetList(gameTitle)} className="mt-3">{gameTitle}</Button>
             </>
           )}
+          <div>
+            <Button className="position-absolute fixed-bottom m-3 btn-danger" onClick={handleInspectorLogout}>Log out</Button>
+          </div>
 
         </Offcanvas.Body>
       </Offcanvas>
@@ -156,3 +172,5 @@ export default function pageDashBoard() {
     </div>
   )
 }
+
+export default withInspectorRoute(PageDashBoard)

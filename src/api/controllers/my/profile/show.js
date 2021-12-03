@@ -3,7 +3,6 @@ import nc from 'next-connect'
 import session from '@/api/helpers/session'
 import getCurrentUserByToken from '@/api/helpers/getCurrentUserByToken'
 import authenticateUser from '@/api/helpers/authenticateUser'
-import { User } from '@/db/models'
 
 const myProfileShow = (req, res) => {
   const userSerializer = function (values) {

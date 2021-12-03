@@ -1,0 +1,27 @@
+html {
+  body {
+    .inspector-login-container {
+      max-width: 500px;
+      max-height: 500px;
+      display: flex;
+      align-items: center;
+
+      .inspector-login-logo {
+
+        background-image: url(../../../public/images/favicon.png);
+        max-width: 400px;
+        max-height: 400px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+    }
+
+    @media screen and (max-width:430px) {
+      .inspector-login-container {
+        display: block;
+      }
+
+    }
+  }
+}

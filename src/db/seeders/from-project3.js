@@ -1,23 +1,20 @@
-'use strict';
-
-const bcrypt = require("bcrypt")
+const bcrypt = require('bcrypt')
 
 const { Faker } = require('fakergem')
 const { Application, Developer, Talent, Game, Image } = require('../models')
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-
     // creating accounts
-    await Developer.destroy({truncate: true})
+    await Developer.destroy({ truncate: true })
 
-    for ( var i = 0; i < 10; i++) {
+    for (var i = 0; i < 10; i++) {
       const user = await Developer.build({
         type: 'Developer',
         email: Faker.Internet.email(),
         firstName: Faker.Name.firstName(),
         lastName: Faker.Name.lastName(),
-        username: Faker.Internet.userName(),
+        username: Faker.Internet.userName()
       })
       user.passwordHash = await bcrypt.hash('123456', 10)
       user.save()
@@ -37,20 +34,16 @@ module.exports = {
       })
     }
 
-    for ( var i = 0; i < 10; i++) {
+    for (var i = 0; i < 10; i++) {
       const user = await Talent.build({
         type: 'Marketer',
         email: Faker.Internet.email(),
         firstName: Faker.Name.firstName(),
         lastName: Faker.Name.lastName(),
-        username: Faker.Internet.userName(),
+        username: Faker.Internet.userName()
       })
       user.passwordHash = await bcrypt.hash('123456', 10)
       user.save()
-
     }
-
-
-
   }
-};
+}

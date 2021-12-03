@@ -1,6 +1,5 @@
 import useSWR from 'swr'
 import axios from 'axios'
-import { resolveHref } from 'next/dist/shared/lib/router/router'
 
 const options = {
   method: 'GET',

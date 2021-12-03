@@ -67,13 +67,11 @@ const CompsModalGetProfile = ({ data, close }) => {
   // get rid of id, createdBy... atrributes
   const keyArr = Object.keys(data)
   const valueArr = Object.values(data)
-  keyArr.splice(7, 9)
-  valueArr.splice(7, 9)
-
-  const userKeyArr = Object.keys(data)
-  const userValueArr = Object.keys(data)
-  userKeyArr.splice(0, 1)
-  userValueArr.splice(0, 1)
+  console.log(keyArr, valueArr)
+  keyArr.splice(0, 1)
+  keyArr.splice(6, 10)
+  valueArr.splice(0, 1)
+  valueArr.splice(6, 10)
 
   return (
     <>
@@ -173,13 +171,13 @@ const CompsModalGetProfile = ({ data, close }) => {
 
         </Modal.Header>
 
-        {/* video, images, equipments */}
         <Modal.Body>
 
           <div id="profile-container" className="position-relative">
+
             <div className="profile-wrapper row">
 
-              {/* needs images and video */}
+              {/* video section */}
               <div className="left-column col d-flex justify-content-center align-items-center">
                 {
                 !data?.video && (
@@ -201,6 +199,7 @@ const CompsModalGetProfile = ({ data, close }) => {
               </div>
 
               <div className="right-column col">
+                {/* Characher info table */}
                 <Table responsive>
                   <thead>
                     <tr className="tr-font">
@@ -221,6 +220,7 @@ const CompsModalGetProfile = ({ data, close }) => {
                   </tbody>
                 </Table>
 
+                {/* user info table */}
                 <Table responsive>
                   <thead>
                     <tr className="tr-font">
@@ -238,7 +238,7 @@ const CompsModalGetProfile = ({ data, close }) => {
                             </td>
                             <td className="d-flex justify-content-between">
                               <span> {Object.keys(data.User)[6]} :</span>
-                              <span className="ms-5">{ data.User.name }</span>
+                              <span className="ms-5">{ data.User.type }</span>
                             </td>
                           </>
                         )

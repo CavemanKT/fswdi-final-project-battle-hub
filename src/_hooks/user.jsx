@@ -8,7 +8,7 @@ export default function useUser() {
   const { data, error, mutate } = useSWR('/api/my/profile', fetcher, {
     shouldRetryOnError: false
   })
-  console.log(data)
+
   const apiSignup = (values) => (new Promise((resolve, reject) => {
     axios({
       method: 'POST',
@@ -28,6 +28,20 @@ export default function useUser() {
     axios({
       method: 'POST',
       url: '/api/auth/email/login',
+      data: values,
+      withCredentials: true
+    }).then((resp) => {
+      resolve(resp)
+      mutate(resp.data)
+    }).catch((err) => {
+      reject(err)
+    })
+  }))
+
+  const apiInspectorLogin = (values) => (new Promise((resolve, reject) => {
+    axios({
+      method: 'POST',
+      url: '/api/auth/email/login-inspector',
       data: values,
       withCredentials: true
     }).then((resp) => {
@@ -73,6 +87,7 @@ export default function useUser() {
     errorMessage: error?.response?.data?.message,
     apiSignup,
     apiLogin,
+    apiInspectorLogin,
     apiLogout,
     apiProfileCreate
   }

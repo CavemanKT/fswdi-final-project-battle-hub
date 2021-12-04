@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
 import dynamic from 'next/dynamic'
-import useCandidates from '@/_hooks/candidateList'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 

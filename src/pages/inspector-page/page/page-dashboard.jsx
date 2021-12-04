@@ -24,6 +24,7 @@ const PageDashBoard = () => {
 
   const [candidateList, setCandidateList] = useState(null)
   const [historyData, setHistoryData] = useState(null)
+  const [historyTarget, setHistoryTarget] = useState(null)
   const [historyOpenModal, setHistoryOpenModal] = useState(false)
 
   const { user, apiSignup, apiLogin, apiInspectorLogin, apiLogout } = useUser()
@@ -54,6 +55,7 @@ const PageDashBoard = () => {
 
   const handleCandidateListHistoryModal = (i) => {
     setHistoryData(candidateList.candidateList[i])
+    setHistoryTarget(i)
     setHistoryOpenModal(true)
   }
 
@@ -154,7 +156,9 @@ const PageDashBoard = () => {
         historyOpenModal && (
           <div id="compsModalHistory">
             <CompsModalGetHistory
+              candidateList={candidateList}
               data={historyData}
+              target={historyTarget}
               close={closeModalsHistory}
             />
           </div>

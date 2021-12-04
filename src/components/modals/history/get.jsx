@@ -6,8 +6,8 @@ import React, { useRef, useState } from 'react'
 
 import LineChart from '@/components/charts/line-chart'
 
-const compsModalHistory = ({ data, close }) => {
-  console.log('data')
+const compsModalHistory = ({ data, target, close }) => {
+  console.log('data', data)
   return (
 
     <Modal fullscreen show onHide={close} className="modal-fullscreen">
@@ -19,7 +19,8 @@ const compsModalHistory = ({ data, close }) => {
       <Modal.Body>
         <div>
           <LineChart
-            data={data}
+            historyData={data}
+            historyTarget={target}
           />
         </div>
 

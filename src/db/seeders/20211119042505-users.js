@@ -49,8 +49,7 @@ const genRandMonth = () => {
 }
 
 const genRandYear = () => {
-  const randNum = Math.floor(Math.random() * 4)
-  const randYear = 2010 + randNum
+  const randYear = 2010
   return randYear
 }
 
@@ -109,9 +108,9 @@ module.exports = {
         status: 'pending'
       })
     }
-    for (let i = 1; i <= 100; i++) {
+    for (let i = 1; i <= 200; i++) {
       await History.create({
-        ProfileId: genRandProfileId(1, 2),
+        ProfileId: genRandProfileId(1, 20),
         result: genRandResult(),
         createdAt: genRandDate()
       })

@@ -4,6 +4,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 import Table from 'react-bootstrap/Table'
+import Link from 'next/link'
 
 import useUser from '@/_hooks/user'
 import useInvitation from '@/_hooks/invitation'
@@ -47,9 +48,10 @@ const PageDashBoard = () => {
   //   setHistory // for now , here, we use timeStamp to identity which battle the candidate fought, so that we know which data is supposed to be modified.
   // } = useHistory()
 
-  const handleGetList = (game) => {
-    getGameCandidateList(game).then((resp) => {
+  const handleGetList = (game, page = 2) => {
+    getGameCandidateList(game, page).then((resp) => {
       setCandidateList(resp.data)
+      console.log(candidateList)
     })
   }
 
@@ -147,6 +149,40 @@ const PageDashBoard = () => {
               }
               </tbody>
             </Table>
+
+          </div>
+
+          <div className="pagination container d-flex justify-content-center">
+            <div className="d-flex">
+              <Button
+                className="m-3"
+                onClick={() => handleGetList(gameTitle, 1)}
+                disabled={candidateList.filters.page === 1}
+              >
+                First Page
+              </Button>
+              <Button
+                className="m-3"
+                onClick={() => handleGetList(gameTitle, candidateList.filters.page - 1)}
+                disabled={candidateList.filters.page <= 1}
+              >
+                PREV
+              </Button>
+              <Button
+                className="m-3"
+                onClick={() => handleGetList(gameTitle, candidateList.filters.page + 1)}
+                disabled={candidateList.filters.page === candidateList.filters.totalPages}
+              >
+                NEXT
+              </Button>
+              <Button
+                className="m-3"
+                onClick={() => handleGetList(gameTitle, candidateList.filters.totalPages)}
+                disabled={candidateList.filters.page === candidateList.filters.totalPages}
+              >
+                Last Page
+              </Button>
+            </div>
 
           </div>
         </>

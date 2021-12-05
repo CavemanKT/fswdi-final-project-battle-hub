@@ -8,7 +8,7 @@ const getCandidateList = async (req, res) => {
 
   const q = req.query.q || ''
   const page = Number(req.query.page) || 1
-  const limit = 10
+  const limit = 6
   const offset = (page - 1) * limit
   const candidateList = await Profile.findAndCountAll({
     where: {
@@ -30,10 +30,10 @@ const getCandidateList = async (req, res) => {
     offset
   })
 
-  console.log(candidateList.rows)
+  console.log(candidateList)
 
   res.status(200).json({ candidateList: candidateList.rows,
-    filters: { q, page, limit, offset, totalPages: Math.ceil(candidateList.count / limit) }
+    filters: { q, page, limit, offset, totalPages: Math.ceil(candidateList.count / limit / 10 + 1) }
   })
 }
 

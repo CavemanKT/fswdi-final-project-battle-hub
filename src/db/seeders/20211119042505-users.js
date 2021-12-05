@@ -21,7 +21,7 @@ const genRandProfileId = (i, maxi) => {
 
 const genRandNum = (i) => {
   const randNum = Math.floor(Math.random() * 30)
-  if (randNum === i && randNum === 0) {
+  if (randNum === i || randNum === 0) {
     return genRandNum(i)
   }
   return randNum

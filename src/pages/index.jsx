@@ -38,7 +38,8 @@ export default function PagesHome() {
     setInvitationResult
   } = useNotification(user)
 
-  if (isUserLoading || isGamesLoading) return null
+  console.log(notifications, candidates)
+  if (isUserLoading || isGamesLoading || isNotificationLoading) return null
 
   const index = games.data.findIndex((item) => item.title === 'Path of Exile')
 
@@ -88,12 +89,14 @@ export default function PagesHome() {
     <CompsLayout>
       <div className="home-page">
         <div className="d-flex home-page-row-wrapper">
+          <div className="first-col-50" />
+          <div className="second-col-50" />
 
           {/* navigation column */}
           <div className="navigation-section me-5 col-sm-1">
             <div className="navigation-selection-wrapper">
               <a href="#comps-layouts-navbar" className="triangle" id="upward-triangle" />
-              <a href="#candidate-list" className="navigation-font" id="ranking">Ranking</a>
+              <a href="#candidate-list" className="navigation-font" id="ranking">News</a>
               <a href="#game-list" className="navigation-font" id="games">Games</a>
               <a href="#footer" className="triangle" id="downward-triangle" />
             </div>
@@ -103,12 +106,20 @@ export default function PagesHome() {
 
           <div className="middle-section d-flex flex-column flex-grow-1 mb-5">
             <div id="candidate-list" className="m-5">
+
+              {/*
+              <div className="">
+                {candidates && candidates?.candidateList.map((item, i) => {
+
+                })}
+              </div>
+
               <ul>
-                {/* todo: issue! */}
-                {/* {candidates.forEach((item, i )=> {
+                todo: issue!
+                {candidates.forEach((item, i) => {
                   <li key={i}>{item}</li>
-                })} */}
-              </ul>
+                })}
+              </ul> */}
             </div>
 
           </div>
@@ -199,25 +210,25 @@ export default function PagesHome() {
                 {/* you as a receiver */}
                 {
                   !isNotificationLoading && notifications && notifications?.invitation2.map((item) => (
-                    <div key={item.id}>
+                    <div key={item?.id}>
                       <Popover.Header as="h3">Challenges</Popover.Header>
                       <Popover.Body>
                         {
-                          item.status === 'pending' && (
+                          item?.status === 'pending' && (
                             <p>
-                              you have <strong>invited {`${item.ReceiverProfile.characterName}`}</strong> from <strong>{` ${item.ReceiverProfile.gameTitle}`}</strong> for PVP, please wait til the opponent accepts your challenge.
+                              you have <strong>invited {`${item?.ReceiverProfile?.characterName}`}</strong> from <strong>{` ${item?.ReceiverProfile?.gameTitle}`}</strong> for PVP, please wait til the opponent accepts your challenge.
                             </p>
                           )
                         }
                         {
-                          item.status === 'accepted' && (
+                          item?.status === 'accepted' && (
                             <>
                               <p>
                                 You cannot take challenge until the result comes out
                               </p>
-                              <Button className="ms-2 mt-3" onClick={() => setGameResult('won', item.ReceiverProfile.id, item.id)}>Won</Button>
-                              <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item.ReceiverProfile.id, item.id)}>Lost</Button>
-                              <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item.ReceiverProfile.id, item.id)}>Draw</Button>
+                              <Button className="ms-2 mt-3" onClick={() => setGameResult('won', item?.ReceiverProfile?.id, item?.id)}>Won</Button>
+                              <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item?.ReceiverProfile?.id, item?.id)}>Lost</Button>
+                              <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item?.ReceiverProfile?.id, item?.id)}>Draw</Button>
                               </>
                           )
                         }

@@ -6,6 +6,87 @@ html {
     background: #FFFFFF;
 
     .home-page-row-wrapper {
+      position: relative;
+      height: 70vh;
+
+      .first-col-50 {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        background-image: url('../../../public/assets/Dungeon.Fighter.Online.full.417211.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        animation-name: left_side;
+        animation-duration: 2s;
+      }
+
+      @keyframes left_side {
+        from {
+          left: -1000px;
+        }
+
+        90% {
+          left: 0px;
+        }
+
+        to {
+          left: -100px;
+        }
+      }
+
+      .second-col-50 {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        right: -1000px;
+        background-image: url('../../../public/assets/Gunner.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        animation-name: right_side;
+        animation-duration: 2s;
+      }
+
+      @keyframes right_side {
+        from {
+          right: -1000px;
+        }
+
+        90% {
+          right: 0px;
+        }
+
+        to {
+          right: -100px;
+        }
+      }
+
+      @media screen and (max-width: 1240px) {
+        .first-col-50 {
+          width: 50%;
+          height: 100%;
+        }
+
+        .second-col-50 {
+          width: 50%;
+          height: 100%;
+        }
+      }
+
+      @media screen and (max-width: 590ox) {
+        .first-col-50 {
+          display: none;
+        }
+      }
+
+      @media screen and (max-width: 422px) {
+        .first-col-50 {
+          display: none;
+        }
+
+        .second-col-50 {
+          display: none;
+        }
+      }
 
       // navigation-section
       .navigation-section {
@@ -111,7 +192,17 @@ html {
     }
 
 
+    @media screen and (max-width: 1240px) {
+      .home-page-row-wrapper {
+        height: 40vh;
+      }
+    }
 
+    @media screen and (max-width: 422px) {
+      .home-page-row-wrapper {
+        height: 10vh;
+      }
+    }
 
 
 

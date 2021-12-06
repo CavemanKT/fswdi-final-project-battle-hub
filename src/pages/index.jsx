@@ -11,7 +11,6 @@ import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
 import useGames from '@/_hooks/games'
 import useUser from '@/_hooks/user'
-import useCandidates from '@/_hooks/candidateList'
 import useNotification from '@/_hooks/notification'
 
 import CompsModalCreateProfile from '@/components/modals/profile/createProfile'

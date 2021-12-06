@@ -30,8 +30,6 @@ export default function PagesHome() {
   // console.log(user)
   const { games, isLoading: isGamesLoading } = useGames()
 
-  const { candidates } = useCandidates(user?.Profile?.gameTitle)
-
   const {
     notifications, isLoading: isNotificationLoading,
     setInvitationStatusToAccepted,

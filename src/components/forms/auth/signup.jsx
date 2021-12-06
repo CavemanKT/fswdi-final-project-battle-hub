@@ -67,13 +67,13 @@ const authSignupSchema = yup.object().shape({
       [yup.ref('password')],
       'Both Password need to be the same'
     )
-  }),
+  })
 })
 
 const FormsAuthSignup = ({ onSubmit }) => (
   <Formik
     initialValues={{
-      name:'',
+      name: '',
       email: '',
       password: '',
       passwordConfirmation: ''

@@ -1,6 +1,4 @@
 import React, { useRef, useState } from 'react'
-import Overlay from 'react-bootstrap/Overlay'
-import Popover from 'react-bootstrap/Popover'
 import { Player } from 'video-react'
 import Carousel from 'react-bootstrap/Carousel'
 import Image from 'react-bootstrap/Image'
@@ -15,30 +13,26 @@ import useUser from '@/_hooks/user'
 import withPrivateRoute from '@/_hocs/withPrivateRoute'
 
 const CompsModalGetProfile = ({ data, close }) => {
-  const { user, isLoading: isUserLoading, error: isUserErr } = useUser()
+  const { user, isLoading: isUserLoading } = useUser()
 
-  console.log(data)
+  // console.log(data)
   const {
-    invitation, isLoading: isInvitationLoading, error: isInvitationErr,
+    invitation, isLoading: isInvitationLoading,
     createInvitation, destroyInvitation
   } = useInvitation(data.id) // useSWR or axios
 
   const [showBusyOrSuccess, setShowBusyOrSuccess] = useState(false)
-  const [targetBusyOrSuccess, setTargetBusyOrSuccess] = useState(null)
-  const refBusyOrSuccess = useRef(null)
 
-  const handleInvitationSubmitBtn = (event) => {
-    createInvitation().then((resp) => {
+  const handleInvitationSubmitBtn = () => {
+    createInvitation().then(() => {
       setShowBusyOrSuccess(!showBusyOrSuccess)
-      setTargetBusyOrSuccess(event.target)
     })
   }
 
   const [show, setShow] = useState(false)
-  const [target, setTarget] = useState(null)
   const ref = useRef(null)
 
-  const handleInvitationCancelBtn = (event) => {
+  const handleInvitationCancelBtn = () => {
     destroyInvitation()
       .then((resp) => {
         setShowBusyOrSuccess(false)
@@ -46,7 +40,6 @@ const CompsModalGetProfile = ({ data, close }) => {
 
         if (!resp.data.invitation) {
           setShow(!show)
-          setTarget(event.target)
         }
       })
   }
@@ -60,10 +53,8 @@ const CompsModalGetProfile = ({ data, close }) => {
   let myself = null
   myself = data.id === user.Profile.id
 
-  // get rid of id, createdBy... atrributes
   const keyArr = Object.keys(data)
   const valueArr = Object.values(data)
-  console.log(keyArr, valueArr)
   keyArr.splice(0, 1)
   keyArr.splice(6, 10)
   valueArr.splice(0, 1)
@@ -73,7 +64,7 @@ const CompsModalGetProfile = ({ data, close }) => {
     <>
       <Head>
         <title>Profile</title>
-        <link rel="stylesheet" href="/css/video-react.css" />
+
       </Head>
 
       <Modal fullscreen show onHide={close} className="modal-fullscreen wrapper d-flex">
@@ -178,6 +169,7 @@ const CompsModalGetProfile = ({ data, close }) => {
                     playsInline
                     poster="/assets/poster.png"
                     src={data?.video}
+                    // eslint-disable-next-line react/jsx-no-duplicate-props
                     poster={data?.thumbnail}
                   />
                   )
@@ -185,7 +177,7 @@ const CompsModalGetProfile = ({ data, close }) => {
               </div>
 
               <div className="right-column col">
-                {/* Characher info table */}
+                {/* Character info table */}
                 <Table responsive>
                   <thead>
                     <tr className="tr-font">
@@ -238,7 +230,7 @@ const CompsModalGetProfile = ({ data, close }) => {
           </div>
 
           <div className="carousel-container mt-3 d-flex justify-content-center align-items-center">
-            <div id="showpage-carousel-container" className="fixed-the-size">
+            <div id="show-page-carousel-container" className="fixed-the-size">
               {
                       !data?.img1 && !data?.img2 && !data?.img3 && (
                         <div>Candidate have not yet uploaded any image.</div>
@@ -251,9 +243,9 @@ const CompsModalGetProfile = ({ data, close }) => {
                       <Carousel variant="dark">
                         {
                     data?.img2 && (
-                      <Carousel.Item className="showpage-carousel-item">
+                      <Carousel.Item className="show-page-carousel-item">
                         <Image
-                          className="w-100"
+                          className="w-100 carousel-img"
                           src={data?.img1}
                           alt="Candidate forgot to upload the image"
                         />
@@ -264,7 +256,7 @@ const CompsModalGetProfile = ({ data, close }) => {
                     data?.img2 && (
                       <Carousel.Item>
                         <Image
-                          className="w-100"
+                          className="w-100 carousel-img"
                           src={data?.img2}
                           alt="Candidate forgot to upload the image"
                         />
@@ -275,7 +267,7 @@ const CompsModalGetProfile = ({ data, close }) => {
                     data?.img3 && (
                       <Carousel.Item>
                         <Image
-                          className="w-100"
+                          className="w-100 carousel-img"
                           src={data?.img3}
                           alt="Candidate forgot to upload the image"
                         />

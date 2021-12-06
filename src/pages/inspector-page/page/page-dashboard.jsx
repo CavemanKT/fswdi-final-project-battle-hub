@@ -4,14 +4,9 @@ import Offcanvas from 'react-bootstrap/Offcanvas'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 import Table from 'react-bootstrap/Table'
-import Link from 'next/link'
 
 import useUser from '@/_hooks/user'
-import useInvitation from '@/_hooks/invitation'
 import useGames from '@/_hooks/games'
-import useCandidates from '@/_hooks/candidateList'
-// import useHistory from '@/_hooks/history'
-import CompsLayout from '@/components/layouts/Layout'
 
 import CompsModalGetHistory from '@/components/modals/history/get'
 
@@ -28,7 +23,7 @@ const PageDashBoard = () => {
   const [historyTarget, setHistoryTarget] = useState(null)
   const [historyOpenModal, setHistoryOpenModal] = useState(false)
 
-  const { user, apiSignup, apiLogin, apiInspectorLogin, apiLogout } = useUser()
+  const { apiLogout } = useUser()
 
   const { games, isLoading: isGamesLoading,
     getGameCandidateList
@@ -43,7 +38,6 @@ const PageDashBoard = () => {
   const handleGetList = (game, page) => {
     getGameCandidateList(game, page).then((resp) => {
       setCandidateList(resp.data)
-      console.log(candidateList)
     })
   }
 
@@ -107,34 +101,6 @@ const PageDashBoard = () => {
           <div id="candidate-list-heading">
             <h3>Candidate List</h3>
           </div>
-
-          {/* <form class="form-inline justify-content-center mb-3" action="/wishlists" method="GET">
-  <div class="form-group mx-sm-3">
-    <input class="form-control" type="text" placeholder="Search" name="q" value="<%= filters.q %>">
-  </div>
-  <button class="btn btn-primary mr-3" type="submit">Search</button>
-  <a class="btn btn-danger" href="/wishlists">Reset</a>
-</form> */}
-
-          {/* cool filter bar from codepen */}
-          {/* <form
-            role="search"
-            method="get"
-            id="searchform"
-            className="searchform"
-            action=""
-          >
-            <input
-              type="search"
-              onChange={() => handleChange()}
-              name="q"
-              id="s"
-              placeholder="Search"
-            />
-            <button type="submit" id="searchsubmit">
-              <i className="fa fa-search" aria-hidden="true" />
-            </button>
-          </form> */}
 
           <div className="candidate-list-wrapper">
 
@@ -221,14 +187,6 @@ const PageDashBoard = () => {
         )
       }
 
-      {/* <ul>
-          {
-          candidateList && candidateList?.candidateList?.map((item, i) => (
-            <li>{item.id}</li>
-          ))
-        }
-
-        </ul> */}
     </div>
   )
 }

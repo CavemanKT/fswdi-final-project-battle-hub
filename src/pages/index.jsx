@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // Comps
 import Link from 'next/link'
 
@@ -26,10 +27,10 @@ export default function PagesHome() {
   const [openMyProfileModal, setOpenMyProfileModal] = useState(null)
 
   const { user, apiProfileCreate, isLoading: isUserLoading } = useUser()
-  console.log(user)
+  // console.log(user)
   const { games, isLoading: isGamesLoading } = useGames()
 
-  const { candidates, isLoading } = useCandidates(user?.Profile?.gameTitle)
+  const { candidates } = useCandidates(user?.Profile?.gameTitle)
 
   const {
     notifications, isLoading: isNotificationLoading,
@@ -38,12 +39,10 @@ export default function PagesHome() {
     setInvitationResult
   } = useNotification(user)
 
-  console.log(notifications, candidates)
+  // console.log(notifications, candidates)
   if (isUserLoading || isGamesLoading) return null
 
   const index = games.data.findIndex((item) => item.title === 'Path of Exile')
-
-  const indexOfCandidates = candidates?.candidateList?.findIndex((item) => item?.id === user?.Profile?.id)
 
   const handleCreateProfileModal = (gameId) => {
     setOpenCreateProfileModal(gameId)
@@ -67,8 +66,8 @@ export default function PagesHome() {
     })
   }
 
-  const handleInvitationStatus = (inviOwnerProfileId, invitationId) => {
-    setInvitationStatusToAccepted(inviOwnerProfileId, invitationId)
+  const handleInvitationStatus = (invitationOwnerProfileId, invitationId) => {
+    setInvitationStatusToAccepted(invitationOwnerProfileId, invitationId)
   }
 
   const destroyInvitation = (invitationId) => {

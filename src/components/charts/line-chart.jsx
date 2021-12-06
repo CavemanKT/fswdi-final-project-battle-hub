@@ -138,10 +138,10 @@ const LineChart = ({ historyData }) => {
     win2.b = handleTime2('2010-04', '2010-05', '2010-06', timeIndex2)
     win3.c = handleTime3('2010-07', '2010-08', '2010-09', timeIndex3)
     win4.d = handleTime4('2010-10', '2010-11', '2010-12', timeIndex4)
-    console.log('winningRate1: ', win1.a)
-    console.log('winningRate2: ', win2.b)
-    console.log('winningRate3: ', win3.c)
-    console.log('winningRate4: ', win4.d)
+    // console.log('winningRate1: ', win1.a)
+    // console.log('winningRate2: ', win2.b)
+    // console.log('winningRate3: ', win3.c)
+    // console.log('winningRate4: ', win4.d)
     const newData = [win1.a, win2.b, win3.c, win4.d]
     setCollections(
       {
@@ -181,7 +181,7 @@ const LineChart = ({ historyData }) => {
     )
   }, [historyData.id])
 
-  console.log('data', historyData)
+  // console.log('data', historyData)
   return (
     <div id="chart">
       <Chart

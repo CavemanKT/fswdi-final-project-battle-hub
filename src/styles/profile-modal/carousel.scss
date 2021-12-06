@@ -5,9 +5,16 @@
     max-height: 400px;
     max-width: 600px;
 
-    .showpage-carousel-item {
-      min-height: 400px;
-      min-width: 600px;
+    .show-page-carousel-item {
+      height: 400px;
+      width: 600px;
+
+      .carousel-img {
+        height: 400px;
+        width: 600px;
+        object-fit: cover;
+        overflow: hidden;
+      }
     }
   }
 }

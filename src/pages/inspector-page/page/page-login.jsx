@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Head from 'next/head'
 
 import { useRouter } from 'next/router'
@@ -8,8 +7,7 @@ import useUser from '@/_hooks/user'
 
 const PageLogin = () => {
   const router = useRouter()
-  const { user, isLoading,
-    apiSignup, apiLogin, apiInspectorLogin, apiLogout } = useUser()
+  const { apiInspectorLogin } = useUser()
 
   const handleInspectorLoginSubmit = (values) => {
     apiInspectorLogin(values).then(() => {

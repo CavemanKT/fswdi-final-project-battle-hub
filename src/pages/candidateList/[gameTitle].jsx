@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
@@ -6,9 +5,7 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 
 // _hooks
-import useUser from '@/_hooks/user'
 import useCandidates from '@/_hooks/candidateList'
-import useInvitation from '@/_hooks/invitation'
 
 import CompsLayout from '@/components/layouts/Layout'
 
@@ -23,7 +20,8 @@ export default function PageCandidateList() {
   const [page, setPage] = useState(1)
   const { candidates, isLoading } = useCandidates(gameTitle, page)
 
-  console.log(candidates)
+  // console.log(candidates)
+
   // modal state
   const [openProfileModal, setProfileOpenModal] = useState(false)
 

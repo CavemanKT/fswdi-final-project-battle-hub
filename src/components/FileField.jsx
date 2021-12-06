@@ -23,6 +23,7 @@ const FileField = ({ name, setFieldValue, value, existingFileUrl }) => {
       />
 
       {
+        // eslint-disable-next-line @next/next/no-img-element
         (preview || existingFileUrl) && <img src={preview || existingFileUrl} alt="screen 1" style={{ width: '100px' }} />
       }
     </div>

@@ -4,6 +4,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 import Table from 'react-bootstrap/Table'
+import Link from 'next/link'
 
 import useUser from '@/_hooks/user'
 import useGames from '@/_hooks/games'
@@ -47,9 +48,9 @@ const PageDashBoard = () => {
     setHistoryOpenModal(true)
   }
 
-  const closeModalsHistory = () => {
-    setHistoryOpenModal(false)
-  }
+  // const closeModalsHistory = () => {
+  //   setHistoryOpenModal(false)
+  // }
 
   const handleInspectorLogout = () => {
     apiLogout().then(() => {
@@ -128,7 +129,10 @@ const PageDashBoard = () => {
                     <td>{item.boots}</td>
 
                     <td className="d-flex justify-content-center">
-                      <button type="button" className="basic-btn-feature btn-history" onClick={() => handleCandidateListHistoryModal(i)}>History</button>
+                      <Link href={`/inspector-page/page/page-history/${item.id}`} passHref>
+                        <a className="basic-btn-feature btn-history">History</a>
+                        {/* <button type="button" className="basic-btn-feature btn-history" onClick={() => handleCandidateListHistoryModal(i)}>History</button> */}
+                      </Link>
                     </td>
                   </tr>
                 ))
@@ -174,7 +178,8 @@ const PageDashBoard = () => {
         </>
         )}
       </div>
-      {
+
+      {/* {
         historyOpenModal && (
           <div id="compsModalHistory">
             <CompsModalGetHistory
@@ -185,7 +190,7 @@ const PageDashBoard = () => {
             />
           </div>
         )
-      }
+      } */}
 
     </div>
   )

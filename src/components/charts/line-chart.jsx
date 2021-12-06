@@ -45,7 +45,6 @@ const LineChart = ({ historyData }) => {
     }
   })
 
-  // figured out how to do it.
   const amount1 = {}
   const amount2 = {}
   const amount3 = {}

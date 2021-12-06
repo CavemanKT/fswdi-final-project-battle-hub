@@ -11,7 +11,6 @@ export default function useInvitation(profileId) {
   const { data, error, mutate } = useSWR(url, fetcher, {
     shouldRetryOnError: false
   })
-
   const createInvitation = () => (new Promise((resolve, reject) => {
     axios({
       method: 'POST',

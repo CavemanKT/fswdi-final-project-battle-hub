@@ -11,7 +11,7 @@ const userSerializer = function (values) {
 }
 
 const authEmailLogin = async (req, res, next) => {
-  passport.authenticate('local', async (err, user, info) => {
+  passport.authenticate('user-local', async (err, user, info) => {
     if (err) return res.status(500).end(err.toString())
     if (!user) return res.status(401).json(info)
 

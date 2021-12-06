@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 
 import { User } from '@/db/models'
 
-passport.use(new LocalStrategy({
+passport.use('inspector-local', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   session: false

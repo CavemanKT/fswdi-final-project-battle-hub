@@ -5,7 +5,6 @@ import React from 'react'
 import LineChart from '@/components/charts/line-chart'
 
 const compsModalHistory = ({ data, target, close }) => (
-
   <Modal fullscreen show onHide={close} className="modal-fullscreen">
     <Modal.Header closeButton className="d-flex">
       <Modal.Title>
@@ -19,7 +18,6 @@ const compsModalHistory = ({ data, target, close }) => (
           historyTarget={target}
         />
       </div>
-
     </Modal.Body>
   </Modal>
 )

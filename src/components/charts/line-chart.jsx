@@ -4,22 +4,6 @@ import dynamic from 'next/dynamic'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-// figured out how to do it.
-const amount1 = {}
-const amount2 = {}
-const amount3 = {}
-const amount4 = {}
-
-const timeIndex1 = []
-const timeIndex2 = []
-const timeIndex3 = []
-const timeIndex4 = []
-
-const win1 = {}
-const win2 = {}
-const win3 = {}
-const win4 = {}
-
 const LineChart = ({ historyData }) => {
   const [collections, setCollections] = useState({
     series: [{
@@ -60,6 +44,22 @@ const LineChart = ({ historyData }) => {
       }
     }
   })
+
+  // figured out how to do it.
+  const amount1 = {}
+  const amount2 = {}
+  const amount3 = {}
+  const amount4 = {}
+
+  const timeIndex1 = []
+  const timeIndex2 = []
+  const timeIndex3 = []
+  const timeIndex4 = []
+
+  const win1 = {}
+  const win2 = {}
+  const win3 = {}
+  const win4 = {}
 
   const handleTime1 = (date1, date2, date3, timeIndexCollection) => {
     const index = historyData.Histories.findIndex((item) => (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date1
@@ -138,10 +138,11 @@ const LineChart = ({ historyData }) => {
     win2.b = handleTime2('2010-04', '2010-05', '2010-06', timeIndex2)
     win3.c = handleTime3('2010-07', '2010-08', '2010-09', timeIndex3)
     win4.d = handleTime4('2010-10', '2010-11', '2010-12', timeIndex4)
-    // console.log('winningRate1: ', win1.a)
-    // console.log('winningRate2: ', win2.b)
-    // console.log('winningRate3: ', win3.c)
-    // console.log('winningRate4: ', win4.d)
+    console.log(historyData)
+    console.log('winningRate1: ', win1.a)
+    console.log('winningRate2: ', win2.b)
+    console.log('winningRate3: ', win3.c)
+    console.log('winningRate4: ', win4.d)
     const newData = [win1.a, win2.b, win3.c, win4.d]
     setCollections(
       {
@@ -181,7 +182,6 @@ const LineChart = ({ historyData }) => {
     )
   }, [historyData.id])
 
-  // console.log('data', historyData)
   return (
     <div id="chart">
       <Chart

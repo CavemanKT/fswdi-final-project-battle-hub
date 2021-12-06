@@ -7,13 +7,16 @@ import Modal from 'react-bootstrap/Modal'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 import useInvitation from '@/_hooks/invitation'
 import useUser from '@/_hooks/user'
 import withPrivateRoute from '@/_hocs/withPrivateRoute'
 
 const CompsModalGetProfile = ({ data, close }) => {
+  const router = useRouter()
   const { user, isLoading: isUserLoading } = useUser()
+  if (!user?.Profile?.id) router.push('/warningPage')
 
   // console.log(data)
   const {

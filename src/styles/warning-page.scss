@@ -1,0 +1,17 @@
+html {
+  body {
+    .warning-page {
+      .font-position {
+        margin-top: 20%;
+      }
+
+      @media screen and (max-width: 800px) {
+        margin-top: 30%;
+      }
+
+      @media screen and (max-width: 548px) {
+        margin: 40% 5%;
+      }
+    }
+  }
+}

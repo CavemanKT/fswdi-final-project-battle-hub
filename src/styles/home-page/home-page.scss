@@ -13,11 +13,13 @@ html {
         position: absolute;
         width: 50%;
         height: 100%;
+        left: -100px;
         background-image: url('../../../public/assets/Dungeon.Fighter.Online.full.417211.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         animation-name: left_side;
-        animation-duration: 2s;
+        animation-duration: 1.7s;
+        animation-timing-function: ease-in-out;
       }
 
       @keyframes left_side {
@@ -44,6 +46,7 @@ html {
         background-repeat: no-repeat;
         animation-name: right_side;
         animation-duration: 2s;
+        animation-timing-function: ease-in-out;
       }
 
       @keyframes right_side {

@@ -40,15 +40,7 @@ const PageDashBoard = () => {
   const gameTitle = games?.data[index].title
   const gameImg = games?.data[index].thumbnail
 
-  // const { candidates, isLoading } = useCandidates(gameTitle)
-  // const {
-  //   histories, isLoading: isHistoryLoading,
-  //   getHistories,
-  //   cancelHistory,
-  //   setHistory // for now , here, we use timeStamp to identity which battle the candidate fought, so that we know which data is supposed to be modified.
-  // } = useHistory()
-
-  const handleGetList = (game, page = 2) => {
+  const handleGetList = (game, page) => {
     getGameCandidateList(game, page).then((resp) => {
       setCandidateList(resp.data)
       console.log(candidateList)
@@ -115,6 +107,34 @@ const PageDashBoard = () => {
           <div id="candidate-list-heading">
             <h3>Candidate List</h3>
           </div>
+
+          {/* <form class="form-inline justify-content-center mb-3" action="/wishlists" method="GET">
+  <div class="form-group mx-sm-3">
+    <input class="form-control" type="text" placeholder="Search" name="q" value="<%= filters.q %>">
+  </div>
+  <button class="btn btn-primary mr-3" type="submit">Search</button>
+  <a class="btn btn-danger" href="/wishlists">Reset</a>
+</form> */}
+
+          {/* cool filter bar from codepen */}
+          {/* <form
+            role="search"
+            method="get"
+            id="searchform"
+            className="searchform"
+            action=""
+          >
+            <input
+              type="search"
+              onChange={() => handleChange()}
+              name="q"
+              id="s"
+              placeholder="Search"
+            />
+            <button type="submit" id="searchsubmit">
+              <i className="fa fa-search" aria-hidden="true" />
+            </button>
+          </form> */}
 
           <div className="candidate-list-wrapper">
 

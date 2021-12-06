@@ -1,6 +1,9 @@
 export default function CompsLayoutsFooter() {
   return (
     <footer id="footer">
+      {/* <div className="croped">
+        <div className="animate-logo" />
+      </div> */}
       <div className="container">
         <div className="row">
           <div className="col-md-4 footer-column">

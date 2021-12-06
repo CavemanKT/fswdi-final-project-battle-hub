@@ -20,7 +20,7 @@ export default function useGames() {
   // if (data){
   //   console.log(data.data[45])
   // }
-  const getGameCandidateList = (gameTitle, page) => (new Promise((resolve, reject) => {
+  const getGameCandidateList = (gameTitle, page = 1) => (new Promise((resolve, reject) => {
     axios({
       method: 'GET',
       url: `/api/candidates/${gameTitle}/${page}`

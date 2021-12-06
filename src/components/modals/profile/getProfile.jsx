@@ -16,6 +16,8 @@ import withPrivateRoute from '@/_hocs/withPrivateRoute'
 
 const CompsModalGetProfile = ({ data, close }) => {
   const { user, isLoading: isUserLoading, error: isUserErr } = useUser()
+
+  console.log(data)
   const {
     invitation, isLoading: isInvitationLoading, error: isInvitationErr,
     createInvitation, destroyInvitation
@@ -56,7 +58,7 @@ const CompsModalGetProfile = ({ data, close }) => {
   invited = invitation ? invitation.invitation1 || invitation.invitation2 : null
 
   let myself = null
-  myself = data.id === user?.Profile?.id
+  myself = data.id === user.Profile.id
 
   // get rid of id, createdBy... atrributes
   const keyArr = Object.keys(data)
@@ -82,7 +84,7 @@ const CompsModalGetProfile = ({ data, close }) => {
           !invited && !myself && (
             <div className="header-wrapper">
               {
-                user?.Profile?.id && (
+                data.id && (
                   <>
                     <Button
                       onClick={handleInvitationSubmitBtn}
@@ -106,7 +108,7 @@ const CompsModalGetProfile = ({ data, close }) => {
                 )
               }
               {
-              !user?.Profile?.id && (
+              !data.id && (
                 <div className="d-flex ms-5 challenge-no-user-warning">
                   <div>Create your own profile to challange other opponents</div>
                 </div>
@@ -117,10 +119,10 @@ const CompsModalGetProfile = ({ data, close }) => {
           )
           }
           {
-          user?.Profile?.id && invited && !myself && (
+          data.id && invited && !myself && (
             <div ref={ref}>
               {
-              user?.Profile?.id && (
+              data.id && (
                 <>
                   <Button
                     onClick={
@@ -142,7 +144,7 @@ const CompsModalGetProfile = ({ data, close }) => {
               )
             }
               {
-              !user?.Profile?.id && (
+              !data.id && (
                 <div className="d-flex ms-5 challenge-no-user-warning">
                   <div>Create your own profile to challenge other opponents</div>
                 </div>
@@ -214,14 +216,14 @@ const CompsModalGetProfile = ({ data, close }) => {
                   <tbody>
                     <tr className="d-flex flex-column">
                       {
-                        data?.User && (
+                        data.User && (
                           <>
                             <td className="d-flex justify-content-between">
-                              <span> {Object.keys(data.User)[1]} :</span>
+                              <span>Name: </span>
                               <span className="ms-5">{ data.User.name }</span>
                             </td>
                             <td className="d-flex justify-content-between">
-                              <span> {Object.keys(data.User)[6]} :</span>
+                              <span>Type: </span>
                               <span className="ms-5">{ data.User.type }</span>
                             </td>
                           </>

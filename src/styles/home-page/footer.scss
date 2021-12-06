@@ -7,6 +7,39 @@ $social-buttons-circle-dark-grey: #1a1d20;
 $footer-background-color-figma: #FFF9E3;
 $selection: #FBD46D;
 
+#footer {
+  position: relative;
+
+  .croped {
+    overflow: hidden;
+    width: 265px;
+    height: 260px;
+    position: absolute;
+    left: -84px;
+    bottom: -100px;
+
+    .animate-logo {
+      position: absolute;
+      // width: 265px;
+      // height: 260px;
+      // left: -84px;
+      // bottom: -100px;
+
+      background-image: url(../../../public/assets/purple-logo.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 50%;
+      transition: transform 1s;
+    }
+
+    .animate-logo:hover {
+      transform: translate(100px, -100px);
+    }
+  }
+
+}
+
+
 .col-md-4:nth-child(even) {
   // background: blue;
 }

@@ -13,6 +13,7 @@ export default function withInspectorRoute(WrappedComponent) {
 
     useEffect(() => {
       if (!isLoading && !user && user?.type !== 'inspector') {
+        console.log(user?.type)
         router.push('/inspector-page/page/page-login')
         toast.warning('Please Login as Inspector First!', {
           position: 'bottom-left',

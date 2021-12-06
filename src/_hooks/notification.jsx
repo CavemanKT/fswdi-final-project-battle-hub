@@ -21,7 +21,10 @@ export default function useNotification(user) {
       withCredentials: true
     }).then((resp) => {
       resolve(resp)
-      // mutate(resp)
+      mutate(produce(data, (draft) => {
+        const index = draft.invitation1.findIndex((item) => item.id === invitationId)
+        if (index !== -1) draft.invitation1.splice(index, 1)
+      }))
     }).catch((err) => {
       reject(err)
     })
@@ -34,7 +37,10 @@ export default function useNotification(user) {
       withCredentials: true
     }).then((resp) => {
       resolve(resp)
-      // mutate(resp)
+      mutate(produce(data, (draft) => {
+        const index = draft.invitation1.findIndex((item) => item.id === invitationId)
+        if (index !== -1) draft.invitation1.splice(index, 1)
+      }))
     }).catch((err) => {
       reject(err)
     })
@@ -48,7 +54,10 @@ export default function useNotification(user) {
       withCredentials: true
     }).then((resp) => {
       resolve(resp)
-      // mutate(resp)
+      mutate(data, (draft) => {
+        const index = draft.invitation1.findIndex((item) => item.id === invitationId)
+        if (index !== -1) draft.invitation1.splice(index, 1)
+      })
     }).catch((err) => {
       reject(err)
     })

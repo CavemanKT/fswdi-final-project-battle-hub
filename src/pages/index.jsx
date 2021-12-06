@@ -39,7 +39,7 @@ export default function PagesHome() {
   } = useNotification(user)
 
   console.log(notifications, candidates)
-  if (isUserLoading || isGamesLoading || isNotificationLoading) return null
+  if (isUserLoading || isGamesLoading) return null
 
   const index = games.data.findIndex((item) => item.title === 'Path of Exile')
 
@@ -105,22 +105,7 @@ export default function PagesHome() {
           {/* candidate ranking column */}
 
           <div className="middle-section d-flex flex-column flex-grow-1 mb-5">
-            <div id="candidate-list" className="m-5">
-
-              {/*
-              <div className="">
-                {candidates && candidates?.candidateList.map((item, i) => {
-
-                })}
-              </div>
-
-              <ul>
-                todo: issue!
-                {candidates.forEach((item, i) => {
-                  <li key={i}>{item}</li>
-                })}
-              </ul> */}
-            </div>
+            <div id="candidate-list" className="m-5" />
 
           </div>
 
@@ -168,7 +153,7 @@ export default function PagesHome() {
                   )
                 }
 
-                {/* you as a inviter */}
+                {/* you as a receiver */}
                 {
                   !isNotificationLoading && notifications && notifications?.invitation1.map((item) => (
                     <div key={item.id}>
@@ -189,8 +174,10 @@ export default function PagesHome() {
                             </>
                           )
                         }
+
+                        {/* when Receiver have not set the result after the match, it shows below's btn */}
                         {
-                          item.status === 'accepted' && (
+                          item.status === 'accepted' && item.ReceiverProfile.id === user.Profile.id && item.result2 === null && (
                             <>
                               <p>
                                 You cannot take challenge until the result comes out
@@ -198,7 +185,17 @@ export default function PagesHome() {
                               <Button className="ms-2 mt-3" onClick={() => setGameResult('won', item.OwnerProfile.id, item.id)}>Won</Button>
                               <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item.OwnerProfile.id, item.id)}>Lost</Button>
                               <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item.OwnerProfile.id, item.id)}>Draw</Button>
-                              </>
+                            </>
+                          )
+                        }
+
+                        {/* when Receiver set the result, it shows.. */}
+                        {
+                          item.status === 'accepted' && item.ReceiverProfile.id === user.Profile.id && item.result2 && !item.result1 && (
+                          <p>
+                            Your result has been recorded, please wait for the opponent&#39;s result
+                          </p>
+
                           )
                         }
 
@@ -207,7 +204,7 @@ export default function PagesHome() {
                   ))
                 }
 
-                {/* you as a receiver */}
+                {/* you as a sender */}
                 {
                   !isNotificationLoading && notifications && notifications?.invitation2.map((item) => (
                     <div key={item?.id}>
@@ -220,8 +217,10 @@ export default function PagesHome() {
                             </p>
                           )
                         }
+
+                        {/* OwnerProfile have not recorded the result, it shows below's btn */}
                         {
-                          item?.status === 'accepted' && (
+                          item?.status === 'accepted' && item?.OwnerProfile?.id === user.Profile.id && item.result1 === null && (
                             <>
                               <p>
                                 You cannot take challenge until the result comes out
@@ -230,6 +229,15 @@ export default function PagesHome() {
                               <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item?.ReceiverProfile?.id, item?.id)}>Lost</Button>
                               <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item?.ReceiverProfile?.id, item?.id)}>Draw</Button>
                               </>
+                          )
+                        }
+
+                        {/* OwnerProfile have recorded the result, it shows... */}
+                        {
+                          item?.status === 'accepted' && item?.OwnerProfile?.id === user.Profile.id && item.result1 && !item.result2 && (
+                          <p>
+                            Your result has been recorded, please wait for the opponent&#39;s result
+                          </p>
                           )
                         }
 
@@ -319,7 +327,7 @@ export default function PagesHome() {
             openMyProfileModal && (
               <CompsModalUserProfile
                 close={closeUserProfileModal}
-                data={candidates.candidateList[indexOfCandidates]}
+                data={user.Profile}
               />
 
             )

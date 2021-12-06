@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 
 import Table from 'react-bootstrap/Table'
+import Button from 'react-bootstrap/Button'
 
 // _hooks
 import useUser from '@/_hooks/user'
@@ -19,9 +20,10 @@ const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', '
 export default function PageCandidateList() {
   const router = useRouter()
   const { query: { gameTitle } } = router
-  const { candidates, isLoading } = useCandidates(gameTitle)
-  // const { invitation, isLoading: isInvitationLoading } = useInvitation(candidates)
+  const [page, setPage] = useState(1)
+  const { candidates, isLoading } = useCandidates(gameTitle, page)
 
+  console.log(candidates)
   // modal state
   const [openProfileModal, setProfileOpenModal] = useState(false)
 
@@ -82,6 +84,40 @@ export default function PageCandidateList() {
             </tbody>
           </Table>
         </div>
+      </div>
+
+      <div className="pagination container d-flex justify-content-center">
+        <div className="d-flex">
+          <Button
+            className="m-3"
+            onClick={() => setPage(1)}
+            disabled={candidates.filters.page === 1}
+          >
+            First Page
+          </Button>
+          <Button
+            className="m-3"
+            onClick={() => setPage(candidates.filters.page - 1)}
+            disabled={candidates.filters.page <= 1}
+          >
+            PREV
+          </Button>
+          <Button
+            className="m-3"
+            onClick={() => setPage(candidates.filters.page + 1)}
+            disabled={candidates.filters.page === candidates.filters.totalPages}
+          >
+            NEXT
+          </Button>
+          <Button
+            className="m-3"
+            onClick={() => setPage(candidates.filters.totalPages)}
+            disabled={candidates.filters.page === candidates.filters.totalPages}
+          >
+            Last Page
+          </Button>
+        </div>
+
       </div>
 
       {

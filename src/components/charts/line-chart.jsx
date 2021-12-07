@@ -63,8 +63,8 @@ const LineChart = ({ historyData }) => {
 
   const handleTime1 = (date1, date2, date3, timeIndexCollection) => {
     const index = historyData.Histories.findIndex((item) => (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date1
-      || (item.createdAt.split('-')[0] + item.createdAt.split('-')[1]) === date2
-      || (item.createdAt.split('-')[0] + item.createdAt.split('-')[1]) === date3)
+      || (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date2
+      || (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date3)
     // console.log(index)
     if (index !== -1) {
       timeIndexCollection.push(index)
@@ -81,8 +81,8 @@ const LineChart = ({ historyData }) => {
 
   const handleTime2 = (date1, date2, date3, timeIndexCollection) => {
     const index = historyData.Histories.findIndex((item) => (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date1
-      || (item.createdAt.split('-')[0] + item.createdAt.split('-')[1]) === date2
-      || (item.createdAt.split('-')[0] + item.createdAt.split('-')[1]) === date3)
+      || (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date2
+      || (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date3)
     // console.log(index)
     if (index !== -1) {
       timeIndexCollection.push(index)
@@ -99,8 +99,8 @@ const LineChart = ({ historyData }) => {
 
   const handleTime3 = (date1, date2, date3, timeIndexCollection) => {
     const index = historyData.Histories.findIndex((item) => (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date1
-      || (item.createdAt.split('-')[0] + item.createdAt.split('-')[1]) === date2
-      || (item.createdAt.split('-')[0] + item.createdAt.split('-')[1]) === date3)
+      || (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date2
+      || (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date3)
     // console.log(index)
     if (index !== -1) {
       timeIndexCollection.push(index)
@@ -117,8 +117,8 @@ const LineChart = ({ historyData }) => {
 
   const handleTime4 = (date1, date2, date3, timeIndexCollection) => {
     const index = historyData.Histories.findIndex((item) => (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date1
-      || (item.createdAt.split('-')[0] + item.createdAt.split('-')[1]) === date2
-      || (item.createdAt.split('-')[0] + item.createdAt.split('-')[1]) === date3)
+      || (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date2
+      || (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date3)
     // console.log(index)
     if (index !== -1) {
       timeIndexCollection.push(index)

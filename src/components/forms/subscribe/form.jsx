@@ -9,7 +9,7 @@ class ContactForm extends React.Component {
       email: ''
     }
 
-    this.handleChange = this.handleInputChange.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -35,12 +35,12 @@ class ContactForm extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label htmlFor="nameImput">Name</label>
-            <input type="text" name="name" value={name} onChange={this.handleChange} className="form-control" id="nameImput" placeholder="Name" />
+            <label htmlFor="nameInput">Name</label>
+            <input type="text" name="name" value={name} onChange={this.handleInputChange} className="form-control" id="nameInput" placeholder="Name" />
           </div>
           <div className="form-group">
-            <label htmlFor="emailImput">Name</label>
-            <input name="email" type="email" value={email} onChange={this.handleChange} className="form-control" id="emailImput" placeholder="email@domain.com" />
+            <label htmlFor="emailInput">email</label>
+            <input name="email" type="email" value={email} onChange={this.handleInputChange} className="form-control" id="emailInput" placeholder="email@domain.com" />
           </div>
           <input type="submit" value="Submit" className="btn btn-dark mt-3" />
         </form>

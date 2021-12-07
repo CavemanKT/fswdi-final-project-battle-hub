@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function CompsLayoutsFooter() {
   return (
     <footer id="footer">
@@ -35,6 +37,11 @@ export default function CompsLayoutsFooter() {
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">News and articles</a>
+              </li>
+              <li className="nav-item">
+                <Link href="/inspector-page/page/page-login">
+                  <a className="nav-link">Inspector</a>
+                </Link>
               </li>
             </ul>
           </div>

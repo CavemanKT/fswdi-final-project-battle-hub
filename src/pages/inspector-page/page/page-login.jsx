@@ -24,8 +24,7 @@ const PageLogin = () => {
         <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
       </Head>
 
-      <div className="container mt-5 inspector-login-container">
-
+      <div className="container mt-5 inspector-login-container align-items-center">
         <Link href="/">
           <a className="inspector-login-logo" />
         </Link>
@@ -35,9 +34,6 @@ const PageLogin = () => {
       </div>
     </>
   )
-}
-PageLogin.propTypes = {
-
 }
 
 export default PageLogin

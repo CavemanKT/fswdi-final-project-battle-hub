@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import Modal from 'react-bootstrap/Modal'
-import React, { useState } from 'react'
+import React from 'react'
 import Table from 'react-bootstrap/Table'
-import useHistory from '@/_hooks/history'
 
 const CompsModalHistoryList = ({ data, close }) => (
   <Modal fullscreen show onHide={close} className="modal-fullscreen">

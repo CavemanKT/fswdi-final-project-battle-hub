@@ -17,6 +17,7 @@ import useNotification from '@/_hooks/notification'
 import CompsModalCreateProfile from '@/components/modals/profile/createProfile'
 import CompsModalUserProfile from '@/components/modals/profile/getProfile'
 import CompsLayout from '@/components/layouts/Layout'
+import NewsletterSubscribe from '@/components/NewsletterSubscribe'
 
 export default function PagesHome() {
   const [show, setShow] = useState(false)
@@ -275,7 +276,7 @@ export default function PagesHome() {
                   <h6 className="text-center">Subscribe for more events</h6>
                 </div>
                 <div className="position-relative mb-3">
-                  <FormsSubscribe />
+                  <NewsletterSubscribe />
                 </div>
               </div>
               <div className="card">

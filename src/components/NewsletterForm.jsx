@@ -81,10 +81,12 @@ const NewsletterForm = ({ status, message, onValidated }) => {
         {status === 'error' || error ? (
           <div
             className="newsletter-form-error"
+            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: error || getMessage(message) }}
           />
         ) : null }
         {status === 'success' && status !== 'error' && !error && (
+          // eslint-disable-next-line react/no-danger
           <div dangerouslySetInnerHTML={{ __html: decode(message) }} />
         )}
       </div>

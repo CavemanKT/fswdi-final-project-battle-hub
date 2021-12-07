@@ -4,7 +4,7 @@ import React from 'react'
 
 import LineChart from '@/components/charts/line-chart'
 
-const compsModalHistory = ({ data, target, close }) => (
+const compsModalWinRate = ({ data, target, close }) => (
   <Modal fullscreen show onHide={close} className="modal-fullscreen">
     <Modal.Header closeButton className="d-flex">
       <Modal.Title>
@@ -22,9 +22,9 @@ const compsModalHistory = ({ data, target, close }) => (
   </Modal>
 )
 
-compsModalHistory.propTypes = {
+compsModalWinRate.propTypes = {
   close: PropTypes.func.isRequired,
   data: PropTypes.shape().isRequired
 }
 
-export default compsModalHistory
+export default compsModalWinRate

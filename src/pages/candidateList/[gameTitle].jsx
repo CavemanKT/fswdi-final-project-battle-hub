@@ -42,13 +42,13 @@ export default function PageCandidateList() {
   }
 
   return (
-    <CompsLayout>
-      <div id="candidate-list-container">
+    <CompsLayout className="container">
+      <div id="candidate-list-container" className="row">
         <div id="candidate-list-heading">
           <h3>Candidate List</h3>
         </div>
 
-        <div className="candidate-list-wrapper">
+        <div className="candidate-list-wrapper col col-lg-2 col-md-auto">
           <Table responsive>
             <thead>
               <tr>

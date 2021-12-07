@@ -193,7 +193,7 @@ const CompsModalGetProfile = ({ data, close }) => {
                       keyArr && keyArr.map((item, i) => (
                         <td key={item} className="d-flex justify-content-between">
                           <span>{item} :</span>
-                          <span className="ms-5">{valueArr[i]}</span>
+                          <span className="me-1">{valueArr[i]}</span>
                         </td>
                       ))
                     }
@@ -215,11 +215,11 @@ const CompsModalGetProfile = ({ data, close }) => {
                           <>
                             <td className="d-flex justify-content-between">
                               <span>Name: </span>
-                              <span className="ms-5">{ data.User.name }</span>
+                              <span className="me-1">{ data.User.name }</span>
                             </td>
                             <td className="d-flex justify-content-between">
                               <span>Type: </span>
-                              <span className="ms-5">{ data.User.type }</span>
+                              <span className="me-1">{ data.User.type }</span>
                             </td>
                           </>
                         )

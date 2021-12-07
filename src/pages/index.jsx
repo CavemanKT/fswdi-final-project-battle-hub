@@ -9,6 +9,7 @@ import { useState, useRef } from 'react'
 import Button from 'react-bootstrap/Button'
 import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
+import FormsSubscribe from '@/components/forms/subscribe/form'
 import useGames from '@/_hooks/games'
 import useUser from '@/_hooks/user'
 import useNotification from '@/_hooks/notification'
@@ -102,7 +103,6 @@ export default function PagesHome() {
 
           <div className="middle-section d-flex flex-column flex-grow-1 mb-5">
             <div id="candidate-list" className="m-5" />
-
           </div>
 
           {/* notification column */}
@@ -262,10 +262,22 @@ export default function PagesHome() {
         </div>
 
         <div id="home-page-second-row-wrapper">
+
           {/* map the response and iterate the cards */}
           {games
             && (
-            <div id="game-list" className="col-6 col-sm-8 col-md-6 col-lg-4 card-style m-5">
+            <div id="game-list" className="col-12 col-sm-8 col-md-6 col-lg-4 card-style m-5">
+              <div className="card">
+                <div>
+                  <h3 className="text-center">Welcome!</h3>
+                </div>
+                <div>
+                  <h6 className="text-center">Subscribe for more events</h6>
+                </div>
+                <div className="position-relative mb-3">
+                  <FormsSubscribe />
+                </div>
+              </div>
               <div className="card">
                 <img src={games && games.data[index].thumbnail} className="card-img-top" alt="Path_of_Exile_Image" />
                 <div className="card-body">

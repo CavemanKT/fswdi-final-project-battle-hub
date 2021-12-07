@@ -7,8 +7,10 @@ import Table from 'react-bootstrap/Table'
 
 import useUser from '@/_hooks/user'
 import useGames from '@/_hooks/games'
+import useHistory from '@/_hooks/history'
 
-import CompsModalGetHistory from '@/components/modals/history/get'
+import CompsModalGetWinRate from '@/components/modals/history/get'
+import CompsModalHistoryList from '@/components/modals/history/getHistoryList'
 
 import withInspectorRoute from '@/_hocs/withInspectorRouter'
 
@@ -21,14 +23,16 @@ const PageDashBoard = () => {
   const [candidateList, setCandidateList] = useState(null)
   const [historyData, setHistoryData] = useState(null)
   const [historyTarget, setHistoryTarget] = useState(null)
-  const [historyOpenModal, setHistoryOpenModal] = useState(false)
+  const [winRateOpenModal, setWinRateOpenModal] = useState(false)
+  const [historyTableOpenModal, setHistoryTableOpenModal] = useState(false)
+  const [historyList, setHistoryList] = useState(null)
 
-  const { apiLogout } = useUser()
-
+  const { apiLogout, apiProfileDestroy } = useUser()
   const { games, isLoading: isGamesLoading,
     getGameCandidateList
   } = useGames()
 
+  const { apiProfileHistory } = useHistory()
   if (isGamesLoading) return null
 
   const index = games.data.findIndex((item) => item.title === 'Path of Exile')
@@ -44,11 +48,11 @@ const PageDashBoard = () => {
   const handleCandidateListHistoryModal = (i) => {
     setHistoryData(candidateList.candidateList[i])
     setHistoryTarget(i)
-    setHistoryOpenModal(true)
+    setWinRateOpenModal(true)
   }
 
-  const closeModalsHistory = () => {
-    setHistoryOpenModal(false)
+  const closeModalsWinRate = () => {
+    setWinRateOpenModal(false)
   }
 
   const handleInspectorLogout = () => {
@@ -57,7 +61,25 @@ const PageDashBoard = () => {
     })
   }
 
-  const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'History']
+  const handleDeleteProfile = (i) => {
+    apiProfileDestroy(candidateList.candidateList[i].id).then((resp) => {
+      setCandidateList(resp.data)
+    })
+  }
+
+  const handleShowHistory = (i) => {
+    apiProfileHistory(candidateList.candidateList[i].id).then((resp) => {
+      setHistoryTableOpenModal(true)
+      console.log(resp)
+      setHistoryList(resp.data)
+    })
+  }
+
+  const closeModalsHistoryList = () => {
+    setHistoryTableOpenModal(false)
+  }
+
+  const profile = ['', '', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'History']
 
   return (
 
@@ -118,17 +140,22 @@ const PageDashBoard = () => {
               <tbody>
                 {
                 candidateList && candidateList?.candidateList?.map((item, i) => (
-                  <tr key={item.id}>
-                    <td>{i + 1}</td>
-                    <td>{item.gameTitle}</td>
-                    <td>{item.characterName}</td>
-                    <td>{item.weapon}</td>
-                    <td>{item.amulet}</td>
-                    <td>{item.armour}</td>
-                    <td>{item.boots}</td>
+                  <tr key={item.characterName}>
+                    <td className="d-flex justify-content-center border-bottom-0">
+                      <button type="button" className="border-bottom-0 btn btn-danger" onClick={() => handleDeleteProfile(i)}>delete</button>
+                    </td>
+                    <td className="border-bottom-0" />
+                    <td className="d-flex justify-content-center border-bottom-0">
+                      <button type="button" className="btn btn-info" onClick={() => handleShowHistory(i)}>History</button>
+                    </td>
+                    <td><p className="mt-3">{item.characterName}</p></td>
+                    <td><p className="mt-3">{item.weapon}</p></td>
+                    <td><p className="mt-3">{item.amulet}</p></td>
+                    <td><p className="mt-3">{item.armour}</p></td>
+                    <td><p className="mt-3">{item.boots}</p></td>
 
-                    <td className="d-flex justify-content-center">
-                      <button type="button" className="basic-btn-feature btn-history" onClick={() => handleCandidateListHistoryModal(i)}>History</button>
+                    <td className="d-flex justify-content-center border-bottom-0">
+                      <button type="button" className="basic-btn-feature btn-history" onClick={() => handleCandidateListHistoryModal(i)}>Win Rate</button>
                     </td>
                   </tr>
                 ))
@@ -174,14 +201,26 @@ const PageDashBoard = () => {
         </>
         )}
       </div>
+
       {
-        historyOpenModal && (
+        historyTableOpenModal && (
           <div id="compsModalHistory">
-            <CompsModalGetHistory
+            <CompsModalHistoryList
+              data={historyList}
+              close={closeModalsHistoryList}
+            />
+          </div>
+        )
+      }
+
+      {
+        winRateOpenModal && (
+          <div id="compsModalWinRate">
+            <CompsModalGetWinRate
               candidateList={candidateList}
               data={historyData}
               target={historyTarget}
-              close={closeModalsHistory}
+              close={closeModalsWinRate}
             />
           </div>
         )

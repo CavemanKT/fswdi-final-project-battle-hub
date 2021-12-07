@@ -9,6 +9,7 @@
 @import './home-page/footer';
 @import './home-page/notification-section.scss';
 @import './home-page/game-list.scss';
+// @import './home-page/form-subscribe.scss';
 
 // modals
 @import './candidateList';
@@ -25,6 +26,7 @@
 // inspector's dashboard
 @import './inspector-page/dashboard/off-canvas-feature.scss';
 @import './inspector-page/dashboard/candidate-list-container.scss';
+@import './inspector-page/dashboard/history-list-container.scss';
 
 @import './warning-page.scss';
 

@@ -25,7 +25,7 @@ export default function withInspectorRoute(WrappedComponent) {
           progress: undefined
         })
       }
-    }, [isLoading, user])
+    }, [isLoading, user?.type])
 
     if (isLoading || !user) return <CompsLoading />
 

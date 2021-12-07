@@ -13,7 +13,7 @@ html {
         position: absolute;
         width: 50%;
         height: 100%;
-        left: -100px;
+        left: -30px;
         background-image: url('../../../public/assets/Dungeon.Fighter.Online.full.417211.jpg');
         background-size: cover;
         background-repeat: no-repeat;
@@ -28,11 +28,11 @@ html {
         }
 
         90% {
-          left: 0px;
+          left: 20px;
         }
 
         to {
-          left: -100px;
+          left: -30px;
         }
       }
 
@@ -40,7 +40,7 @@ html {
         position: absolute;
         width: 50%;
         height: 100%;
-        right: -100px;
+        right: 0px;
         background-image: url('../../../public/assets/Gunner.jpg');
         background-size: cover;
         background-repeat: no-repeat;
@@ -55,11 +55,11 @@ html {
         }
 
         90% {
-          right: 0px;
+          right: 20px;
         }
 
         to {
-          right: -100px;
+          right: 0px;
         }
       }
 
@@ -79,6 +79,8 @@ html {
         .first-col-50 {
           display: none;
         }
+
+
       }
 
       @media screen and (max-width: 422px) {

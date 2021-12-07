@@ -75,6 +75,20 @@ export default function useUser() {
     }).then((resp) => {
       console.log('resp ---->', resp)
       resolve(resp)
+      mutate(resp)
+    }).catch((err) => {
+      reject(err)
+    })
+  }))
+
+  const apiProfileDestroy = (profileId) => (new Promise((resolve, reject) => {
+    console.log(profileId)
+    axios({
+      method: 'DELETE',
+      url: `/api/profile/delete/${profileId}`,
+      withCredentials: true
+    }).then((resp) => {
+      resolve(resp)
     }).catch((err) => {
       reject(err)
     })
@@ -89,6 +103,7 @@ export default function useUser() {
     apiLogin,
     apiInspectorLogin,
     apiLogout,
-    apiProfileCreate
+    apiProfileCreate,
+    apiProfileDestroy
   }
 }

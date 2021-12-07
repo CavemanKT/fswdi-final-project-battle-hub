@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import FormsAuthLogin from '@/components/forms/auth/login-inspector'
 import useUser from '@/_hooks/user'
@@ -26,7 +26,9 @@ const PageLogin = () => {
 
       <div className="container mt-5 inspector-login-container">
 
-        <div className="inspector-login-logo" />
+        <Link href="/">
+          <a className="inspector-login-logo" />
+        </Link>
         <FormsAuthLogin
           onSubmit={handleInspectorLoginSubmit}
         />

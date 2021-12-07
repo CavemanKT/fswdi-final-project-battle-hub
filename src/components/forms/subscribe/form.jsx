@@ -21,11 +21,14 @@ class ContactForm extends React.Component {
     this.setState({
       [name]: value
     })
+    // eslint-disable-next-line no-console
     console.log(`Change detected. State updated${name} = ${value}`)
   }
 
   handleSubmit(event) {
-    alert(`A form was submitted: ${this.state.name} // ${this.state.email}`)
+    const { name, email } = this.state
+    // eslint-disable-next-line no-alert
+    alert(`A form was submitted: ${name} // ${email}`)
     event.preventDefault()
   }
 

@@ -209,16 +209,16 @@ const CompsModalGetProfile = ({ data, close }) => {
                   </thead>
                   <tbody>
                     <tr className="d-flex flex-column">
-                      {
-                        data.User && (
+                      { // if you open other's profiles, there will be value in data.User; otherwise, use 'user' value
+                        (data?.User || user) && (
                           <>
                             <td className="d-flex justify-content-between">
                               <span>Name: </span>
-                              <span className="me-1">{ data.User.name }</span>
+                              <span className="me-1">{ data?.User?.name || user.name}</span>
                             </td>
                             <td className="d-flex justify-content-between">
                               <span>Type: </span>
-                              <span className="me-1">{ data.User.type }</span>
+                              <span className="me-1">{ data?.User?.type || user.type}</span>
                             </td>
                           </>
                         )

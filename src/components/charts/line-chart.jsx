@@ -10,10 +10,10 @@ const LineChart = ({ historyData, winRateData }) => {
     series: [{
       name: 'win rate',
       data: [
-        1,
-        2,
-        3,
-        4
+        winRateData.win1,
+        winRateData.win2,
+        winRateData.win3,
+        winRateData.win4
       ]
     }],
     options: {
@@ -46,127 +46,15 @@ const LineChart = ({ historyData, winRateData }) => {
     }
   })
 
-  const amount1 = {}
-  const amount2 = {}
-  const amount3 = {}
-  const amount4 = {}
-
-  const handleTime1 = () => {
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < winRateData?.historySeason1.length; i++) {
-      if (winRateData?.historySeason1[i].result === 'won') {
-        amount1.won = amount1.won ? amount1.won + 1 : 1
-      }
-      if (winRateData?.historySeason1[i].result === 'lost') {
-        amount1.lost = amount1.lost ? amount1.lost + 1 : 1
-      }
-      if (winRateData?.historySeason1[i].result === 'draw') {
-        amount1.draw = amount1.draw ? amount1.draw + 1 : 1
-      }
-    }
-    if (!amount1.lost) {
-      amount1.lost = 0
-    }
-    if (!amount1.draw) {
-      amount1.draw = 0
-    }
-    if (amount1.won) {
-      return amount1.won / (amount1.won + amount1.lost + amount1.draw)
-    }
-    return Number(0)
-  }
-  const handleTime2 = () => {
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < winRateData?.historySeason2.length; i++) {
-      if (winRateData?.historySeason2[i].result === 'won') {
-        amount2.won = amount2.won ? amount2.won + 1 : 1
-      }
-      if (winRateData?.historySeason2[i].result === 'lost') {
-        amount2.lost = amount2.lost ? amount2.lost + 1 : 1
-      }
-      if (winRateData?.historySeason2[i].result === 'draw') {
-        amount2.draw = amount2.draw ? amount2.draw + 1 : 1
-      }
-    }
-    if (!amount2.lost) {
-      amount2.lost = 0
-    }
-    if (!amount2.draw) {
-      amount2.draw = 0
-    }
-    if (amount2.won) {
-      return amount2.won / (amount2.won + amount2.lost + amount2.draw)
-    }
-    return Number(0)
-  }
-  const handleTime3 = () => {
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < winRateData?.historySeason3.length; i++) {
-      if (winRateData?.historySeason3[i].result === 'won') {
-        amount3.won = amount3.won ? amount3.won + 1 : 1
-      }
-      if (winRateData?.historySeason3[i].result === 'lost') {
-        amount3.lost = amount3.lost ? amount3.lost + 1 : 1
-      }
-      if (winRateData?.historySeason3[i].result === 'draw') {
-        amount3.draw = amount3.draw ? amount3.draw + 1 : 1
-      }
-    }
-    if (!amount3.lost) {
-      amount3.lost = 0
-    }
-    if (!amount3.draw) {
-      amount3.draw = 0
-    }
-    if (amount3.won) {
-      return amount3.won / (amount3.won + amount3.lost + amount3.draw)
-    }
-    return Number(0)
-  }
-  const handleTime4 = () => {
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < winRateData?.historySeason4.length; i++) {
-      if (winRateData?.historySeason4[i].result === 'won') {
-        amount4.won = amount4.won ? amount4.won + 1 : 1
-      }
-      if (winRateData?.historySeason4[i].result === 'lost') {
-        amount4.lost = amount4.lost ? amount4.lost + 1 : 1
-      }
-      if (winRateData?.historySeason4[i].result === 'draw') {
-        amount4.draw = amount4.draw ? amount4.draw + 1 : 1
-      }
-    }
-    if (!amount4.lost) {
-      amount4.lost = 0
-    }
-    if (!amount4.draw) {
-      amount4.draw = 0
-    }
-    if (amount4.won) {
-      return amount4.won / (amount4.won + amount4.lost + amount4.draw)
-    }
-    return Number(0)
-  }
-
   useEffect(() => {
-    const win1 = handleTime1()
-    const win2 = handleTime2()
-    const win3 = handleTime3()
-    const win4 = handleTime4()
-    console.log('winningRate1: ', win1)
-    console.log('winningRate2: ', win2)
-    console.log('winningRate3: ', win3)
-    console.log('winningRate4: ', win4)
-
-    console.log(winRateData)
     setCollections({
       series: [{
         name: 'win rate',
         data: [
-          win1,
-          win2,
-          win3,
-          win4
+          winRateData.win1,
+          winRateData.win2,
+          winRateData.win3,
+          winRateData.win4
         ]
       }],
       options: {
@@ -197,8 +85,8 @@ const LineChart = ({ historyData, winRateData }) => {
           categories: ['Season1', 'Season2', 'Season3', 'Season4']
         }
       }
-    }, [historyData.id])
-  })
+    })
+  }, [historyData.id])
 
   return (
     <div id="chart">

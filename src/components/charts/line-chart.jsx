@@ -286,7 +286,12 @@ const LineChart = ({ historyData, winRateData }) => {
     const win2 = handleTime2()
     const win3 = handleTime3()
     const win4 = handleTime4()
+    console.log('winningRate1: ', win1)
+    console.log('winningRate2: ', win2)
+    console.log('winningRate3: ', win3)
+    console.log('winningRate4: ', win4)
 
+    console.log(winRateData)
     setCollections({
       series: [{
         name: 'win rate',

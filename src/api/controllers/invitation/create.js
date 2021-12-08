@@ -37,8 +37,6 @@ const invitationCreate = async (req, res) => {
     }
   })
 
-  console.log('invitationExisted', invitationExisted)
-
   if (invitationExisted) {
     res.status(200).json({ opponentIsBusy: true })
   }

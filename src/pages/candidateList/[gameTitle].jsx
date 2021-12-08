@@ -20,8 +20,6 @@ export default function PageCandidateList() {
   const [page, setPage] = useState(1)
   const { candidates, isLoading } = useCandidates(gameTitle, page)
 
-  // console.log(candidates)
-
   // modal state
   const [openProfileModal, setProfileOpenModal] = useState(false)
 

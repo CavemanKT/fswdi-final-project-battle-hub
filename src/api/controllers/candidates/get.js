@@ -30,8 +30,6 @@ const getCandidateList = async (req, res) => {
     offset
   })
 
-  console.log(candidateList)
-
   res.status(200).json({ candidateList: candidateList.rows,
     filters: { q, page, limit, offset, totalPages: Math.ceil(candidateList.count / limit / 10 + 1) }
   })

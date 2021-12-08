@@ -12,6 +12,7 @@ export default function useHistory() {
       withCredentials: true
     }).then((resp) => {
       resolve(resp)
+      console.log(resp)
     }).catch((err) => {
       reject(err)
     })

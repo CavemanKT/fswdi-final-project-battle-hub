@@ -4,7 +4,7 @@ import React from 'react'
 
 import LineChart from '@/components/charts/line-chart'
 
-const compsModalWinRate = ({ data, target, close }) => (
+const compsModalWinRate = ({ data, winRateData, target, close }) => (
   <Modal fullscreen show onHide={close} className="modal-fullscreen">
     <Modal.Header closeButton className="d-flex">
       <Modal.Title>
@@ -15,6 +15,7 @@ const compsModalWinRate = ({ data, target, close }) => (
       <div>
         <LineChart
           historyData={data}
+          winRateData={winRateData.data}
           historyTarget={target}
         />
       </div>

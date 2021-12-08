@@ -12,8 +12,6 @@ const profileCreate = async (req, res) => {
 
   const newInfo = { ...req.body.profile }
 
-  console.log(newInfo, req.body.profile)
-
   if (req.files && req.files.length > 0) {
     newInfo.thumbnail = req.files?.[0]?.location || null
     newInfo.img1 = req.files?.[1]?.location || null

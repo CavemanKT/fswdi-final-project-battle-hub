@@ -108,9 +108,9 @@ module.exports = {
         status: 'pending'
       })
     }
-    for (let i = 1; i <= 200; i++) {
+    for (let i = 1; i <= 500; i++) {
       await History.create({
-        ProfileId: genRandProfileId(1, 20),
+        ProfileId: genRandProfileId(1, 5),
         result: genRandResult(),
         createdAt: genRandDate()
       })

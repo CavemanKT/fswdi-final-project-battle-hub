@@ -26,6 +26,7 @@ const PageDashBoard = () => {
   const [winRateOpenModal, setWinRateOpenModal] = useState(false)
   const [historyTableOpenModal, setHistoryTableOpenModal] = useState(false)
   const [historyList, setHistoryList] = useState(null)
+  const [historySeasonChartData, setHistorySeasonChartData] = useState(null)
 
   const { apiLogout, apiProfileDestroy } = useUser()
   const { games, isLoading: isGamesLoading,
@@ -47,8 +48,11 @@ const PageDashBoard = () => {
 
   const handleCandidateListHistoryModal = (i) => {
     setHistoryData(candidateList.candidateList[i])
-    setHistoryTarget(i)
-    setWinRateOpenModal(true)
+    apiProfileHistory(candidateList.candidateList[i].id).then((resp) => {
+      setHistorySeasonChartData(resp)
+      setHistoryTarget(i)
+      setWinRateOpenModal(true)
+    })
   }
 
   const closeModalsWinRate = () => {
@@ -69,6 +73,7 @@ const PageDashBoard = () => {
 
   const handleShowHistory = (i) => {
     apiProfileHistory(candidateList.candidateList[i].id).then((resp) => {
+      console.log(resp)
       setHistoryTableOpenModal(true)
       setHistoryList(resp.data)
     })
@@ -218,6 +223,7 @@ const PageDashBoard = () => {
             <CompsModalGetWinRate
               candidateList={candidateList}
               data={historyData}
+              winRateData={historySeasonChartData}
               target={historyTarget}
               close={closeModalsWinRate}
             />

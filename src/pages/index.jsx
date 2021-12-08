@@ -27,7 +27,6 @@ export default function PagesHome() {
   const [openMyProfileModal, setOpenMyProfileModal] = useState(null)
 
   const { user, apiProfileCreate, isLoading: isUserLoading } = useUser()
-  // console.log(user)
   const { games, isLoading: isGamesLoading } = useGames()
 
   const {
@@ -37,7 +36,6 @@ export default function PagesHome() {
     setInvitationResult
   } = useNotification(user)
 
-  // console.log(notifications, candidates)
   if (isUserLoading || isGamesLoading) return null
 
   const index = games.data.findIndex((item) => item.title === 'Path of Exile')

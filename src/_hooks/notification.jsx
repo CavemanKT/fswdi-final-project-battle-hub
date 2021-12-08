@@ -10,8 +10,8 @@ export default function useNotification(user) {
   const profile = user ? user.Profile : null
   const url = profile ? `/api/notification/${user.Profile.id}` : null
   const { data, error, mutate } = useSWR(url, fetcher, {
-    shouldRetryOnError: false
-
+    shouldRetryOnError: false,
+    refreshInterval: 1000
   })
 
   const setInvitationStatusToAccepted = (inviOwnerProfileId, invitationId) => (new Promise((resolve, reject) => {

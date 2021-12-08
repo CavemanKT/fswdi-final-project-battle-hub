@@ -9,7 +9,8 @@ import fetcher from '@/_services/fetcher'
 export default function useInvitation(profileId) {
   const url = profileId ? `/api/invitation/${profileId}` : null
   const { data, error, mutate } = useSWR(url, fetcher, {
-    shouldRetryOnError: false
+    shouldRetryOnError: false,
+    refreshInterval: 1000
   })
 
   const createInvitation = () => (new Promise((resolve, reject) => {

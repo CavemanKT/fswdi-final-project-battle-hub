@@ -55,7 +55,6 @@ const PageLineChart = () => {
   const amount3 = {}
   const amount4 = {}
 
-  const timeIndex1 = []
   const timeIndex2 = []
   const timeIndex3 = []
   const timeIndex4 = []
@@ -65,36 +64,33 @@ const PageLineChart = () => {
   const win3 = {}
   const win4 = {}
 
-  const handleTime1 = (date1, date2, date3, timeIndexCollection) => {
+  // modified handleTime1 fn, so that it uses one less variable, laptop uses one less pointer and one less memory space
+  const handleTime1 = (date1, date2, date3) => {
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < history.length; i++) {
       if (history[i].result === 'won' && ((`${history[i].createdAt.split('-')[0]}-${history[i].createdAt.split('-')[1]}`) === date1 || (`${history[i].createdAt.split('-')[0]}-${history[i].createdAt.split('-')[1]}`) === date2 || (`${history[i].createdAt.split('-')[0]}-${history[i].createdAt.split('-')[1]}`) === date3)) {
         amount1.won = amount1.won ? amount1.won + 1 : 1
+      } else {
+        amount1.won = 0
       }
       if (history[i].result === 'lost' && ((`${history[i].createdAt.split('-')[0]}-${history[i].createdAt.split('-')[1]}`) === date1 || (`${history[i].createdAt.split('-')[0]}-${history[i].createdAt.split('-')[1]}`) === date2 || (`${history[i].createdAt.split('-')[0]}-${history[i].createdAt.split('-')[1]}`) === date3)) {
         amount1.lost = amount1.lost ? amount1.lost + 1 : 1
+      } else {
+        amount1.lost = 0
       }
       if (history[i].result === 'draw' && ((`${history[i].createdAt.split('-')[0]}-${history[i].createdAt.split('-')[1]}`) === date1 || (`${history[i].createdAt.split('-')[0]}-${history[i].createdAt.split('-')[1]}`) === date2 || (`${history[i].createdAt.split('-')[0]}-${history[i].createdAt.split('-')[1]}`) === date3)) {
         amount1.draw = amount1.draw ? amount1.draw + 1 : 1
+      } else {
+        amount1.draw = 0
       }
     }
-
-    // continue from here
-
-    // console.log(index)
-    if (index !== -1) {
-      timeIndexCollection.push(index)
-      amount1[history[index].result] = amount1[history[index].result] ? amount1[history[index].result] + 1 : 1
-      history.splice(index, 1)
-      return handleTime1(date1, date2, date3, timeIndexCollection)
-    }
     if (amount1.won) {
-      const sum = timeIndexCollection.length
-      return amount1.won / sum
+      return amount1.won / (amount1.won + amount1.lost + amount1.draw)
     }
     return Number(0)
   }
 
+  // the original version of calculation
   const handleTime2 = (date1, date2, date3, timeIndexCollection) => {
     const index = history.findIndex((item) => (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date1
       || (item.createdAt.split('-')[0] + item.createdAt.split('-')[1]) === date2
@@ -113,6 +109,7 @@ const PageLineChart = () => {
     return Number(0)
   }
 
+  // the original version of calculation
   const handleTime3 = (date1, date2, date3, timeIndexCollection) => {
     const index = history.findIndex((item) => (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date1
       || (item.createdAt.split('-')[0] + item.createdAt.split('-')[1]) === date2
@@ -131,6 +128,7 @@ const PageLineChart = () => {
     return Number(0)
   }
 
+  // the original version of calculation
   const handleTime4 = (date1, date2, date3, timeIndexCollection) => {
     const index = history.findIndex((item) => (`${item.createdAt.split('-')[0]}-${item.createdAt.split('-')[1]}`) === date1
       || (item.createdAt.split('-')[0] + item.createdAt.split('-')[1]) === date2
@@ -149,7 +147,7 @@ const PageLineChart = () => {
     return Number(0)
   }
 
-  win1.a = handleTime1('2010-01', '2010-02', '2010-03', timeIndex1)
+  win1.a = handleTime1('2010-01', '2010-02', '2010-03')
   win2.b = handleTime2('2010-04', '2010-05', '2010-06', timeIndex2)
   win3.c = handleTime3('2010-07', '2010-08', '2010-09', timeIndex3)
   win4.d = handleTime4('2010-10', '2010-11', '2010-12', timeIndex4)

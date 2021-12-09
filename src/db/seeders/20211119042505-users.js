@@ -19,10 +19,18 @@ const genRandProfileId = (i, maxi) => {
   return randProfileId
 }
 
-const genRandNum = (i) => {
+const genRandNumForProfile1 = () => {
   const randNum = Math.floor(Math.random() * 30)
-  if (randNum === i || randNum === 0) {
-    return genRandNum(i)
+  if (randNum < 15 || randNum === 0) {
+    return genRandNumForProfile1()
+  }
+  return randNum
+}
+
+const genRandNumForProfile2 = () => {
+  const randNum = Math.floor(Math.random() * 30)
+  if (randNum >= 15 || randNum === 0) {
+    return genRandNumForProfile2()
   }
   return randNum
 }
@@ -103,8 +111,8 @@ module.exports = {
         UserId: i
       })
       await Invitation.create({
-        profile1: genRandNum(i),
-        profile2: genRandNum(i),
+        profile1: genRandNumForProfile1(),
+        profile2: genRandNumForProfile1(),
         status: 'pending'
       })
     }

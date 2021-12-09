@@ -19,8 +19,9 @@ export default function useInvitation(profileId) {
       url: `/api/invitation/${profileId}`,
       withCredentials: true
     }).then((resp) => {
-      resolve(resp)
       mutate(resp.data)
+      console.log(resp.data)
+      resolve(resp)
     }).catch((err) => {
       reject(err)
     })

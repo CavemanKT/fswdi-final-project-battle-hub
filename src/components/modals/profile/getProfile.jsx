@@ -26,8 +26,11 @@ const CompsModalGetProfile = ({ data, close }) => {
   const [showBusyOrSuccess, setShowBusyOrSuccess] = useState(false)
 
   const handleInvitationSubmitBtn = () => {
-    createInvitation().then(() => {
-      setShowBusyOrSuccess(!showBusyOrSuccess)
+    createInvitation().then((resp) => {
+      console.log(resp.data.opponentIsBusy)
+      if (resp.data.opponentIsBusy) {
+        setShowBusyOrSuccess(!showBusyOrSuccess)
+      }
     })
   }
 
@@ -69,13 +72,13 @@ const CompsModalGetProfile = ({ data, close }) => {
 
       </Head>
 
-      <Modal fullscreen show onHide={close} className="modal-fullscreen wrapper d-flex">
-        <Modal.Header closeButton className="d-flex">
+      <Modal fullscreen show onHide={close} className="modal-fullscreen wrapper">
+        <Modal.Header closeButton>
           <Modal.Title>{data.characterName}&#39;s Profile</Modal.Title>
 
           {
           !invited && !myself && (
-            <div className="header-wrapper">
+            <div className="header-wrapper w-100 d-flex h-100">
               {
                 data.id && (
                   <>
@@ -89,7 +92,7 @@ const CompsModalGetProfile = ({ data, close }) => {
 
                       {
                         showBusyOrSuccess && (
-                        <div className="text-danger ms-4 d-inline">
+                        <div className="text-danger ms-2 d-inline align-self-center">
                           One of you has <strong>started</strong> the battle.  We are waiting for the results.
 
                         </div>
@@ -100,7 +103,7 @@ const CompsModalGetProfile = ({ data, close }) => {
                   </>
                 )
               }
-              {
+              {// for those who don't have profile
               !data.id && (
                 <div className="d-flex ms-5 challenge-no-user-warning">
                   <div>Create your own profile to challange other opponents</div>
@@ -113,7 +116,7 @@ const CompsModalGetProfile = ({ data, close }) => {
           }
           {
           data.id && invited && !myself && (
-            <div ref={ref}>
+            <div className="header-wrapper w-100 d-flex h-100" ref={ref}>
               {
               data.id && (
                 <>
@@ -122,12 +125,12 @@ const CompsModalGetProfile = ({ data, close }) => {
                   handleInvitationCancelBtn
                 }
                     variant="outline-secondary"
-                    className="profile-modal-bar-cancel-btn ms-5"
+                    className="profile-modal-bar-cancel-btn ms-2"
                   >Cancel</Button>
 
                   {
                     show && (
-                      <div className="d-inline text-danger ms-4">
+                      <div className="d-inline text-danger ms-2 align-self-center">
                         This candidate has <strong>started</strong> the battle, it cannot be cancelled until there is a result
                       </div>
                     )
@@ -190,7 +193,7 @@ const CompsModalGetProfile = ({ data, close }) => {
                     <tr className="d-flex flex-column">
                       {
                       keyArr && keyArr.map((item, i) => (
-                        <td key={item} className="d-flex justify-content-between">
+                        <td key={item} className="d-flex justify-content-between pe-1">
                           <span>{item} :</span>
                           <span className="me-1">{valueArr[i]}</span>
                         </td>
@@ -212,11 +215,11 @@ const CompsModalGetProfile = ({ data, close }) => {
                       { // if you open other's profiles, there will be value in data.User; otherwise, use 'user' value
                         (data?.User || user) && (
                           <>
-                            <td className="d-flex justify-content-between">
+                            <td className="d-flex justify-content-between pe-1">
                               <span>Name: </span>
                               <span className="me-1">{ data?.User?.name || user.name}</span>
                             </td>
-                            <td className="d-flex justify-content-between">
+                            <td className="d-flex justify-content-between pe-1">
                               <span>Type: </span>
                               <span className="me-1">{ data?.User?.type || user.type}</span>
                             </td>

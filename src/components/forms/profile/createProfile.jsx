@@ -73,36 +73,50 @@ const RenderForm = ({ values, errors, touched, isSubmitting, setFieldValue }) =>
     </div>
 
     {/* images upload */}
+    <div className="form-group my-3">
+      <label htmlFor="thumbnail">Thumbnail</label>
+      <FileField
+        name="thumbnail"
+        setFieldValue={setFieldValue}
+        value={values.thumbnail}
+      />
+    </div>
 
-    <FileField
-      name="thumbnail"
-      setFieldValue={setFieldValue}
-      value={values.thumbnail}
-    />
+    <div className="form-group my-3">
+      <label htmlFor="img1">img1</label>
+      <FileField
+        name="img1"
+        setFieldValue={setFieldValue}
+        value={values.img1}
+      />
+    </div>
 
-    <FileField
-      name="img1"
-      setFieldValue={setFieldValue}
-      value={values.img1}
-    />
+    <div className="form-group my-3">
+      <label htmlFor="img2">img2</label>
+      <FileField
+        name="img2"
+        setFieldValue={setFieldValue}
+        value={values.img2}
+      />
+    </div>
 
-    <FileField
-      name="img2"
-      setFieldValue={setFieldValue}
-      value={values.img2}
-    />
+    <div className="form-group my-3">
+      <label htmlFor="img3">img3</label>
+      <FileField
+        name="img3"
+        setFieldValue={setFieldValue}
+        value={values.img3}
+      />
+    </div>
 
-    <FileField
-      name="img3"
-      setFieldValue={setFieldValue}
-      value={values.img3}
-    />
-
-    <FileField
-      name="video"
-      setFieldValue={setFieldValue}
-      value={values.video}
-    />
+    <div className="form-group my-3">
+      <label htmlFor="video">video</label>
+      <FileField
+        name="video"
+        setFieldValue={setFieldValue}
+        value={values.video}
+      />
+    </div>
 
     <button className="btn btn-success mt-3" type="submit" disabled={isSubmitting}>Submit</button>
   </Form>

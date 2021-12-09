@@ -26,9 +26,9 @@ export default function withPrivateProfileRoute(WrappedComponent) {
           })
         }
       }
-    }, [isLoading, user.Profile])
+    }, [isLoading, user?.Profile])
 
-    if (isLoading || !user.Profile) return <CompsLoading />
+    if (isLoading || !user?.Profile) return <CompsLoading />
 
     return <WrappedComponent {...props} />
   }

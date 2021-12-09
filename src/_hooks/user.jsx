@@ -88,11 +88,9 @@ export default function useUser() {
       withCredentials: true
     }).then((resp) => {
       resolve(resp)
+      console.log(resp)
       if (data?.user) {
-        mutate({
-          ...data.user,
-          Profile: null
-        })
+        mutate(resp.data)
       }
     }).catch((err) => {
       reject(err)

@@ -2,6 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 import FormsAuthLogin from '@/components/forms/auth/login-inspector'
 import useUser from '@/_hooks/user'
 
@@ -12,6 +13,20 @@ const PageLogin = () => {
   const handleInspectorLoginSubmit = (values) => {
     apiInspectorLogin(values).then(() => {
       router.push('/inspector-page/page/page-dashboard')
+    }).catch(() => {
+      toast.error('Please enter correct inspector username and password.', {
+        position: 'bottom-left',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      })
+    }).finally(() => {
+      setTimeout(() => {
+        window.location.reload(false)
+      }, 2000)
     })
   }
   return (

@@ -43,9 +43,15 @@ const profileDestroy = async (req, res) => {
       ProfileId: profileId
     }
   })
+  const userSerializer = function (values) {
+    const { ...user } = values.dataValues
+    delete user.passwordHash
+    return user
+  }
 
   res.status(200).json({ candidateList: candidateList.rows,
-    filters: { q, page, limit, offset, totalPages: Math.ceil(candidateList.count / limit / 10 + 1) }
+    filters: { q, page, limit, offset, totalPages: Math.ceil(candidateList.count / limit / 10 + 1) },
+    user: userSerializer(res.currentUser)
   })
 }
 

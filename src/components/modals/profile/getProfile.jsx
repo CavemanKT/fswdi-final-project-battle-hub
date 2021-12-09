@@ -27,7 +27,6 @@ const CompsModalGetProfile = ({ data, close }) => {
 
   const handleInvitationSubmitBtn = () => {
     createInvitation().then((resp) => {
-      console.log(resp.data.opponentIsBusy)
       if (resp.data.opponentIsBusy) {
         setShowBusyOrSuccess(!showBusyOrSuccess)
       }

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable @next/next/no-img-element */
 // Comps
 import Link from 'next/link'

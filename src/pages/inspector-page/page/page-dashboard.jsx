@@ -73,7 +73,6 @@ const PageDashBoard = () => {
 
   const handleShowHistory = (i) => {
     apiProfileHistory(candidateList.candidateList[i].id).then((resp) => {
-      console.log(resp)
       setHistoryTableOpenModal(true)
       setHistoryList(resp.data)
     })

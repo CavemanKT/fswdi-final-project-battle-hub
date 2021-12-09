@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-
-import Table from 'react-bootstrap/Table'
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import Button from 'react-bootstrap/Button'
 
 // _hooks
@@ -12,7 +12,7 @@ import CompsLayout from '@/components/layouts/Layout'
 // import modal
 import CompsModalGetProfile from '@/components/modals/profile/getProfile'
 
-const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'Profile']
+const profile = ['Game Title', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', '']
 
 export default function PageCandidateList() {
   const router = useRouter()
@@ -47,37 +47,37 @@ export default function PageCandidateList() {
         </div>
 
         <div className="candidate-list-wrapper col col-lg-2 col-md-auto">
-          <Table responsive>
-            <thead>
-              <tr>
-                <th />
+          <Table responsive className="candidate-list-secondary-wrapper col-xl-12">
+            <Thead>
+              <Tr>
+                <Th />
                 {
                   profile.map((item) => (
-                    <th key={item}>{item}</th>
+                    <Th key={item}>{item}</Th>
                   ))
                 }
-              </tr>
-            </thead>
-            <tbody>
+              </Tr>
+            </Thead>
+            <Tbody>
               {
                 candidates && candidates.candidateList.map((item, i) => (
-                  <tr key={item.id}>
-                    <td>{i + 1}</td>
-                    <td>{item.gameTitle}</td>
-                    <td>{item.characterName}</td>
-                    <td>{item.weapon}</td>
-                    <td>{item.amulet}</td>
-                    <td>{item.armour}</td>
-                    <td>{item.boots}</td>
-                    <td className="d-flex justify-content-center">
+                  <Tr key={item.id}>
+                    <Td>{i + 1}</Td>
+                    <Td>{item.gameTitle}</Td>
+                    <Td>{item.characterName}</Td>
+                    <Td>{item.weapon}</Td>
+                    <Td>{item.amulet}</Td>
+                    <Td>{item.armour}</Td>
+                    <Td>{item.boots}</Td>
+                    <Td className="d-flex justify-content-center position-relative">
                       <button type="button" className="basic-btn-feature btn-profile" onClick={() => handleCandidateListProfileModal(i)}>
                         Profile
                       </button>
-                    </td>
-                  </tr>
+                    </Td>
+                  </Tr>
                 ))
               }
-            </tbody>
+            </Tbody>
           </Table>
         </div>
       </div>
@@ -87,7 +87,7 @@ export default function PageCandidateList() {
           <Button
             className="m-3"
             onClick={() => setPage(1)}
-            disabled={candidates.filters.page === 1}
+            disabled={candidates.filters.page <= 1}
           >
             First Page
           </Button>
@@ -101,14 +101,14 @@ export default function PageCandidateList() {
           <Button
             className="m-3"
             onClick={() => setPage(candidates.filters.page + 1)}
-            disabled={candidates.filters.page === candidates.filters.totalPages}
+            disabled={candidates.filters.page >= candidates.filters.totalPages}
           >
             NEXT
           </Button>
           <Button
             className="m-3"
             onClick={() => setPage(candidates.filters.totalPages)}
-            disabled={candidates.filters.page === candidates.filters.totalPages}
+            disabled={candidates.filters.page >= candidates.filters.totalPages}
           >
             Last Page
           </Button>

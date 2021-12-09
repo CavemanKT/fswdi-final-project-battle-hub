@@ -3,8 +3,8 @@ import { useState } from 'react'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
-import Table from 'react-bootstrap/Table'
-
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import useUser from '@/_hooks/user'
 import useGames from '@/_hooks/games'
 import useHistory from '@/_hooks/history'
@@ -83,7 +83,7 @@ const PageDashBoard = () => {
     setHistoryTableOpenModal(false)
   }
 
-  const profile = ['', '', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', 'History']
+  const profile = ['', '', 'Character Name', 'Weapon', 'Amulet', 'Armour', 'Boots', '']
 
   return (
 
@@ -130,41 +130,41 @@ const PageDashBoard = () => {
 
           <div className="candidate-list-wrapper">
 
-            <Table responsive>
-              <thead>
-                <tr>
-                  <th />
+            <Table responsive className="candidate-list-secondary-wrapper">
+              <Thead>
+                <Tr>
+                  <Th />
                   {
                   profile.map((item) => (
-                    <th key={item}>{item}</th>
+                    <Th key={item}>{item}</Th>
                   ))
                 }
-                </tr>
-              </thead>
-              <tbody>
+                </Tr>
+              </Thead>
+              <Tbody>
                 {
                 candidateList && candidateList?.candidateList?.map((item, i) => (
-                  <tr key={item.characterName}>
-                    <td className="d-flex justify-content-center border-bottom-0">
+                  <Tr key={item.characterName}>
+                    <Td className="d-flex justify-content-center border-bottom-0">
                       <button type="button" className="border-bottom-0 btn btn-danger" onClick={() => handleDeleteProfile(i)}>delete</button>
-                    </td>
-                    <td className="border-bottom-0" />
-                    <td className="d-flex justify-content-center border-bottom-0">
+                    </Td>
+                    <Td className="border-bottom-0" />
+                    <Td className="d-flex justify-content-center border-bottom-0">
                       <button type="button" className="btn btn-info" onClick={() => handleShowHistory(i)}>History</button>
-                    </td>
-                    <td><p className="mt-3">{item.characterName}</p></td>
-                    <td><p className="mt-3">{item.weapon}</p></td>
-                    <td><p className="mt-3">{item.amulet}</p></td>
-                    <td><p className="mt-3">{item.armour}</p></td>
-                    <td><p className="mt-3">{item.boots}</p></td>
+                    </Td>
+                    <Td><p className="mt-3">{item.characterName}</p></Td>
+                    <Td><p className="mt-3">{item.weapon}</p></Td>
+                    <Td><p className="mt-3">{item.amulet}</p></Td>
+                    <Td><p className="mt-3">{item.armour}</p></Td>
+                    <Td><p className="mt-3">{item.boots}</p></Td>
 
-                    <td className="d-flex justify-content-center border-bottom-0">
+                    <Td className="d-flex justify-content-center border-bottom-0">
                       <button type="button" className="basic-btn-feature btn-history" onClick={() => handleCandidateListHistoryModal(i)}>Win Rate</button>
-                    </td>
-                  </tr>
+                    </Td>
+                  </Tr>
                 ))
               }
-              </tbody>
+              </Tbody>
             </Table>
 
           </div>

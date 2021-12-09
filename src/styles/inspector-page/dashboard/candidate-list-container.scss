@@ -14,7 +14,69 @@ html {
         .candidate-list-wrapper {
           display: block;
 
+          .basic-btn-feature {
+            // Basic Button Style
+            box-sizing: border-box;
+            appearance: none;
+            background-color: transparent;
+            border: 2px solid $yellow;
+            border-radius: 0.6em;
+            color: $yellow;
+            cursor: pointer;
+            display: flex;
+            align-self: center;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1;
+            margin: 10px;
+            padding: 0.6em 1.5em;
+            text-decoration: none;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+
+            &:hover,
+            &:focus {
+              color: #fff;
+              outline: 0;
+            }
+          }
+
+          .btn-history {
+            // background: $yellow;
+            border-color: $yellow;
+            color: $yellow;
+
+            background: {
+              image: linear-gradient(45deg, $yellow 50%, transparent 50%);
+              position: 100%;
+              size: 400%;
+            }
+
+            transition: background 300ms ease-in-out;
+
+            &:hover {
+              background-position: 0;
+            }
+
+            &:focus {
+              background-color: $yellow;
+            }
+          }
         }
+
+        @media screen and (max-width: 1214px) {
+          .candidate-list-wrapper {
+            width: 100vw;
+          }
+
+        }
+
+        @media screen and (max-width: 724px) {
+          width: 100vw;
+        }
+
       }
     }
   }

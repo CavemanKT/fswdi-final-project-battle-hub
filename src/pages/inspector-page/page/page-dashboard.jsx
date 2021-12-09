@@ -187,16 +187,16 @@ const PageDashBoard = () => {
               <Button
                 className="m-3"
                 onClick={() => handleGetList(gameTitle, candidateList.filters.page + 1)}
-                disabled={candidateList.filters.page - 1 >= candidateList.filters.totalPages}
+                disabled={candidateList.filters.page >= candidateList.filters.totalPages}
               >
                 NEXT
               </Button>
               <Button
                 className="m-3"
                 onClick={
-                  () => handleGetList(gameTitle, candidateList.filters.totalPages + 1)
+                  () => handleGetList(gameTitle, candidateList.filters.totalPages - 1)
                   }
-                disabled={candidateList.filters.page - 1 >= candidateList.filters.totalPages}
+                disabled={candidateList.filters.page >= candidateList.filters.totalPages}
               >
                 Last Page
               </Button>

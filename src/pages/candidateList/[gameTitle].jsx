@@ -101,16 +101,16 @@ export default function PageCandidateList() {
           <Button
             className="m-3"
             onClick={() => setPage(candidates.filters.page + 1)}
-            disabled={candidates.filters.page - 1 >= candidates.filters.totalPages}
+            disabled={candidates.filters.page >= candidates.filters.totalPages}
           >
             NEXT
           </Button>
           <Button
             className="m-3"
             onClick={
-              () => setPage(candidates.filters.totalPages + 1)
+              () => setPage(candidates.filters.totalPages - 1)
               }
-            disabled={candidates.filters.page - 1 >= candidates.filters.totalPages}
+            disabled={candidates.filters.page >= candidates.filters.totalPages}
           >
             Last Page
           </Button>

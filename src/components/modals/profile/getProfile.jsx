@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 
 import useInvitation from '@/_hooks/invitation'
 import useUser from '@/_hooks/user'
-import withPrivateRoute from '@/_hocs/withPrivateRoute'
+import withPrivateProfileRoute from '@/_hocs/withPrivateProfileRouter'
 
 const CompsModalGetProfile = ({ data, close }) => {
   const router = useRouter()
@@ -294,4 +294,4 @@ CompsModalGetProfile.propTypes = {
   data: PropTypes.shape().isRequired
 }
 
-export default withPrivateRoute(CompsModalGetProfile)
+export default withPrivateProfileRoute(CompsModalGetProfile)

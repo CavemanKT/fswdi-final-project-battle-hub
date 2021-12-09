@@ -34,6 +34,9 @@ const userSerializer = function (values) {
 }
 
 const authEmailSignup = async (req, res) => {
+  const registeredUser = await User.findOne({ where: { email: req.body.email } })
+  if (registeredUser) return res.status(403).json()
+
   const user = await User.build({
     ...req.body, registrationType: 'email', type: 'candidate'
   }, {
@@ -49,7 +52,7 @@ const authEmailSignup = async (req, res) => {
   req.session.set('token', token)
   await req.session.save()
 
-  res.status(200).json(userSerializer(user))
+  return res.status(200).json({ user: userSerializer(user) })
 }
 
 export default nc()

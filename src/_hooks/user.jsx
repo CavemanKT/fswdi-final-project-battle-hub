@@ -16,11 +16,10 @@ export default function useUser() {
       data: values,
       withCredentials: true
     }).then((resp) => {
-      resolve(resp)
       mutate(resp.data)
+      resolve(resp)
     }).catch((err) => {
       reject(err)
-      console.log(err)
     })
   }))
 
@@ -31,8 +30,8 @@ export default function useUser() {
       data: values,
       withCredentials: true
     }).then((resp) => {
-      resolve(resp)
       mutate(resp.data)
+      resolve(resp)
     }).catch((err) => {
       reject(err)
     })
@@ -45,8 +44,8 @@ export default function useUser() {
       data: values,
       withCredentials: true
     }).then((resp) => {
-      resolve(resp)
       mutate(resp.data)
+      resolve(resp)
     }).catch((err) => {
       reject(err)
     })
@@ -66,29 +65,35 @@ export default function useUser() {
   }))
 
   const apiProfileCreate = (values) => (new Promise((resolve, reject) => {
-    console.log(values)
     axios({
       method: 'POST',
       url: '/api/profile/create',
       data: getFormData(values, 'profile'),
       withCredentials: true
     }).then((resp) => {
-      console.log('resp ---->', resp)
+      if (data?.user) {
+        console.log(resp)
+        mutate(resp.data)
+      }
       resolve(resp)
-      mutate(resp)
     }).catch((err) => {
       reject(err)
     })
   }))
 
   const apiProfileDestroy = (profileId) => (new Promise((resolve, reject) => {
-    console.log(profileId)
     axios({
       method: 'DELETE',
       url: `/api/profile/delete/${profileId}`,
       withCredentials: true
     }).then((resp) => {
       resolve(resp)
+      if (data?.user) {
+        mutate({
+          ...data.user,
+          Profile: null
+        })
+      }
     }).catch((err) => {
       reject(err)
     })

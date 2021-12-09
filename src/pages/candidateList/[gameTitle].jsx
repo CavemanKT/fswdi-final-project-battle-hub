@@ -62,7 +62,7 @@ export default function PageCandidateList() {
               {
                 candidates && candidates.candidateList.map((item, i) => (
                   <Tr key={item.id}>
-                    <Td>{i + 1}</Td>
+                    <Td>{item.id}</Td>
                     <Td>{item.gameTitle}</Td>
                     <Td>{item.characterName}</Td>
                     <Td>{item.weapon}</Td>
@@ -101,14 +101,16 @@ export default function PageCandidateList() {
           <Button
             className="m-3"
             onClick={() => setPage(candidates.filters.page + 1)}
-            disabled={candidates.filters.page >= candidates.filters.totalPages}
+            disabled={candidates.filters.page - 1 >= candidates.filters.totalPages}
           >
             NEXT
           </Button>
           <Button
             className="m-3"
-            onClick={() => setPage(candidates.filters.totalPages)}
-            disabled={candidates.filters.page >= candidates.filters.totalPages}
+            onClick={
+              () => setPage(candidates.filters.totalPages + 1)
+              }
+            disabled={candidates.filters.page - 1 >= candidates.filters.totalPages}
           >
             Last Page
           </Button>

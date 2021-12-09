@@ -24,8 +24,15 @@ const profileCreate = async (req, res) => {
     fields: permittedFields
   })
 
-  console.log(profile)
-  res.status(200).json({ profile })
+  const userSerializer = function (values) {
+    const { ...user } = values.dataValues
+    delete user.passwordHash
+    return user
+  }
+
+  console.log(res.currentUser, profile)
+
+  res.status(200).json({ user: userSerializer(res.currentUser), profile })
 }
 
 export default nc()

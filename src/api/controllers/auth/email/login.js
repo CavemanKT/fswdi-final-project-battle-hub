@@ -21,7 +21,7 @@ const authEmailLogin = async (req, res, next) => {
     req.session.set('token', token)
     await req.session.save()
 
-    return res.status(200).json(userSerializer(user))
+    return res.status(200).json({ user: userSerializer(user) })
   })(req, res, next)
 }
 

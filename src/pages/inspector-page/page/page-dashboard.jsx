@@ -106,7 +106,7 @@ const PageDashBoard = () => {
             </>
           )}
           <div>
-            <Button className="position-absolute fixed-bottom m-3 btn-danger" onClick={handleInspectorLogout}>Log out</Button>
+            <Button className="position-absolute fixed-bottom m-3 mb-5 btn-danger" onClick={handleInspectorLogout}>Log out</Button>
           </div>
 
         </Offcanvas.Body>
@@ -174,7 +174,7 @@ const PageDashBoard = () => {
               <Button
                 className="m-3"
                 onClick={() => handleGetList(gameTitle, 1)}
-                disabled={candidateList.filters.page === 1}
+                disabled={candidateList.filters.page <= 1}
               >
                 First Page
               </Button>
@@ -188,14 +188,16 @@ const PageDashBoard = () => {
               <Button
                 className="m-3"
                 onClick={() => handleGetList(gameTitle, candidateList.filters.page + 1)}
-                disabled={candidateList.filters.page === candidateList.filters.totalPages}
+                disabled={candidateList.filters.page - 1 >= candidateList.filters.totalPages}
               >
                 NEXT
               </Button>
               <Button
                 className="m-3"
-                onClick={() => handleGetList(gameTitle, candidateList.filters.totalPages)}
-                disabled={candidateList.filters.page === candidateList.filters.totalPages}
+                onClick={
+                  () => handleGetList(gameTitle, candidateList.filters.totalPages + 1)
+                  }
+                disabled={candidateList.filters.page - 1 >= candidateList.filters.totalPages}
               >
                 Last Page
               </Button>

@@ -6,16 +6,16 @@ import useUser from '@/_hooks/user' // this is where the use is from
 
 import CompsLoading from '@/components/Loading'
 
-export default function withInspectorRoute(WrappedComponent) {
-  return function InspectorRoute(props) {
+export default function withPrivateProfileRoute(WrappedComponent) {
+  return function PrivateProfileRoute(props) {
     const router = useRouter()
     const { user, isLoading } = useUser()
 
     useEffect(() => {
       if (!isLoading) {
-        if (!user || user?.type !== 'inspector') {
-          router.push('/inspector-page/page/page-login')
-          toast.warning('Please Login as Inspector First!', {
+        if (!user || !user?.Profile) {
+          router.push('/')
+          toast.info('Please Create Your Own Profile First!', {
             position: 'bottom-left',
             autoClose: 5000,
             hideProgressBar: false,
@@ -26,9 +26,9 @@ export default function withInspectorRoute(WrappedComponent) {
           })
         }
       }
-    }, [isLoading, user?.type])
+    }, [isLoading, user.Profile])
 
-    if (isLoading || !user) return <CompsLoading />
+    if (isLoading || !user.Profile) return <CompsLoading />
 
     return <WrappedComponent {...props} />
   }

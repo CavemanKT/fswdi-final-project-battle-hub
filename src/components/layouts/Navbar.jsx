@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
+import { toast } from 'react-toastify'
 
 import { useState } from 'react'
 
@@ -33,6 +34,27 @@ export default function CompsLayoutsNavbar() {
   const handleSignupSubmit = (values) => {
     apiSignup(values).then(() => {
       setOpenSignupModal(false)
+      toast.success('Welcome to Battle Hub, you can now create your own profile.', {
+        position: 'bottom-left',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      })
+    }).catch(() => {
+      toast.error('The email has been used.', {
+        position: 'bottom-left',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      })
+    }).finally(() => {
+      setOpenSignupModal(false)
     })
   }
 
@@ -46,6 +68,18 @@ export default function CompsLayoutsNavbar() {
 
   const handleLoginSubmit = (values) => {
     apiLogin(values).then(() => {
+      setOpenLoginModal(false)
+    }).catch(() => {
+      toast.error('Please enter correct email and password', {
+        position: 'bottom-left',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      })
+    }).finally(() => {
       setOpenLoginModal(false)
     })
   }

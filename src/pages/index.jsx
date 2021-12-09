@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 // Comps
 import Link from 'next/link'
-
+import ReactCanvasConfetti from 'react-canvas-confetti'
 // Hooks
-
-import { useState, useRef } from 'react'
+import { useState, useRef, useCallback } from 'react'
 
 import Button from 'react-bootstrap/Button'
 import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
+
 import useGames from '@/_hooks/games'
 import useUser from '@/_hooks/user'
 import useNotification from '@/_hooks/notification'
@@ -18,7 +18,61 @@ import CompsModalUserProfile from '@/components/modals/profile/getProfile'
 import CompsLayout from '@/components/layouts/Layout'
 import NewsletterSubscribe from '@/components/NewsletterSubscribe'
 
+const canvasStyles = {
+  position: 'fixed',
+  pointerEvents: 'none',
+  width: '100%',
+  height: '100%',
+  top: 0,
+  left: 0
+}
+
 export default function PagesHome() {
+  const refAnimationInstance = useRef(null)
+
+  const getInstance = useCallback((instance) => {
+    refAnimationInstance.current = instance
+  }, [])
+
+  const makeShot = useCallback((particleRatio, opts) => {
+    refAnimationInstance.current
+      && refAnimationInstance.current({
+        ...opts,
+        origin: { y: 0.7 },
+        particleCount: Math.floor(200 * particleRatio)
+      })
+  }, [])
+
+  const fire = useCallback(() => {
+    makeShot(0.25, {
+      spread: 26,
+      startVelocity: 55
+    })
+
+    makeShot(0.2, {
+      spread: 60
+    })
+
+    makeShot(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8
+    })
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92,
+      scalar: 1.2
+    })
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 45
+    })
+  }, [makeShot])
+
+  // The above are for confetti
   const [show, setShow] = useState(false)
   const [target, setTarget] = useState(null)
   const ref = useRef(null)
@@ -84,6 +138,8 @@ export default function PagesHome() {
     <CompsLayout>
       <div className="home-page">
         <div className="d-flex home-page-row-wrapper">
+          <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
+
           <div className="first-col-50" />
           <div className="second-col-50" />
 
@@ -176,7 +232,13 @@ export default function PagesHome() {
                               <p>
                                 You cannot take challenge until the result comes out
                               </p>
-                              <Button className="ms-2 mt-3" onClick={() => setGameResult('won', item.OwnerProfile.id, item.id)}>Won</Button>
+                              <Button
+                                className="ms-2 mt-3"
+                                onClick={() => {
+                                  setGameResult('won', item.OwnerProfile.id, item.id)
+                                  fire()
+                                }}
+                              >Won</Button>
                               <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item.OwnerProfile.id, item.id)}>Lost</Button>
                               <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item.OwnerProfile.id, item.id)}>Draw</Button>
                             </>
@@ -219,7 +281,13 @@ export default function PagesHome() {
                               <p>
                                 You cannot take challenge until the result comes out
                               </p>
-                              <Button className="ms-2 mt-3" onClick={() => setGameResult('won', item?.ReceiverProfile?.id, item?.id)}>Won</Button>
+                              <Button
+                                className="ms-2 mt-3"
+                                onClick={() => {
+                                  setGameResult('won', item?.ReceiverProfile?.id, item?.id)
+                                  fire()
+                                }}
+                              >Won</Button>
                               <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item?.ReceiverProfile?.id, item?.id)}>Lost</Button>
                               <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item?.ReceiverProfile?.id, item?.id)}>Draw</Button>
                               </>
@@ -264,6 +332,7 @@ export default function PagesHome() {
           {/* map the response and iterate the cards */}
           {games
             && (
+
             <div id="game-list" className="col-12 col-sm-8 col-md-6 col-lg-4 card-style m-5">
               <div className="card">
                 <div>
@@ -276,6 +345,7 @@ export default function PagesHome() {
                   <NewsletterSubscribe />
                 </div>
               </div>
+
               <div className="card">
                 <img src={games && games.data[index].thumbnail} className="card-img-top" alt="Path_of_Exile_Image" />
                 <div className="card-body">

@@ -207,28 +207,28 @@ export default function PagesHome() {
                 {/* you as a receiver */}
                 {
                   !isNotificationLoading && notifications && notifications?.invitation1.map((item) => (
-                    <div key={item.id}>
+                    <div key={item?.id}>
                       <Popover.Header as="h3">Challenges</Popover.Header>
                       <Popover.Body>
                         {
-                          item.status === 'pending' && (
+                          item?.status === 'pending' && (
                             <>
-                              <p><strong>{`${item.OwnerProfile.characterName}`}</strong> from <strong>{` ${item.OwnerProfile.gameTitle}`}</strong> invite you for PVP.
+                              <p><strong>{`${item?.OwnerProfile?.characterName}`}</strong> from <strong>{` ${item?.OwnerProfile?.gameTitle}`}</strong> invite you for PVP.
                               </p>
                               <Button
                                 className="ms-4 mt-1"
                                 onClick={() => {
-                                  handleInvitationStatus(item.OwnerProfile.id, item.id)
+                                  handleInvitationStatus(item?.OwnerProfile?.id, item?.id)
                                 }}
                               >Accept</Button>
-                              <Button className="ms-5 mt-1" onClick={() => destroyInvitation(item.id)}>Reject</Button>
+                              <Button className="ms-5 mt-1" onClick={() => destroyInvitation(item?.id)}>Reject</Button>
                             </>
                           )
                         }
 
                         {/* when Receiver have not set the result after the match, it shows below's btn */}
                         {
-                          item.status === 'accepted' && item.ReceiverProfile.id === user.Profile.id && item.result2 === null && (
+                          item?.status === 'accepted' && item?.ReceiverProfile?.id === user?.Profile?.id && item?.result2 === null && (
                             <>
                               <p>
                                 You cannot take challenge until the result comes out
@@ -236,19 +236,19 @@ export default function PagesHome() {
                               <Button
                                 className="ms-2 mt-3"
                                 onClick={() => {
-                                  setGameResult('won', item.OwnerProfile.id, item.id)
+                                  setGameResult('won', item?.OwnerProfile?.id, item?.id)
                                   fire()
                                 }}
                               >Won</Button>
-                              <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item.OwnerProfile.id, item.id)}>Lost</Button>
-                              <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item.OwnerProfile.id, item.id)}>Draw</Button>
+                              <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item?.OwnerProfile?.id, item?.id)}>Lost</Button>
+                              <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item?.OwnerProfile?.id, item?.id)}>Draw</Button>
                             </>
                           )
                         }
 
                         {/* when Receiver set the result, it shows.. */}
                         {
-                          item.status === 'accepted' && item.ReceiverProfile.id === user.Profile.id && item.result2 && !item.result1 && (
+                          item?.status === 'accepted' && item?.ReceiverProfile?.id === user?.Profile?.id && item?.result2 && !item?.result1 && (
                           <p>
                             Your result has been recorded, please wait for the opponent&#39;s result
                           </p>
@@ -277,7 +277,7 @@ export default function PagesHome() {
 
                         {/* OwnerProfile have not recorded the result, it shows below's btn */}
                         {
-                          item?.status === 'accepted' && item?.OwnerProfile?.id === user.Profile.id && item.result1 === null && (
+                          item?.status === 'accepted' && item?.OwnerProfile?.id === user?.Profile?.id && item?.result1 === null && (
                             <>
                               <p>
                                 You cannot take challenge until the result comes out
@@ -297,7 +297,7 @@ export default function PagesHome() {
 
                         {/* OwnerProfile have recorded the result, it shows... */}
                         {
-                          item?.status === 'accepted' && item?.OwnerProfile?.id === user.Profile.id && item.result1 && !item.result2 && (
+                          item?.status === 'accepted' && item?.OwnerProfile?.id === user?.Profile?.id && item?.result1 && !item?.result2 && (
                           <p>
                             Your result has been recorded, please wait for the opponent&#39;s result
                           </p>
@@ -348,15 +348,15 @@ export default function PagesHome() {
               </div>
 
               <div className="card">
-                <img src={games && games.data[index].thumbnail} className="card-img-top" alt="Path_of_Exile_Image" />
+                <img src={games && games?.data[index]?.thumbnail} className="card-img-top" alt="Path_of_Exile_Image" />
                 <div className="card-body">
-                  <h5 className="card-title">{games && games.data[index].title}</h5>
-                  <p className="card-text">{games && games.data[index].short_description}</p>
+                  <h5 className="card-title">{games && games?.data[index]?.title}</h5>
+                  <p className="card-text">{games && games?.data[index]?.short_description}</p>
                 </div>
                 <ul className="list-group list-group-flush">
 
                   <li className="list-group-item d-flex justify-content-evenly">
-                    <Link href={`/candidateList/${games && games.data[index].title}`}>
+                    <Link href={`/candidateList/${games && games?.data[index]?.title}`}>
                       <a className="text-decoration-none">Candidate List</a>
                     </Link>
 
@@ -364,7 +364,7 @@ export default function PagesHome() {
                         user && user.Profile
                         && (
                           <Link href="#">
-                            <a className="text-decoration-none" onClick={() => handleMyProfileModal(games.data[index].id)}>Your Profile</a>
+                            <a className="text-decoration-none" onClick={() => handleMyProfileModal(games?.data[index]?.id)}>Your Profile</a>
                           </Link>
                         )
                     }
@@ -372,7 +372,7 @@ export default function PagesHome() {
                         user && !user.Profile
                         && (
                           <Link href="#">
-                            <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games.data[index].id)}>Create Profile</a>
+                            <a className="text-decoration-none" onClick={() => handleCreateProfileModal(games?.data[index]?.id)}>Create Profile</a>
                           </Link>
                         )
                     }
@@ -396,7 +396,7 @@ export default function PagesHome() {
               <CompsModalCreateProfile
                 close={closeCreateProfileModal}
                 onSubmit={handleSubmitProfileCreate}
-                gameTitle={games && games.data[index].title}
+                gameTitle={games && games?.data[index]?.title}
               />
             )
           }
@@ -404,7 +404,7 @@ export default function PagesHome() {
             openMyProfileModal && (
               <CompsModalUserProfile
                 close={closeUserProfileModal}
-                data={user.Profile}
+                data={user?.Profile}
               />
 
             )

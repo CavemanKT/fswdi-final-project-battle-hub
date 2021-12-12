@@ -43,6 +43,7 @@ const PageDashBoard = () => {
   const handleGetList = (game, page) => {
     getGameCandidateList(game, page).then((resp) => {
       setCandidateList(resp.data)
+      setShow(false)
     })
   }
 

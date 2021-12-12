@@ -86,6 +86,8 @@ export default function PagesHome() {
 
   const {
     notifications, isLoading: isNotificationLoading,
+    disabled,
+    invitationsIds,
     setInvitationStatusToAccepted,
     rejectInvitation,
     setInvitationResult
@@ -217,11 +219,18 @@ export default function PagesHome() {
                               </p>
                               <Button
                                 className="ms-4 mt-1"
+                                disabled={invitationsIds.includes(item?.id) || disabled}
                                 onClick={() => {
                                   handleInvitationStatus(item?.OwnerProfile?.id, item?.id)
                                 }}
-                              >Accept</Button>
-                              <Button className="ms-5 mt-1" onClick={() => destroyInvitation(item?.id)}>Reject</Button>
+                              >Accept
+                              </Button>
+                              <Button
+                                disabled={invitationsIds.includes(item?.id) || disabled}
+                                className="ms-5 mt-1"
+                                onClick={() => destroyInvitation(item?.id)}
+                              >Reject
+                              </Button>
                             </>
                           )
                         }
@@ -235,13 +244,22 @@ export default function PagesHome() {
                               </p>
                               <Button
                                 className="ms-2 mt-3"
+                                disabled={invitationsIds.includes(item?.id)}
                                 onClick={() => {
                                   setGameResult('won', item?.OwnerProfile?.id, item?.id)
                                   fire()
                                 }}
                               >Won</Button>
-                              <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item?.OwnerProfile?.id, item?.id)}>Lost</Button>
-                              <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item?.OwnerProfile?.id, item?.id)}>Draw</Button>
+                              <Button
+                                className="ms-2 mt-3"
+                                disabled={invitationsIds.includes(item?.id)}
+                                onClick={() => setGameResult('lost', item?.OwnerProfile?.id, item?.id)}
+                              >Lost</Button>
+                              <Button
+                                className="ms-2 mt-3"
+                                disabled={invitationsIds.includes(item?.id)}
+                                onClick={() => setGameResult('draw', item?.OwnerProfile?.id, item?.id)}
+                              >Draw</Button>
                             </>
                           )
                         }
@@ -284,13 +302,22 @@ export default function PagesHome() {
                               </p>
                               <Button
                                 className="ms-2 mt-3"
+                                disabled={invitationsIds.includes(item?.id)}
                                 onClick={() => {
                                   setGameResult('won', item?.ReceiverProfile?.id, item?.id)
                                   fire()
                                 }}
                               >Won</Button>
-                              <Button className="ms-2 mt-3" onClick={() => setGameResult('lost', item?.ReceiverProfile?.id, item?.id)}>Lost</Button>
-                              <Button className="ms-2 mt-3" onClick={() => setGameResult('draw', item?.ReceiverProfile?.id, item?.id)}>Draw</Button>
+                              <Button
+                                disabled={invitationsIds.includes(item?.id)}
+                                className="ms-2 mt-3"
+                                onClick={() => setGameResult('lost', item?.ReceiverProfile?.id, item?.id)}
+                              >Lost</Button>
+                              <Button
+                                disabled={invitationsIds.includes(item?.id)}
+                                className="ms-2 mt-3"
+                                onClick={() => setGameResult('draw', item?.ReceiverProfile?.id, item?.id)}
+                              >Draw</Button>
                               </>
                           )
                         }

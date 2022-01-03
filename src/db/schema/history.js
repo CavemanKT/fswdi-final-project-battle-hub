@@ -1,5 +1,6 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+const Sequelize = require('sequelize')
+
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('History', {
     id: {
       autoIncrement: true,
@@ -22,12 +23,12 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: true,
     indexes: [
       {
-        name: "Histories_pkey",
+        name: 'Histories_pkey',
         unique: true,
         fields: [
-          { name: "id" },
+          { name: 'id' }
         ]
-      },
+      }
     ]
-  });
-};
+  })
+}
